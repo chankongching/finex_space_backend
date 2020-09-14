@@ -1,0 +1,187 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>用戶財務日誌報表</h3>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+						<div class="x_panel">
+							<!--篩選條件表單-->
+							<div class="x_title">
+								<h2>篩選條件表單</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<br>
+								<form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" menthod="get" action="{:U('UserMoney/showFinanceLog',array('type'=>1))}">
+									<table class="table table-bordered table-condensed">
+                                        <tr>
+                                            <!--用戶id-->
+                                            <td >
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">用戶ID </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <if condition="($userid eq '') and ($Think.get.type neq 1 ) ">
+                                                        <input type="text" id="first-name" name="userid"  required="required"value="{$Think.get.user_id}" class="form-control col-md-12 col-xs-12 num">
+                                                    <else /> <input type="text" id="first-name" name="userid"  required="required"value="{$Think.get.userid}" class="form-control col-md-7 col-xs-12 num">
+                                                    </if>
+                                                </div>
+                                            </td>
+                                            <!--用戶名-->
+                                            <td>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">用戶名 </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <if condition="$userid neq '' or $user_id neq ''">
+                                                        <input type="text" id="first-name" name="username" value="" required="required" class="form-control col-md-7 col-xs-12">
+                                                    <else />
+                                                        <input type="text" id="first-name" name="username" value="{$Think.get.username}" required="required" class="form-control col-md-7 col-xs-12">
+                                                    </if>
+                                                </div>
+                                                <input type="hidden" id="first-name" name="user_id" value="{$user_id}"  class="form-control col-md-7 col-xs-12">
+                                            </td>
+                                            <!--選擇幣種類型-->
+                                            <td style="width: 15%">
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">選擇幣種類型 </label>
+                                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                                    <select class="form-control" name="currency_id">
+                                                        <option value="-1">幣種類型</option>
+                                                        <volist name="currency" id="vo" >
+                                                            <option value="{$vo.id}" <if condition="$Think.get.currency_id eq $vo['id']">selected='true'</if> >{$vo.currency_name}</option>
+                                                        </volist>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                			<!--選擇幣種類型-->
+                                            <td >
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">收入支出</label>
+                                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                                    <select name="getout" class="form-control">
+                                                        <option value="-1" <if condition="$add_time eq -1">selected='true'</if>>請選擇</option>
+                                                       <volist name="type" id="vo">
+                                                            <option value="{$vo['id']}" <if condition="$Think.get.getout eq $vo['id']">selected='true'</if>>{$vo['name']}</option>
+                                                        </volist>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <!--選擇日誌類型-->
+                                            <td >
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">選擇日誌類型 </label>
+                                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                                <select name="finance_type" class="form-control">
+                                                    <option value="0" >請選擇日誌類型</option>
+                                                   <foreach name="finance_type" item="vo">
+                                                       <option value="{$vo.id}" <if condition="$Think.get.finance_type eq $vo['id']">selected='true'</if>>{$vo.name}</option>
+                                                   </foreach> 
+                                                </select>
+                                                </div>
+                                            </td>
+											<!--選擇时间類型-->
+											<td >
+												<label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">選擇时间 </label>
+												<div class="col-md-7 col-sm-7 col-xs-12">
+													<select name="add_time" class="form-control">
+														<foreach name="add_time" item="vo" key="key">
+															<option value="{$key+1}" <if condition="$Think.get.add_time eq $key+1">selected='true'</if>>{$vo.name}</option>
+														</foreach>
+													</select>
+												</div>
+											</td>
+                                            <!--提交按鈕-->
+                                            <td>
+                                                <button type="submit" class="btn btn-success">提交</button>
+                                            </td>
+                                    	</tr>
+                                    </table>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="clearfix"></div>
+						<!--財務日誌報表-->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>財務日誌報表</h2>
+
+										<ul class="nav navbar-right panel_toolbox">
+											<div class="col-sm-6 text-right">
+												<a class="btn btn-default" href="{:U('User/index')}">返回用戶列表</a>
+											</div>
+										</ul>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+											<div class="row">
+												<div class="col-sm-12 mb">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">id</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">用戶id</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">用戶名</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">幣種</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">日誌類型</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">類型(支出/收入)</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">金錢</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">余额</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">時間</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">附加(訂單號)</th>
+															</tr>
+														</thead>
+														<tbody>
+														<volist name="finance_list" id="vo">
+															<tr role="row" class="even">
+																<td class="sorting_1">{$vo.id}</td>
+																<td>{$vo.uid}</td>
+                                                                <td>{$vo.username}</td>
+																<td>{$vo.currency_id|getCurrencyName=###}</td>
+																<td>{$vo.finance_type}</td>
+																<td>{$vo.type}</td>
+																<td><span style="color: {$vo.color}">{$vo.money}</span></td>
+                                                                <td>{$vo.after_money}</td>
+																<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+																<td>
+																  <empty name="vo.remark_info">-<else /> {$vo.remark_info}</empty> 
+																</td>
+															</tr>
+														</volist>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="row">
+											{$page}	
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+                <include file="Public:footer" />
+	</body>
+
+</html>
+<script type="text/javascript">
+$('.num').bind('input propertychange', function() {
+    var val = $(this).val();
+	var res = /^\d+(\.\d+)?$/;
+	if(val!="" && !res.test(val)) {
+		layer.msg('只能輸入數字！');
+		$(this).val('');
+	}
+});
+</script>

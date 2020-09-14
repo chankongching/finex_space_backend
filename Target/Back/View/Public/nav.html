@@ -1,0 +1,104 @@
+<!-- sidebar menu -->
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+		<div class="menu_section">
+				<ul class="nav side-menu">
+						<foreach name="back_data" item="v">
+								<empty name="v['_data']">
+										<li>
+												<a><i class="fa fa-gears"></i>
+														{$v['name']}
+														<span class="fa fa-{$v['ico']} "></span>
+												</a>
+										</li>
+								<else />
+										<li>
+												<a><i class="fa fa-{$v['ico']}"></i> {$v['name']} <span class="fa fa-chevron-down"></span></a>
+												<ul class="nav child_menu">
+														<foreach name="v['_data']" item="n">
+																<li class="b-nav-li">
+																		<a href="{:U($n['mca'])}">
+																				{$n['name']}
+																		</a>
+																</li>
+														</foreach>
+												</ul>
+										</li>
+								</empty>
+						</foreach>
+				</ul>
+		</div>
+</div>
+		<!-- /sidebar menu -->
+
+		<!-- /menu footer buttons -->
+		<div class="sidebar-footer hidden-small">
+			<a data-toggle="tooltip" data-placement="top" title="Settings">
+				<span class="fa fa-cog" aria-hidden="true"></span>
+			</a>
+			<a data-toggle="tooltip" data-placement="top" title="FullScreen">
+				<span class="fa fa-object-group" aria-hidden="true"></span>
+			</a>
+			<a data-toggle="tooltip" data-placement="top" title="Lock">
+				<span class="fa fa-lock" aria-hidden="true"></span>
+			</a>
+			<a href="{:U('Back/Logout/logout')}" data-toggle="tooltip" data-placement="top" title="Logout">
+				<span class="fa fa-sign-out" aria-hidden="true"></span>
+			</a>
+		</div>
+		<!-- /menu footer buttons -->
+	</div>
+</div>
+<!-- top navigation -->
+<div class="top_nav">
+	<div class="nav_menu">
+		<nav>
+			<div class="nav toggle">
+				<a id="menu_toggle"><i class="fa fa-bars"></i></a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="">
+					<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						<img src="__ADMIN_IMG__/img.png" alt="">{$userinfo.username}
+						<span class=" fa fa-angle-down"></span>
+					</a>
+					<ul class="dropdown-menu dropdown-usermenu pull-right">
+						<li>
+							<a href="{:U('Back/Logout/logout')}"><i class="fa fa-sign-out"></i> 退出</a>
+						</li>
+						<li>
+							<!--<button class="btn btn-primary" data-toggle="modal" data-target="#add_group">修改密码</button>-->
+							<a href="" data-toggle="modal" data-target="#update_password"><i class="fa fa-sign-out" ></i> 修改密码</a>
+							<!--<a href="{:U('Back/Logout/logout')}"><i class="fa fa-sign-out"></i> 修改密码</a>-->
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<div class="modal fade bs-example-modal-lg in" id="update_password" tabindex="-1" role="dialog" aria-hidden="true" style=" padding-right: 17px;margin-top: 15%;">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<h4 class="modal-title" id="myModalLabel2">修改密码</h4>
+				</div>
+				<form id="demo-form2"  action="{:U('Back/Rule/update_pass')}" method="post"   data-parsley-validate=""  class="form-horizontal form-label-left" novalidate="">
+					<div class="modal-body">
+						<!--修i改密码-->
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">登录密码 </label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="last-name" name="password"  name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+							</div>
+						</div>
+					</div>
+					<!--提交按鈕-->
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">提交</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /sidebar menu -->

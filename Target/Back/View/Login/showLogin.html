@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- Meta, title, CSS, favicons, etc. -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>交易平台後台管理</title>
+
+		<!-- Bootstrap -->
+		<link href="__ADMIN_CSS__/bootstrap.min.css" rel="stylesheet">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/font-awesome/css/font-awesome.css"/>
+		<!-- NProgress -->
+		<link href="__ADMIN_CSS__/nprogress.css" rel="stylesheet">
+		<!-- iCheck -->
+		<link href="__ADMIN_CSS__/blue.css" rel="stylesheet">
+		<!-- bootstrap-progressbar -->
+		<link href="__ADMIN_CSS__/bootstrap-progressbar-3.3.4.css" rel="stylesheet">
+		<!-- JQVMap -->
+		<link href="__ADMIN_CSS__/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+		<!-- bootstrap-daterangepicker -->
+		<link href="__ADMIN_CSS__/daterangepicker.css" rel="stylesheet">
+
+		<!-- Custom Theme Style -->
+		<link href="__ADMIN_CSS__/custom.min.css" rel="stylesheet">
+		<style>
+			input::input-placeholder{color:  #333 !important;} /* 有些资料显示需要写，有些显示不需要，但是在编辑器webstorm中该属性不被识别 */
+			input::-webkit-input-placeholder { /* WebKit browsers */
+				color: #A5A7C0 !important;
+			}
+			input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+				color: #A5A7C0 !important;
+			}
+			input::-moz-placeholder { /* Mozilla Firefox 19+ */
+				color: #A5A7C0 !important;
+			}
+			input:-ms-input-placeholder { /* Internet Explorer 10+ */
+				color: #A5A7C0 !important;
+			}
+		</style>
+	</head>
+	<!--頭部-->
+
+	<body class="login">
+		<div>
+			<a class="hiddenanchor" id="signup"></a>
+			<a class="hiddenanchor" id="signin"></a>
+
+			<div class="login_wrapper">
+				<div class="animate form login_form">
+					<img src="__ADMIN_IMG__/logoIndex1.jpg" style="display: block;margin: 0 auto;" alt="">
+					<section class="login_content">
+						<div class="form">
+							<h1>登錄</h1>
+							<!--用戶名-->
+							<div>
+								<input type="text" class="form-control" id="username" placeholder="用戶名" required="" />
+							</div>
+							<!--密碼-->
+							<div>
+								<input type="password" class="form-control" id="password" placeholder="密碼" required="" />
+							</div>
+							<!--圖形驗證碼-->
+							<div>
+								<div class="col-md-8" style="padding-left: 0"><input type="text" class="form-control" id="code" placeholder="驗證碼" required="" /></div>
+								<div class="col-md-4" style="padding-right: 0"><img src="{:U('/Back/Login/getVerify')}"  id="verifyImg" alt="" onclick="changeverify()" title="" height="38" style="margin-top:-4px;"/></div>
+							</div>
+							<!--手機驗證碼-->
+							<div>
+								<div class="col-md-8" style="padding-left: 0">
+									<input type="text" class="form-control" id="phone_code" placeholder="手機驗證碼" maxlength="6" required="" />
+								</div>
+								<!--獲取驗證碼按鈕-->
+								<div class="col-md-4" style="padding-right: 0">
+									<button class="btn btn-default submit countdown" id="loginphone" style="width: 100%;margin-top: 0;">獲取驗證碼</button>
+								</div>
+							</div>
+							<!--登錄按鈕-->
+							<div>
+								<button class="btn btn-default submit"  style="width: 100%;" id="loginBtn">登錄</button>
+							</div>
+							<div class="clearfix"></div>
+<!--							 跳转链接 
+							<div class="text-left" style="margin-top: 25px">
+								<a href="http://nat1.ordersysphp.com" style="font-size: 15px" target="_blank"><i class="fa fa-hand-o-right"></i> BTCS工單系統</a>
+							</div>-->
+						</div>
+					</section>
+				</div>
+
+			</div>
+		</div>
+            <!-- ajax提交 -->
+            <script type="text/javascript" src="__ADMIN_JS__/jquery.min.js"></script>
+            <script type="text/javascript" src="__ADMIN_JS__/layer/layer.js"></script>
+            <script type="text/javascript" src="__ADMIN_JS__/subForm.js"></script>
+            <script type="text/javascript">
+                var homeUrl = "{:U('Index/index')}";
+                var subUrl = "{:U('Login/subLogin')}";
+                function changeverify(){
+                    $("#verifyImg").attr("src", "{:U('/Back/Login/getVerify')}" + "?" + Math.random());
+                }
+            </script>
+	</body>
+</html>

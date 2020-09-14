@@ -1,0 +1,81 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>添加銀行卡</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--短信配置表單-->
+            <div class="x_title">
+                <h2>添加銀行卡</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('Bank/AddBankCard')}" enctype="multipart/form-data">
+                    <!--國家名-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">國家
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <!--<input type="text" required="required"  name="currency_name" class="form-control col-md-7 col-xs-12">-->
+                            <select class="form-control" name="country_name">
+                                <option value="-1">====請選擇以下國家====</option>
+                                <volist name="country_list" id="vo">
+                                    <option value="{$vo['code']}">{$vo['country_name']}</option>
+                                </volist>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--英文标识-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 ">銀行
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 ">
+                            <input type="text" name="card_name" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+
+                    <!--大图标-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">大圖標
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="file" name="bank_logo" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <!--背景图标-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">背景圖標
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="file" name="bank_img" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">添加</button>
+                              <a href="{:U('Bank/BankCardList')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {$page}
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />

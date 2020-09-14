@@ -1,0 +1,294 @@
+<include file="Public:header" />
+<link rel="stylesheet" href="__ADMIN_CSS__/lightbox.css"/>
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>用戶數據詳細</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <div class="accordion">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">用戶信息</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+	                                <tr>
+	                                    <th>用戶uid</th>
+	                                    <th>用戶名</th>
+	                                    <th>電話號碼</th>
+	                                    <th>證件類型 </th>
+	                                    <th>證件姓名</th>
+	                                    <th>銀行卡開戶姓名</th>
+	                                    <th>證件號碼</th>
+	                                    <th>證件圖像 </th>
+	                                    <th>申請時間</th>
+	                                    <th>護照過期時間</th>
+	                                    <th>狀態</th>
+	                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                  <td>{$user.uid}</td>
+                                  <td>{$user.name}</td>
+                                  <td>{$data.user_info.user_phone}</td>
+                                  <td>{$data.user_info.pass_type}</td>
+                                  <td>{$data.user_info.card_name}</td>
+                                  <td>{$data.user_info.bank_name}</td>
+                                  <td>{$data.user_info.card_num}</td>
+                                  <td>
+                                     <a href="{$data.user_info.up_img}" data-lightbox='idpic' data-title="證件正面圖像"> <img height='40px' width='40px' src="{$data.user_info.up_img}" /></a>
+                                     <a href="{$data.user_info.all_img}" data-lightbox='idpic' data-title="證件和銀行卡合影圖像">  &nbsp;&nbsp;<img  height='40px' width='40px' src="{$data.user_info.all_img}" /></a>
+                                   </td>
+                                  <td>{$data.user_info.add_time}</td>
+                                  <td>{$data.user_info.expire_time}</td>
+                                  <td>{$data.user_info.status}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">登錄日誌記錄</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>用戶名</th>
+                                    <th>類型</th>
+                                    <th>IP</th>
+                                    <th>IP所在地</th>
+                                    <th>時間</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <volist name="data.user_login" id="vo">
+	                                <tr>
+	                                  <td>{$vo.username}</td>
+	                                  <td>{$vo.type_str}</td>
+	                                  <td>{$vo.ip}</td>
+	                                  <td>{$vo.area}</td>
+	                                  <td>{$vo.add_time}</td>
+	                                </tr>
+                                  </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!--finance 財務記錄 -->
+                     <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">財務記錄</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>用戶uid</th>
+                                    <th>用戶名</th>
+                                    <th>幣種</th>
+                                    <th>日誌類型</th>
+                                    <th>類型(支出/收入)</th>
+                                    <th>金錢</th>
+                                    <th>余额</th>
+                                    <th>時間</th>
+                                    <th>附加(訂單號)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <volist name="data.user_finance" id="vo">
+	                                <tr>
+	                                  <td>{$vo.id}</td>
+	                                  <td>{$vo.uid}</td>
+	                                  <td>{$vo.username}</td>
+	                                  <td>{$vo.curr_name}</td>
+	                                  <td>{$vo.finance_type}</td>
+	                                  <td>{$vo.type_str}</td>
+	                                  <td style="color:{$vo.color}">{$vo.money}</td>
+	                                  <td>{$vo.after_money}</td>
+	                                  <td>{$vo.add_time}</td>
+	                                  <td>{$vo.remark_info}</td>
+	                                </tr>
+                                  </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- 提幣日誌 -->
+                     <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">提幣記錄</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>記錄ID</th>
+                                    <th>用戶uid</th>
+                                    <th>用戶名</th>
+                                    <th>幣種名稱</th>
+                                    <th>錢包地址</th>
+                                    <th>交易哈希</th>
+                                    <th>提幣數量</th>
+                                    <th>矿工費</th>
+                                    <th>實際到賬數量</th>
+                                    <th>提幣時間</th>
+                                    <th>確認時間</th>
+                                    <th>審核時間</th>
+                                    <th>狀態</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <volist name="data.user_tibi" id="vo">
+	                                <tr>
+	                                  <td>{$vo.id}</td>
+	                                  <td>{$vo.uid}</td>
+	                                  <td>{$vo.username}</td>
+	                                  <td>{$vo.curreny_name}</td>
+	                                  <td>{$vo.url}</td>
+	                                  <td>
+		                                   {$vo.ti_id} 
+		                                   <notempty name="vo.coin_url">
+		                                   <button type="button"  data-url="{$vo.coin_url}" class="btn btn-success btn-xs third_url" >查看</button>
+		                                   </notempty>
+	                                  </td>
+	                                  <td>{$vo.num}</td>
+	                                  <td>{$vo.collier_fee}</td>
+	                                  <td>{$vo.actual}</td>
+	                                  <td>{$vo.add_time}</td>
+	                                  <td>{$vo.check_time}</td>
+	                                  <td>{$vo.update_time}</td>
+	                                  <td style="color:{$vo.color}">{$vo.status}</td>
+	                                </tr>
+                                  </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                     <!-- 充幣日誌 -->
+                     <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">充幣記錄</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>用戶uid</th>
+                                    <th>用戶名</th>
+                                    <th>幣種名稱</th>
+                                    <th>轉入錢包地址</th>
+                                    <th>充幣數量</th>
+                                    <th>充幣時間</th>
+                                    <th>確認時間</th>
+                                    <th>狀態</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <volist name="data.user_charge" id="vo">
+	                                <tr>
+	                                  <td>{$vo.uid}</td>
+	                                  <td>{$vo.username}</td>
+	                                  <td>{$vo.curreny_name}</td>
+	                                  <td>{$vo.url}</td>
+	                                  <td>{$vo.num}</td>
+	                                  <td>{$vo.add_time}</td>
+	                                  <td>{$vo.check_time}</td>
+	                                  <td style="color:{$vo.color}">{$vo.status}</td>
+	                                </tr>
+                                  </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                     <!-- 短信日誌 -->
+                     <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">短信發送記錄</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>用戶uid</th>
+                                    <th>用戶名</th>
+                                    <th>電話號碼</th>
+                                    <th>發送短信類型</th>
+                                    <th>時間</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                  <volist name="data.user_sms" id="vo">
+	                                <tr>
+	                                  <td>{$vo.uid}</td>
+	                                  <td>{$vo.username}</td>
+	                                  <td>{$vo.phonenum}</td>
+	                                  <td>{$vo.type_str}</td>
+	                                  <td>{$vo.add_time}</td>
+	                                </tr>
+                                  </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- 银行卡信息 -->
+                    <div class="panel">
+						<div class="panel-heading">
+							<h4 class="panel-title">銀行卡信息</h4>
+						</div>
+						<div class="panel-body">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>用戶uid</th>
+										<th>開戶銀行</th>
+										<th>開戶銀行卡號</th>
+										<th>開戶銀行地址</th>
+										<th>添加時間</th>
+									</tr>
+								</thead>
+								<tbody>
+								   <volist name="data.user_banks" id="vo">
+									<tr>
+										<td >{$vo.id}</td>
+										<td >{$vo.uid}</td>
+										<td >{$vo.bank_name}</td>
+										<td >{$vo.bank_num}</td>
+										<td >{$vo.bank_address}</td>
+										<td >{$vo.date}</td>
+									</tr>
+									 </volist>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- 卖家银行信息 -->
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="clear"></div>
+<include file="Public:footer" />
+<script type='text/javascript' src='__ADMIN_JS__/lightbox.js'></script>
+<script>
+// 查看交易区块的数据
+$('.third_url').click(function(){
+    window.open($(this).attr('data-url'));   
+});
+</script>

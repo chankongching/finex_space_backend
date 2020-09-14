@@ -1,0 +1,90 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>二級市場幣幣配置管理</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>修改二級市場幣幣配置</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form class="form-horizontal form-label-left" method="post" action="{:U('CtwoC/editVpConfig')}">
+                    <!-- 影藏文本域 -->
+                    <input  type="hidden" name='id' value="{$data['id']}">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">二级币交易區币种
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="main_currency_name" value="{$data.main_name}"  disabled="disabled" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                   </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">可兌換幣種名稱
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="exchange_currency_name" value="{$data.exchange_name}"  disabled="disabled" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                   </div>
+                  <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">买家手续费比例
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="buy_fee"  value={$data.buy_fee} placeholder="填寫小數位 例 0.01"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">卖家手续费比例
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="sell_fee" value="{$data.sell_fee}"  placeholder="填寫小數位 例 0.01"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">币种价格  <span style="color:red">(美元$)</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="main_coin_price" value="{$data.main_coin_price}"   placeholder="有效数位  例 0.0001"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">价格浮动比例
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="float_price_rate"   value="{$data.float_price_rate}" placeholder="填寫小數位 例 0.01"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">添加時間
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="add_time"  disabled="disabled" value="{$data['add_time']|date='Y-m-d H:i:s',###}"
+                                   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">修改</button>
+                            <a href="{:U('CtwoC/vpConfig')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />

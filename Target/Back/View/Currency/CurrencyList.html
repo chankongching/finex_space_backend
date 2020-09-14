@@ -1,0 +1,105 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>幣種列表</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--篩選表單-->
+            <div class="x_title">
+                <h2>篩選條件</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" action="{:U('Currency/CurrencyList')}" method="post">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <!--用戶名-->
+                            <td>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">幣種名</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="form-control" name="c_id">
+                                        <option  value="-1">=========查看全部所有幣種==========</option>
+                                        <volist name="curr_info" id="vo">
+                                            <option value="{$vo['id']}" <if condition="$Think.post.c_id eq $vo['id']">selected='true'</if> >{$vo['currency_name']}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-success">查找</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <!--投訴列表-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>幣種列表</h2>
+                         <a href="{:U('Currency/AddCurrency')}" class="btn btn-success pull-right">添加幣種配置</a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 100.667px;">ID</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 117.667px;">幣種名</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 117.667px;">所屬市場級別</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 117.667px;">挂售最大数量</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 117.667px;">挂售最小数量</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 117.667px;">時間</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 241px;">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <volist name="all_currency_list" id="vo">
+                                            <tr role="row" class="even">
+                                                <td>{$vo['c_id']}</td>
+                                                <td>{$vo['currency_name']}</td>
+                                                <td>{$vo['flag']|classTypeFormat=###}</td>
+                                                <td>{$vo['maximum_num']}</td>
+                                                <td>{$vo['minimum_num']}</td>
+                                                <td>{$vo['time']|date="Y-m-d H:i:s",###}</td>
+                                                <td><a class="btn btn-success btn-xs" href="{:U('Currency/editCurrency',array('c_id'=>$vo['c_id']))}">修改</a></td>
+                                            </tr>
+                                        </volist>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />   

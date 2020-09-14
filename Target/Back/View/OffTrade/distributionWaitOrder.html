@@ -1,0 +1,148 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+	<!--標題-->
+	<div class="page-title">
+		<div class="title_left">
+			<h3>分配待處理訂單</h3>
+		</div>
+	</div>
+	<div class='col-lg-12'>
+		<div class="x_panel col-lg-5" style='width: 48%;'>
+			<div class="x_content">
+				<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+					<div class="row">
+					</div>
+					<div class="row">
+						<div class="col-sm-12 mb">
+							<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+								<thead>
+								<tr role="row">
+									<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">ID</th>
+									<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">客服名</th>
+									<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								<foreach name="userList" item="vo">
+									<tr role="row" class="even">
+										<td class="sorting_1">{$vo.uid}</td>
+										<td>{$vo.username}</td>
+										<td>
+											<button type="button" data-toggle="modal" data-target="#set" onclick="distributionFs({$vo.uid})" class="btn btn-xs btn-primary hov1">分配</button>
+											<button type="button" data-toggle="modal" data-target="#set" onclick="getOrderList({$vo.uid})" class="btn btn-xs btn-primary hov1">查看</button>
+										</td>
+									</tr>
+								</foreach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						{$userPage}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="x_panel col-lg-5" style='width: 48%;margin-left: 3%;padding: 6.5px 0;'>
+		<div class="x_content">
+			<div class="table-responsive">
+				<table class="table table-striped jambo_table bulk_action">
+					<thead>
+						<tr class="headings">
+							<th>
+								<input type="checkbox" id="check-all" class="flat">
+							</th>
+							<th class="column-title">訂單ID</th>
+							<th class="column-title">訂單類型</th>
+							<th class="column-title">訂單編號</th>
+							<th class="column-title no-link last"><span class="nobr"></span>
+							</th>
+							<th class="column-title bulk-actions">訂單ID</th>
+							<th class="column-title bulk-actions">訂單類型</th>
+							<th class="column-title bulk-actions">訂單編號</th>
+							<th class="column-title no-link last bulk-actions"><span class="nobr"></span>
+							</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<foreach name="lastOrders" item="vo">
+							<tr class="even pointer">
+								<td class="a-center">
+									<input type="checkbox" class="flat" name="table_records" value="{$vo.id}_{$vo.flag}">
+								</td>
+								<td class=" ">{$vo.id}</td>
+								<td class=" "><if condition="$vo.flag eq 1">C2C<else/>P2P</if></td>
+								<td class=" ">{$vo.order_num}</td>
+								<td class="last">
+									<!--<a href="#">View</a>-->
+								</td>
+							</tr>
+						</foreach>
+
+					</tbody>
+				</table>
+			</div>
+				<div class="row" style='margin-right: 10px;'>
+					{$orderPage}
+				</div>
+		</div>
+	</div>
+</div>
+
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<include file="Public:footer" />
+<script>
+	function getOrderList(uid) {
+		window.location.href = '/back/OffTrade/getWaitOrdersByUid/uid/'+uid;
+    }
+    function distributionFs(uid) {
+        var orderArr = [];
+        obj = document.getElementsByName('table_records');
+        for (k in obj){
+            if( obj[k].checked ){
+                orderArr.push(obj[k].value);
+            }
+        }
+		if( orderArr == null || orderArr.length == 0 ){
+			layer.confirm(
+                "<span style='color:#fff'>请选择要分配的订单</span>",
+                {
+                    title:"*提示",
+                    btn: ["確定"]
+                }
+			);
+			return false;
+		}
+        layer.confirm(
+            "<span style='color:#fff'>確定分配嗎？</span>",
+            {
+                title:"*提示",
+                btn: ["確定","取消"]
+            },
+            function(){
+                var url = '/back/offTrade/convertOrders';
+
+                var fromId = "{$fromId}";
+                var data = {'fromId':fromId,'toId':uid,'data':orderArr};
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    data:data,
+                    dataType:'json',
+                    success:function(res){
+                        layer.msg(res.msg);
+                        if( res.status == 1 ){
+                            setTimeout(function () {
+                                window.location.reload();
+                            },1000);
+                        }
+                    }
+                });
+            });
+    }
+</script>

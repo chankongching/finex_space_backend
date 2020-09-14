@@ -1,0 +1,186 @@
+<include file="Public:header" />
+<!-- 圖片放大 -->
+<link rel="stylesheet" href="__ADMIN_CSS__/lightbox.css"/>
+<include file="Public:nav" />
+<div class="right_col" role="main">
+	<!--標題-->
+	<div class="page-title">
+		<div class="title_left">
+			<h3>修改用戶信息</h3>
+		</div>
+	</div>
+
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<!--身份認證信息-->
+			<div class="x_title">
+				<h2>身份認證信息</h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li>
+						<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br>
+				<form id="demo-form2" data-parsley-validate="" method="post" action="{:U('Security/userDetail')}" class="form-horizontal form-label-left" novalidate="">
+					<!--用戶id-->
+					<input type="hidden" name="real_token" value="{:createToken()}">
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="userid">用戶id</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" readonly="readonly"  name="uid"  id="userid" required="required" class="form-control col-md-7 col-xs-12" readonly="" value="{$list['uid']}">
+						</div>
+					</div>
+					<!--證件類型-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="idtype">證件類型 </label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" id="idtype" name="idtype" required="required" class="form-control col-md-7 col-xs-12" readonly="" value="{$list['card_type']|formatCardType=###}">
+						</div>
+					</div>
+					<!--證件姓名-->
+					<div class="form-group">
+						<label for="idname" class="control-label col-md-3 col-sm-3 col-xs-12">證件姓名</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input id="idname" class="form-control col-md-7 col-xs-12" type="text" name="idname" readonly="" value="{$list['card_name']}">
+						</div>
+					</div>
+					
+					<!--證件姓名-->
+					<div class="form-group">
+						<label for="idname" class="control-label col-md-3 col-sm-3 col-xs-12">銀行卡開戶姓名</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input id="idname" class="form-control col-md-7 col-xs-12" type="text" name="idname" readonly="" value="{$list['bank_name']}">
+						</div>
+					</div>
+					
+					<!--證件號碼-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="id">證件號碼</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" readonly="readonly" id="id" required="required" class="form-control col-md-7 col-xs-12" value="{$list['card_num']}">
+						</div>
+					</div>
+					<!--證件正面圖像-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12">證件圖像 </label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<a href="{$list['up_img']}" data-lightbox='idpic' data-title="證件正面圖像"><img src="{$list['up_img']}" alt="" width="150" /></a>
+							<a href="{$list['all_img']}" data-lightbox='idpic' data-title="證件和銀行卡合影圖像"><img src="{$list['all_img']}" alt="" width="150" /></a>
+						</div>
+					</div>
+					<!--申請時間-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="time">申請時間</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" readonly="readonly" id="time" required="required" class="form-control col-md-7 col-xs-12" readonly="" value="{$list['add_time']|date='Y-m-d H:i:s',###}">
+						</div>
+					</div>
+				  <!--申請時間-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="time">護照過期時間</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" readonly="readonly" id="time_expire" required="required" class="form-control col-md-7 col-xs-12" readonly="" value="{$list['expire_time']|bigIntTimeStampeToDate=###}">
+						</div>
+					</div>
+					<!--状态-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="acitive">狀態</label>
+                                                <if condition="$list['status'] eq 1"> <span style="color:lightcoral">已经審核通過</span>
+                                                    <else />
+						<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 10px;">
+							<label class="inpass">
+							  <input type="radio" class="flat" name="status" value="0" <eq name="list['status']" value="0">checked="true"</eq> > 審核中
+							</label>&nbsp;&nbsp;
+							<label class="inpass">
+							  <input type="radio" class="flat" name="status" value="1" <eq name="list['status']" value="1">checked="true"</eq> > 審核通過
+							</label>&nbsp;&nbsp;
+							<label class="nopass">
+							  <input type="radio" class="flat nopass" name="status" value="-1" <eq name="list['status']" value="-1">checked="true"</eq> > 審核未通過
+							</label>
+						</div> </if>
+					</div>
+					<div class="form-group reasone" style="display: none;">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12">請選擇需要回復的理由</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<select class="form-control" name="system_reply">
+							  <option value="">請選擇需要回復的留言</option>
+							    <volist name="word_reply" id="vo">
+                                     <option value="{$key}">{$vo}</option>
+                                 </volist>
+							</select>
+						</div>
+					</div>
+					<div class="ln_solid"></div>
+					<div class="form-group">
+						<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+							<!--提交按鈕-->
+							<button type="submit" class="btn btn-success">提交</button>
+							<a href="{:U('Back/Security/showIdCardList')}"><button type="button" class="btn btn-default">返回</button></a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 mb">
+				<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+					<thead>
+					<tr role="row">
+						<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 100.667px;">ID</th>
+						<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217.667px;">狀態</th>
+						<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 299.667px;">理由</th>
+						<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 353.667px;">操作人</th>
+						<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 177.667px;">操作時間</th>
+					</tr>
+					</thead>
+					<tbody>
+						<volist name="record_all" id="vo">
+							<tr role="row" class="even">
+								<td>{$vo['id']}</td>
+								<td>
+									<if condition="$vo['status'] eq -1">
+										未通過審核
+										<else/>
+										通過審核
+									</if>
+								</td>
+								<td>{$vo['c_reply']|formatUserRealReply=###}</td>
+								<td>{$vo['c_user']}</td>
+								<td>{$vo['add_time']|date='Y-m-d H:i:s',###}</td>
+							</tr>
+						</volist>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="clear"></div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+<!-- 圖片放大 -->
+<script type='text/javascript' src='__ADMIN_JS__/lightbox.js'></script>
+<script type="text/javascript">
+	$('.inpass').click(function(){
+		$(".reasone").hide();
+	});
+
+	$(".nopass").click(function(){
+		$(".reasone").show();
+	});
+
+	window.onload = function(){
+		$(".nopass ins").click(function(){
+			$(".nopass").click();
+		});
+		$('.inpass ins').click(function(){
+			$('.reasone').hide();
+		});
+	};
+</script>

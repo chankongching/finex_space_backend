@@ -1,0 +1,344 @@
+<include file="Public:header"/>
+
+<include file="Public:nav"/>
+        <div class="right_col" role="main">
+            <!--標題-->
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>用戶列表</h3>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+                <div class="x_panel">
+                    <!--篩選表單-->
+                    <div class="x_title">
+                        <h2 >篩選條件</h2><h2 style="padding-left: 50px" >
+
+                        <if condition="$agent_count eq  3 ">
+                            <h2 style="padding-left: 50px" >注册链接：</h2><h2 >https://www.spacefinex.com/register/index?code={$agent['invite_code']}</h2>
+                        </if>
+
+
+
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br>
+                        <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="get" action="{:U('/Back/User/index')}">
+                            <!--用戶ID-->
+                            <div class="form-group col-md-2">
+                                <label for='uid' class="col-md-12 col-sm-12 col-xs-12 text-left">用戶ID</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input id="uid" class="form-control col-md-7 col-xs-12" type="text" name="uid" value="{$Think.get.uid}">
+                                </div>
+                            </div>
+                            <!--用戶名-->
+                            <div class="form-group col-md-3">
+                                <label for='username' class="col-md-12 col-sm-12 col-xs-12 text-left" >用戶名</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12" value="{$Think.get.username}">
+                                </div>
+                            </div>
+
+
+                            <!--代理商邀请码收索-->
+                            <if condition="$agent eq  0 ">
+                                <div class="form-group col-md-2">
+                                    <label for='invite_code' class="col-md-12 col-sm-12 col-xs-12 text-left">邀请码</label>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input id="invite_code" class="form-control col-md-7 col-xs-12" type="text" name="invite_code" value="{$Think.get.invite_code}">
+                                    </div>
+                                </div>
+                                <else />
+                                &nbsp;
+                            </if><if condition="$agent eq  0 ">
+                            <div class="form-group col-md-2">
+                                <label for='username' class="col-md-12 col-sm-12 col-xs-12 text-left" >邀请人备注</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" id="code" name="nickname" required="required" class="form-control col-md-7 col-xs-12" value="{$Think.get.nickname}">
+                                </div>
+                            </div>
+                                <else />
+                                &nbsp;
+                            </if>
+
+
+
+
+
+                            <!--状态-->
+                            <div class="form-group col-md-2">
+                                <label class="col-md-12 col-sm-12 col-xs-12 text-left">狀態</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <select name="status" class="form-control">
+                                        <option value='' >==請選擇狀態==</option>
+                                        <option value="1"  <if condition="$Think.get.status eq 1">selected='true'</if> >激活</option>
+                                        <option value="0">未激活</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-1">
+                                <label class="col-md-12 col-sm-12 col-xs-12 text-left">&nbsp;</label>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <button type="submit" class="btn btn-success">查找</button>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="clearfix"></div>
+                <!--用戶列表-->
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>用戶列表</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                    <div class="row" style="margin-bottom: 10px;overflow: inherit!important;">
+                                        <div class="col-sm-6"></div>
+                                       
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 mb" style="padding-bottom: 50px;">
+                                            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 140px;">ID</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217px;">用戶名</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217px;">邀请人备注</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217px;">邀请码</th>
+                                                        <!--<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200px;">昵称</th>-->
+                                                        <!--<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200px;">手机号</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200px;">邮箱</th>-->
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217px;">注册时间</th>
+                                                        <!--<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 200px;">VIP等級</th>-->
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 120px;">狀態</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 180px;">操作</th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <volist name="list" id="vo">
+                                                    <tr role="row" class="even">
+                                                        <td class="sorting_1" id="uidval">{$vo['uid']}</td>
+                                                        <td class="data_page"  uid-data ="{$vo['uid']}" style ="cursor:pointer">{$vo['username']}</td>
+                                                        <td class="data_page"  uid-data ="{$vo['uid']}" style ="cursor:pointer">{$vo['nickname']}</td>
+                                                        <td class="data_page"  uid-data ="{$vo['uid']}" style ="cursor:pointer">{$vo['invite_code']}</td>
+                                                        <!--<td>{$vo['nickname']}</td>-->
+                                                        <!--<td>{$vo['phone']}</td>
+                                                        <td>{$vo['email']}</td>-->
+                                                        <td>{$vo['reg_time']|date="Y-m-d H:i:s",###}</td>
+                                                        <!--<td>{$vo['level']|formatLevel=###}</td>-->
+                                                        <td>
+                                                            <switch name="vo['status']">
+                                                                <case value="0">未激活</case>
+                                                                <case value="1">已激活</case>
+                                                                <case value="-1"><span style="color: red">禁用</span></case>
+                                                            </switch>
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group ">
+                                                                <button data-toggle="dropdown" class="btn btn-success dropdown-toggle btn-xs btntog" type="button" aria-expanded="true">操作 <span class="caret"></span></button>
+                                                                <ul role="menu" class="dropdown-menu">
+                                                                    <li role="presentation">
+                                                                        <a href="{:U('/Back/User/userCurrency',array('uid'=>$vo['uid']))}">查看/修改用戶資金</a>
+                                                                    </li>
+                                                                    <!--<li>-->
+                                                                        <!--<a href="{:U('/Back/Security/showUserLog',array('username'=>$vo['username']))}"> 查看登錄日誌</a>-->
+                                                                    <!--</li>-->
+                                                                    <li>
+<!--                                                                        <a href="{:U('/Back/UserMoney/showFinanceLog',array('user_id'=>$vo['uid']))}">查看財務日誌</a>-->
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{:U('/Back/Pack/showTiBiLog',array('uid'=>$vo['uid']))}">查看提幣記錄</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{:U('/Back/Pack/showChongBiLog',array('uid'=>$vo['uid']))}">查看充幣記錄</a>
+                                                                    </li>
+                                                                    <!--<li>
+                                                                        <a href="{:U('/Back/UserMoney/rewardLog',array('uid'=>$vo['uid']))}">查看奖金获得日志</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{:U('/Back/UserMoney/currencyToMoney',array('uid'=>$vo['uid']))}">查看资金划转日志</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{:U('/Back/Team/index',array('uid'=>$vo['uid']))}">查看团队</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{:U('/back/MyProduct/index',array('uid'=>$vo['uid']))}">查看商品数量</a>
+                                                                    </li>-->
+                                                                    <li>
+                                                                        <a href="{:U('/Back/User/editUser',array('uid'=>$vo['uid']))}">修改用戶</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                </volist>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!--分頁器-->
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite"></div>
+                                        </div>
+                                        {$page}
+                                    </div>
+                                </div>
+                            </div>
+
+                       
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<include file="Public:footer"/>
+<script type="text/javascript">
+    //全选全不选
+    $('#all_select').click(function() {
+        if($(this).is(":checked")) {
+            $("input[name='select']").prop("checked", true);
+        } else {
+            $("input[name='select']").prop("checked", false);
+        }
+    });
+    //锁定
+    $("#lock").click(function(){
+        var uidArray = [];
+        $(".uselect:checked").each(function(){
+            uidArray.push($(this).parent().parent().find("#uidval").text());
+            $.unique(uidArray);
+        });
+
+        if(uidArray.length > 0){
+            $.ajax({
+                url:"{:U('User/user_lock')}",
+                data:{'jas':uidArray},
+                dataType:'json',
+                type:'post',
+                success:function(data){
+                    layer.msg(data.info);
+                    if(data.static==1){
+                        window.setTimeout("window.location.reload()", 2000);
+                    }
+                }
+            });
+        }
+    });
+
+    //解锁
+    $("#unlock").click(function(){
+        var uidArray = [];
+        $(".uselect:checked").each(function(){
+            uidArray.push($(this).parent().parent().find("#uidval").text());
+            $.unique(uidArray)
+        });
+        if(uidArray.length > 0){
+            $.ajax({
+                url:"{:U('User/user_unlock')}",
+                data:{'jas':uidArray},
+                dataType:'json',
+                type:'post',
+                success:function(data){
+                    layer.msg(data.info);
+                    if(data.static==1){
+                        window.setTimeout("window.location.reload()", 2000);
+                    }
+
+                }
+            });
+        }
+    });
+    
+    //定义锁
+	l=0;
+	
+	$('#datatable').find('.btntog').bind("click",function(){
+		
+		//查询当前列表显示的行数
+		var tolRow = $('#datatable tbody tr').length;
+		//查找当前的tr属于第几个
+		var index = Number($('#datatable tr').index($(this).parent().parent().parent()));
+		nowHigh = $('.mb').css("padding-bottom");
+		console.log(tolRow);
+		console.log(index);
+			if( (tolRow - index) <= 5 ){
+					// 如果重复点击同一个按钮
+					if(index == l){
+						$('.mb').css("padding-bottom","0px");
+					}
+					if(nowHigh != "190px"){
+						$('.mb').css("padding-bottom","190px");
+					}
+					l = index;
+			}else{
+					$('.mb').css("padding-bottom","0px");
+			}
+	});
+	
+	
+	//解封p2p交易失信次数
+	$(".solveUser").click(function(){
+	    //console.log($(this).attr('data-uid'));
+	    var uid=$(this).attr('data-uid')
+	    $.ajax({
+            url:"{:U('User/dishonestyTrade')}",
+            data:{'uid':uid},
+            dataType:'json',
+            type:'post',
+            success:function(data){
+                layer.msg(data.info);
+                if(data.status==1){
+                    window.setTimeout("window.location.reload()", 2000);
+                }
+            }
+        });
+	})
+
+    // 解封令牌错误次数
+    $(".btn_unseal").click(function(){
+        var uid=$(this).attr('data-uid')
+        $.ajax({
+            url:"{:U('User/unseal_token')}",
+            data:{'uid':uid},
+            dataType:'json',
+            type:'post',
+            success:function(data){
+                layer.msg(data.info);
+                /*if(data.status==1){
+                    window.setTimeout("window.location.reload()", 2000);
+                }*/
+            }
+        });
+    })
+    
+    //点击用户名打开新标签页, 展示用户信息包含其他资料   ,2019年6月10日
+    $('.data_page').click(function(){
+       var user_id = $(this).attr('uid-data');
+       let url = '{:U("UserInfo/UserInfoAbout")}?uid=' + user_id;
+       window.open(url);
+    })
+</script>

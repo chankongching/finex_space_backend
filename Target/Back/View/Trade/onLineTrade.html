@@ -1,0 +1,183 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>線上交易</h3>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+						<div class="x_panel">
+							<!--篩選表單-->
+							<div class="x_title">
+								<h2>篩選條件</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<br>
+								<form id="demo-form2" data-parsley-validate="" method="get" action="{:U('/fuckyoup2p/Trade/onLineTrade')}"  class="form-horizontal form-label-left" novalidate="">
+									<table class="table table-bordered table-condensed">
+								        <tr>
+											<!--出售人賬號-->
+								        	<td>
+												<label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">出售人賬號</label>
+												<div class="col-md-7 col-sm-7 col-xs-12">
+													<input type="text" id="first-name"  name="sell_id" value="{$Think.get.sell_id}" required="required" class="form-control col-md-7 col-xs-12">
+												</div>
+								        	</td>
+											<!--購買人賬號-->
+								        	<td>
+												<label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">購買人賬號</label>
+												<div class="col-md-7 col-sm-7 col-xs-12">
+													<input type="text" id="first-name" name="buy_id" value="{$Think.get.buy_id}"    required="required" class="form-control col-md-7 col-xs-12">
+												</div>
+								        	</td>
+											<!--選擇出售幣種類型-->
+								        	<td>
+												<label class="control-label col-md-5 col-sm-5 col-xs-12">選擇出售幣種類型</label>
+												<div class="col-md-7 col-xs-12">
+													<select name='sell_currency_id' class="form-control">
+														 <volist name="sell_currency_type" id="vo">
+														   <option  value="{$key}" 
+														    <if condition="$Think.get.sell_currency_id eq $key"> selected="selected" </if>>{$vo}</option>
+														 </volist>
+													</select>
+												</div>
+								        	</td>
+											<!--選擇購買幣種類型-->
+								        	<td>
+												<label class="control-label col-md-5 col-sm-5 col-xs-12">選擇購買幣種類型</label>
+												<div class="col-md-7 col-xs-12">
+													<select  name="buy_currency_id" class="form-control">
+													     <volist name="buy_currency_type" id="vo">
+														   <option value="{$key}" <if condition="$Think.get.buy_currency_id eq $key"> selected="selected" </if>>{$vo}</option>
+														 </volist>
+													</select>
+												</div>
+								        	</td>
+											<!--選擇訂單類型-->
+								        	<td>
+												<label class="control-label col-md-5 col-sm-5 col-xs-12">選擇訂單類型</label>
+												<div class="col-md-7 col-xs-12">
+													<select  name='status' class="form-control">
+														   <volist name="status_info" id="vo">
+														         <option  value="{$key}"  <if condition="$Think.get.status eq $key"> selected="selected" </if> >{$vo}</option>
+														    </volist>
+													</select>
+												</div>
+								        	</td>
+											<!--提交按鈕-->
+								        	<td>
+												<button type="submit" class="btn btn-success">查找</button>
+								        	</td>
+								        </tr>
+								    </table>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="clearfix"></div>
+						<!--線上交易記錄-->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>線上交易記錄</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+											<div class="row">
+												<div class="col-sm-6">
+												  <!-- 不用ajax数量 -->	  
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12 mb">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">ID</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">訂單號</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">購買人</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">出售人</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">出售人幣種</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">出售人幣種數量</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">購買需幣種</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">購買需幣種數量</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">添加時間</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">狀態</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">成交時間</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">操作</th>
+
+															</tr>
+														</thead>
+														<tbody>
+														    <volist name="res" id="vo">
+															<tr role="row" class="even">
+															  
+																<td class="sorting_1">{$vo.id}</td>
+																<td>{$vo.order_num}</td>
+																<td>
+																  <empty name="vo.buy_username">無人購買<else />{$vo.buy_username}</empty> 
+																</td>
+																<td>{$vo.username}</td>
+																<td>{$vo.sell_currency_id|currencyTypeName=###}</td>
+																<td>{$vo.sell_num}</td>
+																<td>{$vo.buy_currency_id|currencyTypeName=###}</td>
+																<td>{$vo.buy_num}</td>
+																<td>{$vo.add_time|date='Y-m-d H:i:s',###}</td>
+																<td>
+																    <!-- 交易状态 -->
+																    <switch name="vo.status" >
+																	    <case value="0">掛單</case>
+																	    <case value="1">前臺成功</case>
+																	    <case value="2">後臺審核成功</case>
+																	    <case value="-1">撤銷</case>
+																    </switch>
+																</td>
+																<td>{$vo.trade_time|date='Y-m-d H:i:s',###}</td>
+															     <td>
+															     <!-- 等于0 为可以撤销的订单 -->
+															    <if condition="$vo.status eq 0 ">
+					                                               <a class="btn btn-xs btn-danger" href="{:U('/Trade/recallOnTrade',array('id'=>$vo['id']))}">撤銷訂單</a>
+			                                                    <else/>
+				                                         	           <switch name="vo.status" >
+																	    <case value="1">前臺成功</case>
+																	    <case value="2" break="0或1">後臺審核成功</case>
+																	    <case value="-1">撤銷</case>
+																    </switch>
+																 </if>
+				                                                </td>
+															</tr>
+														    </volist>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="row">
+											<!-- endPage -->
+												<div class="col-sm-5">
+												</div>
+												<div class="col-sm-7">
+													{$showPage}
+												</div>
+												<!-- endpage -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />

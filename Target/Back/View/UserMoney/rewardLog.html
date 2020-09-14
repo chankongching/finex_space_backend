@@ -1,0 +1,183 @@
+<!--
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					&lt;!&ndash;標題&ndash;&gt;
+					<div class="page-title">
+						<div class="title_left">
+							<h3>用户奖金日志</h3>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+						<div class="x_panel">
+							&lt;!&ndash;篩選條件表單&ndash;&gt;
+							<div class="x_title">
+								<h2>篩選條件表單</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<br>
+								<form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" menthod="get" action="{:U('UserMoney/rewardLog',array('type'=>1))}">
+									<table class="table table-bordered table-condensed">
+                                        <tr>
+                                            &lt;!&ndash;用戶id&ndash;&gt;
+                                            <td >
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">用戶ID </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <if condition="($userid eq '') and ($Think.get.type neq 1 ) ">
+                                                        <input type="text" id="first-name" name="userid"  required="required" value="{$Think.get.uid}" class="form-control col-md-12 col-xs-12 num">
+                                                    <else /> <input type="text" id="first-name" name="userid"  required="required" value="{$Think.get.uid}" class="form-control col-md-7 col-xs-12 num">
+                                                    </if>
+                                                </div>
+                                            </td>
+                                            &lt;!&ndash;用戶名&ndash;&gt;
+                                            <td>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">用戶名 </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <if condition="$userid neq '' or $user_id neq ''">
+                                                        <input type="text" id="first-name" name="username" value="" required="required" class="form-control col-md-7 col-xs-12">
+                                                    <else />
+                                                        <input type="text" id="first-name" name="username" value="{$Think.get.username}" required="required" class="form-control col-md-7 col-xs-12">
+                                                    </if>
+                                                </div>
+                                                <input type="hidden" id="first-name" name="user_id" value="{$user_id}"  class="form-control col-md-7 col-xs-12">
+                                            </td>
+                                            &lt;!&ndash;選擇幣種類型&ndash;&gt;
+                                            <td style="width: 15%">
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">選擇幣種類型 </label>
+                                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                                    <select class="form-control" name="currency_id">
+                                                        <option value="-1">幣種類型</option>
+                                                        <volist name="currency" id="vo" >
+                                                            <option value="{$vo.id}" <if condition="$Think.get.currency_id eq $vo['id']">selected='true'</if> >{$vo.currency_name}</option>
+                                                        </volist>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                			&lt;!&ndash;選擇幣種類型&ndash;&gt;
+                                            <td >
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">奖金类型</label>
+                                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                                    <select name="getout" class="form-control">
+                                                        <option value="-1" <if condition="$add_time eq -1">selected='true'</if>>請選擇</option>
+                                                       <volist name="type" id="vo">
+                                                            <option value="{$vo['id']}" <if condition="$Think.get.getout eq $vo['id']">selected='true'</if>>{$vo['name']}</option>
+                                                        </volist>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            &lt;!&ndash;選擇日誌類型&ndash;&gt;
+                                            <td >
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">奖励来源 </label>
+                                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                                <select name="reward_type" class="form-control">
+                                                    <option value="0" >請選擇日誌類型</option>
+                                                   <foreach name="reward_type" item="vo">
+                                                       <option value="{$vo.id}" <if condition="$Think.get.reward_type eq $vo['type']">selected='true'</if>>{$vo.name}</option>
+                                                   </foreach> 
+                                                </select>
+                                                </div>
+                                            </td>
+											&lt;!&ndash;選擇时间類型&ndash;&gt;
+											<td >
+												<label class="control-label col-md-5 col-sm-5 col-xs-12" for="first-name">選擇时间 </label>
+												<div class="col-md-7 col-sm-7 col-xs-12">
+													<select name="add_time" class="form-control">
+														<foreach name="add_time" item="vo" key="key">
+															<option value="{$key+1}" <if condition="$Think.get.add_time eq $key+1">selected='true'</if>>{$vo.name}</option>
+														</foreach>
+													</select>
+												</div>
+											</td>
+                                            &lt;!&ndash;提交按鈕&ndash;&gt;
+                                            <td>
+                                                <button type="submit" class="btn btn-success">提交</button>
+                                            </td>
+                                    	</tr>
+                                    </table>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="clearfix"></div>
+						&lt;!&ndash;財務日誌報表&ndash;&gt;
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>奖励日誌報表</h2>
+										<ul class="nav navbar-right panel_toolbox">
+											<div class="col-sm-6 text-right">
+												<a class="btn btn-default" href="{:U('User/index')}">返回用戶列表</a>
+											</div>
+										</ul>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+											<div class="row">
+												<div class="col-sm-12 mb">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">id</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">用戶id</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">用戶名</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">幣種</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">奖金類型</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">奖金来源</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">数量</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">来自用户</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">時間</th>
+															</tr>
+														</thead>
+														<tbody>
+														<volist name="reward_list" id="vo">
+															<tr role="row" class="even">
+																<td class="sorting_1">{$vo.id}</td>
+																<td>{$vo.user_id}</td>
+                                                                <td>{$vo.username}</td>
+																<td>{$vo.currency_id|getCurrencyName=###}</td>
+																<td>{$vo.reward_type}</td>
+																<td>{$vo.type}</td>
+																<td><span style="color: {$vo.color}">{$vo.num}</span></td>
+																<td>{$vo.from_id}</td>
+																<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+															</tr>
+														</volist>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="row">
+											{$page}	
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+                <include file="Public:footer" />
+	</body>
+
+</html>
+<script type="text/javascript">
+$('.num').bind('input propertychange', function() {
+    var val = $(this).val();
+	var res = /^\d+(\.\d+)?$/;
+	if(val!="" && !res.test(val)) {
+		layer.msg('只能輸入數字！');
+		$(this).val('');
+	}
+});
+</script>-->

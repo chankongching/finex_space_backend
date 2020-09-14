@@ -1,0 +1,282 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+			<!-- /sidebar menu -->	
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>菜單管理</h3>
+						</div>
+					</div>
+					<div class="">
+						<div class="clearfix"></div>
+						<!--權限列表-->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>權限列表</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+									   <form action="{:U('Back/Nav/order')}" method="post">
+										<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+											<div class="row">
+												<div class="col-sm-6">
+												 <!-- 去掉ajax分页 -->
+												</div>
+												<div class="col-sm-6 text-right">
+													<!--排序按鈕-->
+													<button type="submit"  class="btn btn-success">排序</button>
+													<!--添加新菜單按鈕-->
+													<button  type="button"   class="btn btn-default" data-toggle="modal" data-target="#addnewmenu">添加新菜單</button>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12 mb">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 80.667px;">排序</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 200.667px;">菜單名</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 300.667px;">鏈接</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 200.667px;">操作</th>
+															</tr>
+														</thead>
+														<tbody>
+														      <!-- 输入数据的菜单 -->
+														      <foreach name="tabledata" item="v">
+																   <tr>
+																		<td>
+																		  <input class="form-control" style="width:42px;height:25px;" type="text" name="{$v['id']}" value="{$v['order_number']}">
+																		 </td>
+																			 <td>{$v['_name']}</td>
+																			 <td>{$v['mca']}</td>
+																			 <td>
+																			 <a href="javascript:;" navId="{$v['id']}" data-toggle="modal" data-target="#addmenu" idval="{$v['id']}" class="addSubMenu">添加子菜單</a> |
+																			 <a href="javascript:;" navId="{$v['id']}" data-toggle="modal" data-target="#modmenu" idval="{$v['id']}" class="modify">修改</a> |
+																			 <a href="javascript:;" navId="{$v['id']}" class="del_navivd" >刪除</a>
+																		 </td>
+																   </tr>
+                                                              </foreach>
+                                                               <!--  -->
+														</tbody>
+													</table>
+												</div>
+											</div>
+											 </form>
+											 <!-- 结束form -->  
+											<div class="row">
+												<div class="col-sm-5">
+													<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+					<!--添加新菜單表單-->
+					<div class="modal fade bs-example-modal-lg in" id="addnewmenu" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 15%;">
+						<div class="modal-dialog ">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+									<h4 class="modal-title" id="myModalLabel">添加新菜單</h4>
+								</div>
+								
+								<div class="modal-body">
+									<form id="" method="post" action="{:U('Back/Nav/add')}"   data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+										<!--菜單名-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">菜單名</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name"  name="name"   required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<!--鏈接-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">鏈接</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name"  name="mca" required="required" class="form-control col-md-7 col-xs-12">
+												<p style="margin-bottom: 0;">* 輸入模塊/控制器/方法即可 例如 Back/Nav/index</p>
+											</div>
+										</div>
+										<!--圖標-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">圖標</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name" name="ico"  required="required" class="form-control col-md-7 col-xs-12">
+												<p>* font-awesome圖標 輸入fa fa- 後邊的即可</p>
+											</div>
+										</div>
+								</div>
+								<!--提交按鈕-->
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+								 </form>
+							</div>
+						</div>
+					</div>
+					<!--添加菜單表單-->
+					<div class="modal fade bs-example-modal-lg in" id="addmenu" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 15%;">
+						<div class="modal-dialog ">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+									<h4 class="modal-title" id="myModalLabel">添加子菜單</h4>
+								</div>
+								<div class="modal-body">
+									<form id="" data-parsley-validate="" class="form-horizontal form-label-left" novalidate=""  action="{:U('Back/Nav/add')}" method="post">
+										<!--菜單名-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">菜單名</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name"  name="name" required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<!--鏈接-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">鏈接</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name" required="required" name="mca" class="form-control col-md-7 col-xs-12">
+												<p style="margin-bottom: 0;">* 輸入模塊/控制器/方法即可 例如 Admin/Nav/index</p>
+											</div>
+										</div>
+										<!--圖標-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">圖標</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name" name="ico" required="required" class="form-control col-md-7 col-xs-12">
+												<p>* font-awesome圖標 輸入fa fa- 後邊的即可</p>
+											</div>
+										</div>
+								</div>
+								<!--提交按鈕-->
+								<div class="modal-footer">
+								    <input  type="hidden" name="pid" id="addSubid"/>
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!--修改菜單-->
+					<div class="modal fade bs-example-modal-lg in" id="modmenu" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 15%;">
+						<div class="modal-dialog ">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+									<h4 class="modal-title" id="myModalLabel">修改菜單</h4>
+								</div>
+								<div class="modal-body">
+									<form id="" data-parsley-validate=""  action="{:U('Back/Nav/edit')}" method="post"  class="form-horizontal form-label-left" novalidate="">
+										<!--菜單名-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">菜單名</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text"  id="perName" name="name" required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<!--鏈接-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">鏈接</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text"  id="perUrl"  name="mca" required="required" class="form-control col-md-7 col-xs-12">
+												<p style="margin-bottom: 0;">* 輸入模塊/控制器/方法即可 例如 back/Nav/index</p>
+											</div>
+										</div>
+										<!--圖標-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">圖標</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text"  name="ico" id="perIco"    required="required" class="form-control col-md-7 col-xs-12">
+												<p>* font-awesome圖標 輸入fa fa- 後邊的即可</p>
+											</div>
+										</div>
+								</div>
+								<!--提交按鈕-->
+								<div class="modal-footer">
+								       <input type="hidden" name="id" id="editId" value=""/>
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+								 <!--end from  -->
+								 </form>
+							</div>
+						</div>
+					</div>
+					<!--刪除提示信息-->
+					<div class="modal fade bs-example-modal-sm in" id="delect" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 20%; ">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="myModalLabel2">註意</h4>
+								</div>
+								<div class="modal-body">
+									<p>您確定要刪除嗎？</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">不了，謝謝！</button>
+									<button type="button" class="btn btn-primary">確定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<include file="Public:footer"/>
+<script>
+	$('.modify').click(function(){
+	    var id = $(this).attr('idval');
+	     $('#editId').val(id);
+			$.post("{:U('back/Nav/getNavAjax')}",{id:id},function(result){
+				result = JSON.parse(result);
+				$('#perName').val(result.name);
+				$('#perUrl').val(result.mca);
+				$('#perIco').val(result.ico);
+			});
+	});
+   //点击子菜单的时候添加隐藏的表单值id
+   $('.addSubMenu').click(function(){
+       var id = $(this).attr('idval');   
+        $('#addSubid').val(id);
+   });   
+   
+    $('.edit').click(function(){
+        var id = $(this).attr('idval');
+        $('#editId').val(id);
+    });
+
+
+    $(function(){
+    	$(".del_navivd").click(function(){
+    		subDelNav($(this));
+    	})
+    })  
+   //点击删除菜单
+   function subDelNav(_this)
+   {
+	   layer.confirm(
+         "<span style='color:#fff'>確定删除嗎？</span>", 
+	     {
+		      title:"*提示",
+			  btn: ["確定","取消"]
+	     }, 
+	     function(){
+			  var nav_id=_this.attr('navid');
+			  window.location.href="/Back/Nav/delete/id/"+nav_id;
+		});  
+   }
+</script>
+
+

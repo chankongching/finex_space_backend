@@ -1,0 +1,358 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+			        <!-- 切换进来 -->
+				<div class="right_col" role="main">
+					<!-- 用戶組及管理員列表 -->
+					<div class="">
+						<div class="clearfix"></div>
+						<!--用戶組及管理員列表-->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>用戶組及管理員列表</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+											<div class="row">
+												<div class="col-sm-6">
+												  <p style = "color:red" >
+												     1.禁止賬號 ： BTCs平台不能登錄 ,工單系統不能登錄,賬號為下班狀態,剔除所屬問題分組,該賬號在工單系統待處理訂單全部轉介給相應問題組
+												  </p>
+												  <p style = "color:red">
+												     2.啟用賬號: BTCs平台正常登錄 ,工單系統正常登錄。需重新分配問題所屬分組,需重新勾選上下班狀態。
+												  </p>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group pull-right">
+														<!-- 添加用戶組 -->
+														<button class="btn btn-primary" data-toggle="modal" data-target="#add_group">添加管理員</button>
+														<!-- 添加管理員 -->
+														 <if condition="$disp neq 1">
+														      <button class="btn btn-success" data-toggle="modal" data-target="#add_admin">添加用戶組</button>
+														 </if>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 97px;">名稱</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 166px;">操作</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 166px;">管理員賬號狀態</th>
+															</tr>
+														</thead>
+														<tbody>
+         													<!-- 内容 -->
+                                                                <foreach name="datatable" item="v">
+                                                                    <tr role="row" class="odd" style="font-size: 12px;">
+	                                                                    <td class="sorting_1"> {$v.title}</td>
+	                                                                    <td><!--修改-->
+	                                                                    <if condition="$disp neq 1">
+																			<a class="hov modify" href=""  data-toggle="modal" idval="{$v['id']}" data-target="#change">修改</a> |
+																			<!--分配權限-->
+																			<a class="hov" href="{:U('Back/Rule/rule_group',array('id'=>$v['id']))}">分配權限</a> 
+	                                                                       <!--刪除-->
+                                                                        </if>
+	                                                                    </td>
+	                                                                    <td class="sorting_1"> - </td>
+                                                                     </tr>
+                                                                     <foreach name="v['son']" item="val">
+                                                                        <tr role="row"  style="font-size: 12px;">
+                                                                            <td class="sorting_1">└─ {$val.username}</td>
+                                                                            <!--修改權限或密碼-->
+                                                                            <td>
+                                                                                 <a class="hov edit" idval="{$val.id}" data-toggle="modal" data-target="#mod" href="">修改權限或密碼</a> |
+                                                                                 <a class="hov del_user"   href="javascript:;" status="{$val['status']}" uid="{$val['id']}" >{$val['status']?禁用賬號:啟用賬號}</a>
+                                                                            </td>
+                                                                            <td class="sorting_1">{$val['status']?正常:禁用}</td>
+                                                                        </tr>
+                                                                     </foreach>
+                                                                </foreach>
+         														<!-- 内容 -->
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<!--分頁器-->
+								                
+											<!-- 分页 -->
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- 添加管理員 -->
+				<div class="modal fade bs-example-modal-lg in" id="add_group" tabindex="-1" role="dialog" aria-hidden="true" style=" padding-right: 17px;margin-top: 15%;">
+					<div class="modal-dialog ">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+								<h4 class="modal-title" id="myModalLabel2">添加管理員</h4>
+							</div>
+							<form id="demo-form2"  action="{:U('Back/Rule/add_admin')}" method="post"   data-parsley-validate=""  class="form-horizontal form-label-left" novalidate="">
+								<div class="modal-body">
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">管理組</label>
+										<div class="col-md-6 col-xs-12">
+											<select  name ='group_ids' class="form-control">
+												<foreach name="datatable" item="v">
+												<option value="{$v['id']}">{$v['title']}</option>
+												</foreach>
+											</select>
+										</div>
+									</div>
+									<!--姓名-->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">姓名</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="text" id="first-name"   name="username" required="required" class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+									<!--手機號碼区号-->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">手機區號</label>
+										<div class="col-md-6 col-xs-12">
+											<select class="form-control"  name="om">
+												<option value="+86">中國（+86）</option>
+												<option value="+886">中國(臺灣)（+886）</option>
+											</select>
+										</div>
+									</div>
+									<!--手機號碼-->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">手機號碼 </label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="text" id="last-name" name="phone"  name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+									<!--狀態-->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">狀態</label>
+										<div class="col-md-6 col-xs-12">
+											<select class="form-control"  name="status">
+												<option value="1">允許登錄</option>
+												<option value="0">禁止登錄</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--提交按鈕-->
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- 添加用戶組 -->
+				<div class="modal fade bs-example-modal-lg in" id="add_admin" tabindex="-1" role="dialog" aria-hidden="true" style=" padding-right: 17px;margin-top: 15%;">
+					<div class="modal-dialog ">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                   <h4 class="modal-title" id="myModalLabel2">添加用戶組</h4> 
+							</div>
+							<form id="demo-form2" data-parsley-validate=""   action="{:U('Back/Rule/add_group')}" method="post"  class="form-horizontal form-label-left" novalidate="">
+							<div class="modal-body">
+								<!--用戶組名-->
+								<div class="form-group">
+									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">用戶組名</label>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<input type="text" id="first-name" name="title"  required="required" class="form-control col-md-7 col-xs-12">
+									</div>
+								</div>								
+							</div>
+							<!--提交按鈕-->
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-primary">提交</button>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!--修改用戶組名表單-->
+				<div class="modal fade bs-example-modal-sm in" id="change" tabindex="-1" role="dialog" aria-hidden="true" style=" padding-right: 17px; margin-top: 20%;">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+								<h4 class="modal-title" id="myModalLabel2">修改規則</h4>
+							</div>
+							<div class="modal-body">
+								<form id="" data-parsley-validate=""   action="{:U('Back/Rule/edit_group')}"   method="post"   class="form-horizontal form-label-left" novalidate="">
+									 <!--用戶組名-->
+									 <!--注意进行赋值  name属性值-->
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">用戶組名</label>
+										<div class="col-md-8 col-sm-8 col-xs-12">
+											<input type="text"  name="title" id="perName"  required="required" class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+							</div>
+							<!--提交按鈕-->
+							<div class="modal-footer">
+							<!-- 表单隐藏域   当前编辑修auth  group的id -->
+							     <input type="hidden" id="editId" name="id"/>
+								<button type="submit" class="btn btn-primary">確定</button>
+							</div>
+                             </form>
+						</div>
+					</div>
+				</div>
+				<!--刪除提示-->
+				<div class="modal fade bs-example-modal-sm in" id="delect" tabindex="-1" role="dialog" aria-hidden="true" style=" padding-right: 17px; margin-top: 20%;">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel2">注意</h4>
+							</div>
+							<div class="modal-body">
+								<p>您確定要刪除此用戶組嗎？</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">不了，謝謝！</button>
+								<button type="button" class="btn btn-primary">確定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--修改管理員資料表單-->
+				<div class="modal fade bs-example-modal-lg in" id="mod" tabindex="-1" role="dialog" aria-hidden="true" style=" padding-right: 17px;margin-top: 15%;">
+					<div class="modal-dialog ">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+								<h4 class="modal-title" id="myModalLabel">修改管理員資料</h4>
+							</div>
+							<div class="modal-body">
+								<form id="" data-parsley-validate="" class="form-horizontal form-label-left"  action="{:U('Back/Rule/edit_admin')}" method="post" novalidate="">
+									<!--用戶組名-->
+									<div class="form-group">
+										<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">用戶組名</label>
+										<div class="col-md-9 col-sm-9 col-xs-12">
+											<select class="form-control" name="group_ids[]" id="userGroup">
+													<foreach name="datatable" item="v">
+															<option value="{$v['id']}">{$v['title']}</option>
+													</foreach>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">姓名</label>
+										<div class="col-md-9 col-sm-9 col-xs-12">
+											<input type="text" id="usereName" name="username" required="required" class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+									 <!-- 增加一个区号-->
+								    <div class="form-group" >
+											<label class=" col-md-3 col-sm-3 col-xs-12" style="line-height: 30px;">手機區號</label>
+											<div class="col-md-9 col-xs-12">
+												<select class="form-control" name="om" id="userOm">
+												    <option value="+86">中國（+86）</option>
+													<option value="+886">中國（臺灣）（+886）</option>
+												</select>
+											</div>
+								   </div>
+									<!--手機號碼-->
+									<div class="form-group">
+										<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">手機號碼</label>
+										<div class="col-md-9 col-sm-9 col-xs-12">
+											<input type="text"   id="userPhone" name="phone" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+										</div>
+									</div>
+									<!--初始密碼-->
+									<div class="form-group">
+										<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">初始密碼</label>
+										<div class="col-md-9 col-sm-9 col-xs-12">
+											<input type="text" id="first-name"  name="password"  required="required" class="form-control col-md-7 col-xs-12">
+											<p>* 如不改密碼留空即可</p>
+										</div>
+									</div>
+									<!--去掉狀態選擇-->
+									
+							</div>
+							<!--提交按鈕-->
+							<div class="modal-footer">
+							      <!-- 编辑档前用户的用户id -->
+							    <input type="hidden" id="edit" name="id"/>
+								<button type="submit" class="btn btn-primary">提交</button>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer"/>
+<script>
+   $('.modify').click(function(){
+           var id = $(this).attr('idval');
+           $('#editId').val(id);
+			 $.post("{:U('Back/Rule/getGroupAjax')}",{id:id},function(result){
+				result = JSON.parse(result);
+				$('#perName').val(result.title);
+			});
+   });
+   
+   $('.edit').click(function(){
+           var id = $(this).attr('idval');
+           $('#edit').val(id);
+			 $.post("{:U('Back/Rule/getUserInfoAjax')}",{id:id},function(result){
+				$("#userGroup").val(result.group_id);
+				$("#userStatus").val(result.status);
+				$("#userOm ").val(result.om);
+				$('#usereName').val(result.username);
+				$('#userPhone').val(result.phone);
+				$('#userEmail').val(result.email);
+			});		   
+   });   
+    //确认弹窗
+    $(function(){
+    	  $(".del_user").click(function(){
+    		  delUser($(this));
+    	   });
+    	  //弹窗js
+    	  $(".del_group").click(function(){
+     	     delGroup($(this));
+     	  });
+      })  
+     //点击删除管理员
+     function delUser(_this)
+     {
+    	 layer.confirm(
+    	 "<span style='color:#fff'>確定嗎？</span>", 
+         {
+    	       title:"*提示",
+    	       btn: ["確定","取消"]
+         }, 
+         function(){
+    	       var uid   =_this.attr('uid');
+    	       var status=_this.attr('status');
+    		   window.location.href="/Back/Rule/delete_admin_user/id/"+uid+'/status/'+status;
+         });  
+     }
+     //点击删除管理组
+    function delGroup(_this)
+    {
+    	 layer.confirm(
+    	 "<span style='color:#fff'>確定嗎？</span>", 
+         {
+    	       title:"*提示",
+    	       btn: ["確定","取消"]
+         }, 
+         function(){
+    	       var gid=_this.attr('gid');
+    		   window.location.href="/Back/Rule/delete_group/id/"+gid;
+         });  
+     }
+</script>	

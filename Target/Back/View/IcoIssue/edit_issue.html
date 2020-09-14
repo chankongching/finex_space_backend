@@ -1,0 +1,184 @@
+<include file="Public:header" />
+
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>修改ICO</h3>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <!--用戶信息-->
+            <div class="x_title">
+                <h2>ICO发行信息</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('IcoIssue/edit_issue')}">
+                    <input type="hidden" name="id" value="{$list['id']}" />
+                    <!--用戶賬號-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="issue_num">ICO发行个数</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text"  id="issue_num" name="issue_num" value="{$list['issue_num']}" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <!--用戶賬號-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rate">兑换汇率</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text"  id="rate" name="rate" value="{$list['rate']}" required="required" class="form-control col-md-7 col-xs-12" >
+                        </div>
+                    </div>
+                    <!--手機號碼-->
+                    <div class="form-group">
+                        <label for="q_name" class="control-label col-md-3 col-sm-3 col-xs-12">发行本期ICO的具体名字</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="q_name" name="q_name" maxlength="20" value="{$list['q_name']}" type="text" class="form-control col-md-7 col-xs-12" />
+                            <!--<span class=" form-control-feedback left" aria-hidden="true">{$user_list['om']}</span>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="q_num" class="control-label col-md-3 col-sm-3 col-xs-12">期数</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="q_num" name="q_num" maxlength="20" value="{$list['q_num']}" type="text" class="form-control col-md-7 col-xs-12" />
+                            <!--<span class=" form-control-feedback left" aria-hidden="true">{$user_list['om']}</span>-->
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="star_time" class="control-label col-md-3 col-sm-3 col-xs-12">开始时间</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text"disabled="disabled"  class="form-control has-feedback-left timechange" aria-describedby="inputSuccess2Status" id="single_cal1" name="start_time" <if condition="$list['start_time'] eq 0">value=""
+                            <else/>value="{$list['start_time']|date='Y-m-d H:i:s',###}"</if>
+                            required="required" class="form-control col-md-7 col-xs-12"  >
+                            <span class="fa fa-calendar-o form-control-feedback left"  aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="end_time" class="control-label col-md-3 col-sm-3 col-xs-12">结束时间</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text"  disabled="disabled" class="form-control has-feedback-left timechange" aria-describedby="inputSuccess2Status" id="single_cal4" name="end_time" <if condition="$list['end_time'] eq 0">value=""
+                            <else/>value="{$list['end_time']|date='Y-m-d H:i:s',###}"</if>
+                            required="required" class="form-control col-md-7 col-xs-12"  >
+                            <span class="fa fa-calendar-o form-control-feedback left"  aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+
+
+                    <!--<div class="form-group">-->
+                        <!--<label for="end_time" class="control-label col-md-3 col-sm-3 col-xs-12">结束时间</label>-->
+                        <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                            <!--<input type="text"  class="form-control has-feedback-left timechange" aria-describedby="inputSuccess2Status4" id="single_cal2" name="end_time" <if condition="$list['end_time'] eq 0">value=""-->
+                            <!--<else/>value="{$list['end_time']|date='Y-m-d H:i:s',###}"</if>-->
+                            <!--required="required" class="form-control col-md-7 col-xs-12"  >-->
+                            <!--<span class="fa fa-calendar-o form-control-feedback left"  aria-hidden="true"></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+
+                    <div class="form-group">
+                        <label for="exchange_num" class="control-label col-md-3 col-sm-3 col-xs-12">已经兑换了多少个</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="exchange_num" name="exchange_num" value="{$list['exchange_num']}" class="form-control col-md-7 col-xs-12" type="text">
+                        </div>
+                    </div>
+
+                    <!-- 备注 -->
+                    <!--<div class="form-group" style="margin-top:30px">-->
+                    <!--<label class="control-label col-md-3 col-sm-3 col-xs-12">备注</label>-->
+                    <!--<div class="col-md-6 col-sm-3 col-xs-12">-->
+                    <!--<textarea class="resizable_textarea form-control" name="mark" placeholder="请输入..."></textarea>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">提交</button>
+                            <a href="{:U('IcoIssue/index')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                    <!-- 备注 -->
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+
+
+<script>
+    // at 添加快捷 內容
+    $(".replay-add").click(function() {
+        let content = $('.q_conetnt').val();
+        if (content == '' || content == null) {
+            layer.msg('請填寫快捷回復內容');
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/ReplyMsg/add",
+            data: {
+                'content': content,
+                'type': '{$user_quick_type}'
+            },
+            dataType: "json",
+            error: function(request) {},
+            success: function(res) {
+                layer.msg(res.msg);
+                if (res.code == 200) {
+                    html = '<div class="quick-reply-list_' + res.data.id + '">';
+                    html += '<span class="quickreply-c">' + content + '。</span> ';
+                    html += '<span class="add-content btn btn-primary btn-xs">添加至回復</span> ';
+                    html += ' <span class="del-content btn btn-danger btn-xs del_reply" qr-id="' + res.data.id + '">刪除此留言</span>';
+                    html += '</div>';
+                    $('.reply_list').append(html);
+                    $('.q_conetnt').val('');
+                }
+            }
+        });
+    })
+
+    //at 設置語言
+    $('body').on('click', '.add-content', function() {
+        var _this = $(this);
+        var mark = $('.resizable_textarea[name="mark"]');
+        mark.val(mark.val() + _this.prev().text());
+    })
+    // at 刪除快捷回復
+    $("body").on('click', ".del_reply", function() {
+        let id = $(this).attr('qr-id');
+        $.ajax({
+            type: "POST",
+            url: "/ReplyMsg/del",
+            data: {
+                'id': id
+            },
+            dataType: "json",
+            error: function(request) {},
+            success: function(data) {
+                layer.msg(data.msg);
+                if (data.code == 200) {
+                    $('.quick-reply-list_' + id).remove();
+                }
+            }
+        });
+    })
+</script>

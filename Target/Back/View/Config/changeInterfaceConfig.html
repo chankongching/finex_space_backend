@@ -1,0 +1,129 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>接口配置</h3>
+						</div>
+					</div>
+					<!--郵箱配置表單-->
+					<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+						<div class="x_panel">
+							<!--短信配置表單-->
+							<div class="x_title">
+								<h2>郵箱配置</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<br>
+								<form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('Config/changeInterfaceConfig')}">
+									<!--企業郵局域名-->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">企業郵局域名
+                        </label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" name="EMAIL_HOST" value="{$config['EMAIL_HOST']}">
+										</div>
+									</div>
+									<!--郵局用戶名-->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">郵局用戶名
+                        </label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="text" id="last-name" name="ENAIL_USERNAME" required="required" class="form-control col-md-7 col-xs-12" name="ENAIL_USERNAME" value="{$config['ENAIL_USERNAME']}">
+										</div>
+									</div>
+									<!--郵局密碼-->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">郵局密碼</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input class="form-control col-md-7 col-xs-12" type="text" name="EMAIL_PASSWORD" value="{$config['EMAIL_PASSWORD']}">
+										</div>
+									</div>
+									<!--發送者名稱-->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">發送者名稱</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input class="form-control col-md-7 col-xs-12" type="text" name="EMAIL_FORMNAME" value="{$config['EMAIL_FORMNAME']}">
+										</div>
+									</div>
+									<!--網站名稱-->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">網站名稱</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<input class="form-control col-md-7 col-xs-12" type="text" name="EMAIL_SEND_NAME" value="{$config['EMAIL_SEND_NAME']}">
+										</div>
+									</div>
+									<div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">開啟自動腳本
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input type="radio" class="flat" name="AUTO_BRUSH_ORDER" value="1" <if condition="$config['AUTO_BRUSH_ORDER'] eq 1">checked="checked"</if> > 開启
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat" name="AUTO_BRUSH_ORDER" value="0" <if condition="$config['AUTO_BRUSH_ORDER'] eq 0">checked="checked"</if> > 關闭
+				                                </label>
+				                            </p>
+				                        </div>
+				                    </div>
+				                    
+									<div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">刷單時間設置
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input type="radio" class="flat" name="AUTO_BRUSH_TIME_IS_NOW" value="1" <if condition="$config['AUTO_BRUSH_TIME_IS_NOW'] eq 1">checked="checked"</if> >現在時間
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat" name="AUTO_BRUSH_TIME_IS_NOW" value="0" <if condition="$config['AUTO_BRUSH_TIME_IS_NOW'] eq 0">checked="checked"</if> > 數據表時間
+				                                </label>
+				                            </p>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">C2C價格調控開關
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input type="radio" class="flat" name="CC_PRICE_FIX" value="1" <if condition="$config['CC_PRICE_FIX'] eq 1">checked="checked"</if> > 關闭
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat" name="CC_PRICE_FIX" value="2" <if condition="$config['CC_PRICE_FIX'] eq 2">checked="checked"</if> > 升高
+				                                </label>
+				                                &nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat" name="CC_PRICE_FIX" value="3" <if condition="$config['CC_PRICE_FIX'] eq 3">checked="checked"</if> > 降低
+				                                </label>
+				                            </p>
+				                        </div>
+				                    </div>
+				                    
+									<div class="ln_solid"></div>
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+											<!--提交按鈕-->
+											<button type="submit" class="btn btn-success">提交</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />
+
+
+

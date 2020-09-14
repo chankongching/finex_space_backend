@@ -1,0 +1,241 @@
+<include file="Public:header" />
+<link rel="stylesheet" href="__ADMIN_JS__/timepicker/bootstrap-datetimepicker.css">
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>身份認證</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--篩選表單-->
+            <div class="x_title">
+                <h2>篩選條件</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="get" action="{:U('RealNameCount/index')}">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <!--用戶名-->
+                            <td>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">客服名</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" id="first-name" name="username" required="required" value="{$Think.get.username}" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </td>
+                            <!--起始日期-->
+                            <td>
+                                <div class="form-group input-group col-md-12 pull-right">
+                                    <span class="input-group-addon">起始日期</span>
+                                    <input type="text" readonly="readonly" name="startTime" value="{$startTime}" class="form-control bootstrap-timepicker" placeholder="開始时间">
+                                </div>
+                            </td>
+                            <!--結束日期-->
+                            <td>
+                                <div class="form-group input-group col-md-12 pull-right">
+                                    <span class="input-group-addon">結束日期</span>
+                                    <input type="text" readonly="readonly" name="endTime" value="{$endTime}" class="form-control bootstrap-timepicker" placeholder="結束时间">
+                                </div>
+                            </td>
+                            <!--提交按鈕-->
+                            <td>
+                                <button type="submit" class="btn btn-success">查找</button>
+                            </td>
+                            <!-- 导出按钮 -->
+                            <td>
+                                <button type="button" id="sub" class="btn btn-primary modifyGid pull-right SureOut_excel">導出所有</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <!--身份認證列表-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title clearfix">
+                        <h2>身份認證列表</h2>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">客服名稱</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">未通過數量</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">已通過數量</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">審核次數</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">時間</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <volist name="data" id="vo">
+                                                <tr role="row" class="even">
+                                                    <td class="sorting_1">{$vo['user_name']}</td>
+                                                    <td class="sorting_1">{$vo['fail']|default=0}</td>
+                                                    <td>{$vo['success']|default=0}</td>
+                                                    <td>{$vo['total']|default=0}</td>
+                                                    <td>{$vo['time_str']}</td>
+                                                </tr>
+                                            </volist>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="__ADMIN_JS__/jquery.min.js"></script>
+<script src="__ADMIN_JS__/xlsx.full.min.js"></script>
+<script src="__ADMIN_JS__/timepicker/bootstrap-datetimepicker.js"></script>
+<script>
+    $(".bootstrap-timepicker").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        minView: 0,
+        autoclose: true,
+        language: 'cn',
+        minuteStep: 1
+    });
+    var username = $("input[name=username]").val();
+    var startTime1 = $("input[name=startTime]").val();
+    var endTime1 = $("input[name=endTime]").val();
+    var num = 0;
+    $("#sub").click(function() {
+        if (num == 0) {
+            num = 1;
+            $.ajax({
+                type: "post",
+                url: "/RealNameCount/excelOut",
+                data: {
+                    "username": username,
+                    "startTime": startTime1,
+                    "endTime": endTime1
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.code == 200) {
+                        num = 0;
+                        var DataHtml = "";
+                        var title = "客服統計";
+                        var res_length = data.data.length;
+                        var res = data.data;
+                        var jsonData = [];
+                        for (var i = 0; i < res_length; i++) {
+                            var str = {
+                                "客服名稱": res[i].user_name,
+                                "未通過數量": res[i].fail,
+                                "已通過數量": res[i].success,
+                                "審核次數": res[i].total,
+                                "時間": res[i].time_str
+                            }
+                            jsonData.push(str);
+                        }
+                        downloadExl(jsonData, title);
+                    } else {
+                        layer.msg(data.msg)
+                        num = 0;
+                    }
+                }
+            })
+        }
+
+
+    })
+    const wopts = {
+        bookType: 'xlsx',
+        bookSST: false,
+        type: 'binary'
+    };
+    // 导出函数
+    function downloadExl(data, WhatTitle) {
+        var startTime = $("input[name=startTime]").val();
+        var endTime = $("input[name=endTime]").val();
+
+        var str = "";
+        const wb = {
+            SheetNames: ['Sheet1'],
+            Sheets: {},
+            Props: {}
+        };
+        const title = [{
+            "title": "123"
+        }]
+        const json_sheet = wb.Sheets['Sheet1'] = XLSX.utils.json_to_sheet(title);
+        wb.Sheets['Sheet1'].A1.v = WhatTitle;
+        wb.Sheets['Sheet1']["!merges"] = [{
+            s: {
+                c: 0,
+                r: 0
+            },
+            e: {
+                c: 8,
+                r: 0
+            }
+        }];
+        if (username == "") {
+            str = "" + startTime + "至" + endTime + "所有客服的身份認證數據統計 "
+        } else {
+            str = "" + startTime + "至" + endTime + "客服" + username + "的身份認證數據統計 "
+        }
+        wb.Sheets['Sheet1'] = XLSX.utils.sheet_add_json(json_sheet, data, {
+            origin: "A2"
+        }); //通过json_to_sheet转成单页(Sheet)数据
+        saveAs(new Blob([s2ab(XLSX.write(wb, wopts))], {
+            type: "application/octet-stream"
+        }), str + '.' + (wopts.bookType == "biff2" ? "xls" : wopts.bookType));
+    }
+    //转换格式
+    function s2ab(s) {
+        if (typeof ArrayBuffer !== 'undefined') {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        } else {
+            var buf = new Array(s.length);
+            for (var i = 0; i != s.length; ++i) buf[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+    }
+    // 
+    function saveAs(obj, fileName) {
+        //当然可以自定义简单的下载文件实现方式 
+        var tmpa = document.createElement("a");
+        tmpa.download = fileName || "下载";
+        tmpa.href = URL.createObjectURL(obj); //绑定a标签
+        tmpa.click(); //模拟点击实现下载
+        setTimeout(function() { //延时释放
+            URL.revokeObjectURL(obj); //用URL.revokeObjectURL()来释放这个object URL
+        }, 100);
+    }
+</script>
+<!-- jQuery -->
+<include file="Public:footer" />

@@ -1,0 +1,167 @@
+<include file="Public:header"/>
+<include file="Public:nav"/>
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>K線控圖</h3>
+        </div>
+
+    </div>
+
+
+
+    <!--<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            &lt;!&ndash;篩選表單-&ndash;&gt;
+            <div class="x_title">
+                <h2>篩選條件</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="get" action="{:U('IcoFinances/showIcoFinances')}">
+                    &lt;!&ndash;用戶ID&ndash;&gt;
+                    <div class="form-group col-md-2">
+                        <label for="user_id" class="col-md-12 col-sm-12 col-xs-12 text-left">用戶ID</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input id="user_id" class="form-control col-md-7 col-xs-12" type="text" name="uid" value="{$Think.get.user_id}">
+                        </div>
+                    </div>
+
+
+                    &lt;!&ndash;代理商邀请码收索&ndash;&gt;
+                    <if condition="$agent eq  0 ">
+                        <div class="form-group col-md-2">
+                            <label for="" class="col-md-12 col-sm-12 col-xs-12 text-left">代理商邀请码</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input id="" class="form-control col-md-7 col-xs-12" type="text" name="invite_code" value="{$Think.get.invite_code}">
+                            </div>
+                        </div>
+                        <else />
+                        &nbsp;
+                    </if>
+
+
+                    &lt;!&ndash;用戶名&ndash;&gt;
+                    <div class="form-group col-md-1">
+                        <label class="col-md-12 col-sm-12 col-xs-12 text-left">&nbsp;</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success">查找</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="row"> <h4>交易数据统计:</h4></div>
+        <volist name="jiaoyi" id="vo">
+
+            <li style="color: #9B410E">{$vo.currency_name}:{$vo.c_num}</li>
+
+        </volist>
+    </div>-->
+
+    <div class="">
+        <div class="clearfix"></div>
+        <!--用戶列表-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>FEC今日漲幅百分比</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="col-sm-6">
+                            <div class="form-group pull-right">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#add_group">FEC涨幅</button>
+                            </div>
+                        </div>
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row" style="margin-bottom: 10px;overflow: inherit!important;">
+                                <div class="col-sm-6">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <!--<th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 97px;">用户ID</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" >用户名</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" >ICO产品名称</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" >兑换的期数</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" >兑换币种</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" >兑换花费的币种数量</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" >购买的ICO数量</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" >兑换时间</th>-->
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" >FEC今日漲幅</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!-- 内容 -->
+                                            <tr role="row" class="odd" style="font-size: 12px;">
+                                                <td class="sorting_1"> {$data['petc_lv']*100}%</td>
+                                            </tr>
+                                        </foreach>
+                                        <!-- 内容 -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--分頁器-->
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite"></div>
+                                </div>
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加代理商 -->
+    <div class="modal fade bs-example-modal-lg in" id="add_group" tabindex="-1" role="dialog" aria-hidden="true" style=" padding-right: 17px;margin-top: 15%;">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">调整PETC涨幅</h4>
+                </div>
+                <form id="demo-form2"  action="{:U('back/PetcLv/updatePetcLv')}" method="post"   data-parsley-validate=""  class="form-horizontal form-label-left" novalidate="">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" value="{$data['id']}" />
+                        <!--姓名-->
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">涨幅</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="first-petc_lv"   name="petc_lv" value="{$data['petc_lv']}" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <!--提交按鈕-->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">修改</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+<include file="Public:footer"/>

@@ -1,0 +1,99 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>二級市場幣幣交易管理</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--短信配置表單-->
+            <div class="x_title">
+                <h2>添加二级币幣幣配置</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('CtwoC/addVpConfig')}">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">二级币交易區币种
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                             <select id="change_s"  name="main_currency_id" class="form-control">
+                                <option value="">请选择</option>
+                                <volist name="currency_list" id="vo" >
+	                                <if condition="$vo['id'] gt 5 ">
+	                                     <option value="{$vo['id']}">{$vo['currency_name']}</option>
+	                                </if>
+                                </volist>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">可兌換幣種名稱
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="val_none" name="exchange_currency_id" class="form-control">
+                                <volist name="currency_list" id="vo">
+                                    <option value="{$vo['id']}">{$vo['currency_name']}</option>
+                                </volist>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">买家手续费比例
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="buy_fee"  placeholder="填寫小數位 例 0.01"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">卖家手续费比例
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="sell_fee"  placeholder="填寫小數位 例 0.01"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">币种价格  <span style="color:red">(美元$)</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="main_coin_price"  placeholder="有效数位  例 0.0001"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">价格浮动比例
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="float_price_rate"  placeholder="填寫小數位 例 0.01"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">提交</button>
+                            <a href="{:U('CtwoC/vpConfig')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+<script>
+$("#change_s").change(function(){
+	 var i=$(this).find("option:selected").val();
+	 $("#val_none option").attr("style",'');
+	 $("#val_none option[value='"+i+"']").attr("style","display:none");
+})
+</script>

@@ -1,0 +1,106 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>幣種管理</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--短信配置表單-->
+            <div class="x_title">
+                <h2>修改幣種</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('Back/IconConf/update')}" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{$curr_info.id}"/>
+
+                    <!-- 币种名称 -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">币种名称
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="currency_name" value="{$curr_info.currency_name}" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+
+                    <!-- 英文标识 -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">英文标识
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="currency_mark" value="{$curr_info.currency_mark}" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+
+                    <!-- 提现手续费 -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">提现手续费
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="ti_fee" value="{$curr_info.ti_fee}" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+
+                    <!-- 货币logo -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">货币logo
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="file" name="currency_logo" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+
+                    <!--大图标-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">大图标
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="file" name="currency_big_logo" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+
+                    <!-- 状态 -->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" style="line-height: 30px;">状态</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <p style="padding-top: 10px;">
+                                <label>
+                                    <input type="radio" name="status" value="0" <eq name="curr_info['status']" value="0"> checked="checked" </eq>> 禁用
+                                </label>&nbsp;&nbsp;
+                                <label>
+                                    <input type="radio" name="status" value="1" <eq name="curr_info['status']" value="1"> checked="checked" </eq>> 启用
+                                </label>&nbsp;&nbsp;
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">提交</button>
+                            <a href="{:U('/Back/IconConf/index')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />

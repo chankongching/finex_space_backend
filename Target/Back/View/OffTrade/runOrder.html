@@ -1,0 +1,417 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>處理訂單</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>訂單詳情</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="accordion">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">訂單狀態</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>訂單ID</th>
+                                        <th>購買人ID</th>
+                                        <th>出售人ID</th>
+                                        <th>購買人用護名</th>
+                                        <th>出售人用護名</th>
+                                        <th>交易幣種</th>
+                                        <th>交易單號</th>
+                                        <th>數量</th>
+                                        <th>單價</th>
+                                        <th>總價</th>
+                                        <th>參考總額</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row">{$order.id}</td>
+                                        <td>{$order.buy_id}</td>
+                                        <td>{$order.sell_id}</td>
+                                        <td>{$order.buy_name}</td>
+                                        <td>{$order.sell_name}</td>
+                                        <td>{$order.currency}</td>
+                                        <td>{$order.order_num}</td>
+                                        <td>{$order.num}</td>
+                                        <td>{$order.price}</td>
+                                        <td>{$order['price']*$order['num']}</td>
+                                        <td>{$order['total_money']}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 订单状态信息 -->
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">待處理原因</h4>
+                        </div>
+                        <div style="color:red" class="panel-body">
+                            <empty name="order.remark_info">
+                                -
+                                <else /> {$order.remark_info}
+                            </empty>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">時間狀態</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>買家點擊確認購買時間</th>
+                                        <th>買家點擊確認打款時間</th>
+                                        <th>賣家點擊確認收款時間</th>
+                                        <th>買家確認打款所用的時間</th>
+                                        <th>賣家確認收款所用的時間</th>
+                                        <th>當前訂單狀態</th>
+                                        <th>當前時間狀態</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            <eq name='order.trade_time' value='0'>暫無
+                                                <else/>{$order.trade_time|date='Y-m-d H:i:s',###}</eq>
+                                        </th>
+                                        <td>
+                                            <eq name='order.shoukuan_time' value='0'>暫無
+                                                <else/>{$order.shoukuan_time|date='Y-m-d H:i:s',###}</eq>
+                                        </td>
+                                        <td>
+                                            <eq name='order.end_time' value='0'>暫無
+                                                <else/>{$order.end_time|date='Y-m-d H:i:s',###}</eq>
+                                        </td>
+                                        <td>{$order.queren_time}</td>
+                                        <td>{$order.dakuan_time}</td>
+                                        <td>{$order.status}</td>
+                                        <td>{$order.time_status}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--银行信息-->
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">銀行信息</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>賣家姓名</th>
+                                        <th>開護銀行名稱</th>
+                                        <th>開護地區以及開護支行地址</th>
+                                        <th>卡號</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">{$order.bank.bank_real_name}</th>
+                                        <td>{$order.bank.bank_name}</td>
+                                        <td>{$order.bank.bank_address}</td>
+                                        <td>{$order.bank.bank_num}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--备注信息-->
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">備註信息</h4>
+
+                        </div><button class="btn btn-success" style="float: right" data-toggle="modal" data-target="#addPS">添加備註信息</button>
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>備註人</th>
+                                        <th>備註添加时间</th>
+                                        <th>備註信息</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <foreach name="mark" item="vo">
+                                        <tr>
+                                            <td>{$vo.admin_name}</td>
+                                            <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+                                            <td>{$vo.mark}</td>
+                                        </tr>
+                                    </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--</form>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>操作列表</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <div class="col-sm-6 text-right">
+                        <a class="btn btn-default" href="{:U('/back/OffTrade/theLineTrade')}">返回線下交易列表</a>
+                    </div>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <p style="color: #ef4d4d;">{$tishi}</p>
+                            <br>
+                            <!-- 提交处理订单 action -->
+                            <form action="{:U('back/OffTrade/subOrder')}" method="post" id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                                <input name='id' value='{$order.id}' type='hidden'>
+                                <!--封號處理(直接封號處理)-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" style="line-height: 30px;">封號處理(直接封號處理)
+													</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select name='sealed_act' class="form-control">
+															<option  value='1'>買家封號</option>
+															<option  value='2' >賣家封號</option>
+															<option  value='3' selected="selected">無</option>
+														</select>
+                                    </div>
+                                </div>
+                                <!--買家積分處理(選擇-1時會增加一次違約次數)-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+														買家積分處理(選擇扣分時會增加一次違約次數)</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <select name='buy_credit_Level_act' class="form-control">
+															<option value='1' >+1</option>
+															<option value='2'>-1.5</option>
+															<option value='3' selected="selected">無</option>
+														</select>
+                                    </div>
+                                </div>
+                                <!--賣家積分處理(選擇-1時會增加一次違約次數)-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+														賣家積分處理(選擇扣分時會增加一次違約次數)</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <select name='sell_credit_Level_act' class="form-control">
+															<option value='1'>+1</option>
+															<option value='2'>-1.5</option>
+															<option value='3' selected="selected">無</option>
+														</select>
+                                    </div>
+                                </div>
+                                <!--訂單處理(修改訂單狀態)-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+														訂單處理(修改訂單狀態)</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <select name='order_act' class="form-control">
+															<option  value='8' >待處理</option>
+															<option  value='6'>撤銷</option>
+															<option  value='4'>完成</option>
+														</select>
+                                    </div>
+                                </div>
+                                <!--金額處理(對出售貨幣處理)-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+														金額處理(對出售貨幣處理)</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <select name='capital_flow_act' class="form-control">
+															<option  value='1'>退回賣家</option>
+															<option  value='2'>增加買家</option>
+															<option  value='3' selected="selected">無</option>
+														</select>
+                                    </div>
+                                </div>
+
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <button id="subChange" type="submit" class="btn btn-success">確定</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<div class="modal-scrollable add_ps_info">
+    <div id="addPS" class="modal fade" data-width="480" aria-hidden="false">
+        <div class="modal-content" style="width:750px;    max-height: 900px;position: absolute;left: 0;right: 0;top: 0;bottom: 0;margin: auto auto;">
+            <div class="modal-header">
+                <h5 class="modal-title">请添加備注</h5>
+            </div>
+            <form action="{:U('OffTrade/addMark')}" id="mark_form" method="post">
+                <div class="modal-body clearfix">
+                    <div class="col-lg-12 ps_text" style="padding: 20px 0;">
+                        <input type="hidden" name="order_id" value="{$order.id}">
+                        <input type="hidden" name="admin_name" value="{$Think.session.str_user.username}">
+                        <textarea type="text" name="mark" class="form-control" style="height: 95px;resize:none" placeholder="请输入内容"></textarea>
+                    </div>
+                    <div class="col-lg-12 ps_button text-center" style="padding: 20px 0;">
+                        <button type="submit" class="btn btn-primary" style="width: 150px;">提交</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="x_content reply_list" style="margin:20px 0px 15px 0">
+                <h4>添加快捷回复</h4>
+                <div class="addreplylist clearfix">
+                    <div class="pull-left" style='width: 90%;'>
+                        <input type="text" class="form-control q_conetnt" maxlength="200" value='' />
+                    </div>
+                    <div class="pull-left">
+                        <input type="button" value="+" class="btn btn-success replay-add">
+                    </div>
+                </div>
+                <volist name="reply_user" id="vo">
+                    <div class="quick-reply-list_{$vo.id}">
+                        <span class="quickreply-c">{$vo.content}。</span>
+                        <span class="add-content btn btn-primary btn-xs">添加至回復</span>
+                        <span class="del-content btn btn-danger btn-xs del_reply" qr-id="{$vo.id}">刪除此留言</span>
+                    </div>
+                </volist>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="Public:footer" />
+
+<script type="text/javascript">
+    //订单处理状态控制
+
+
+    $(document).ready(function() {
+        statusCtl($("select[name='order_act']").val());
+    });
+
+
+    $("select[name='order_act']").change(function() {
+        clearDis();
+        var thsVal = $(this).val();
+        statusCtl(thsVal);
+    });
+
+    function statusCtl(status) {
+        //1.订单--撤销,  [金额处理] 锁死 "退回卖家"
+        if (status == 6) {
+            $("select[name='capital_flow_act']").val("1");
+            $("select[name='capital_flow_act']").attr("disabled", "disabled");
+        }
+        //2.订单--完成,  [金额处理] 锁死 "增加买家"
+        if (status == 4) {
+            $("select[name='capital_flow_act']").val("2");
+            $("select[name='capital_flow_act']").attr("disabled", "disabled");
+        }
+        //3.订单--待處理， [金额],[买家扣押],[卖家扣押]
+        if (status == 8) {
+            $("select[name='capital_flow_act']").val("3");
+            $("select[name='capital_flow_act']").attr("disabled", "disabled");
+        }
+    };
+
+    function clearDis() {
+        $("select").each(function() {
+            $(this).removeAttr("disabled");
+        });
+    };
+
+    $("#subChange").click(function() {
+        clearDis();
+    });
+
+    // at 添加快捷 內容 
+    $(".replay-add").click(function() {
+        let content = $('.q_conetnt').val();
+        if (content == '' || content == null) {
+            layer.msg('請填寫快捷回復內容');
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/ReplyMsg/add",
+            data: {
+                'content': content,
+                'type': '{$quick_type}'
+            },
+            dataType: "json",
+            error: function(request) {},
+            success: function(res) {
+                layer.msg(res.msg);
+                if (res.code == 200) {
+                    html = '<div class="quick-reply-list_' + res.data.id + '">';
+                    html += '<span class="quickreply-c">' + content + '。</span> ';
+                    html += '<span class="add-content btn btn-primary btn-xs">添加至回復</span> ';
+                    html += ' <span class="del-content btn btn-danger btn-xs del_reply" qr-id="' + res.data.id + '">刪除此留言</span>';
+                    html += '</div>';
+                    $('.reply_list').append(html);
+                    $('.q_conetnt').val('');
+                }
+            }
+        });
+    })
+
+    //at 設置語言
+    $('body').on('click', '.add-content', function() {
+            var _this = $(this);
+            var mark = $('textarea[name="mark"]');
+            mark.val(mark.val() + _this.prev().text());
+        })
+        // at 刪除快捷回復
+    $('body').on('click', '.del_reply', function() {
+        let id = $(this).attr('qr-id');
+        $.ajax({
+            type: "POST",
+            url: "/ReplyMsg/del",
+            data: {
+                'id': id
+            },
+            dataType: "json",
+            error: function(request) {},
+            success: function(data) {
+                layer.msg(data.msg);
+                if (data.code == 200) {
+                    $('.quick-reply-list_' + id).remove();
+                }
+            }
+        });
+    })
+</script>

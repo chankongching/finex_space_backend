@@ -1,0 +1,118 @@
+<include file="Public:header"/>
+<include file="Public:nav"/>
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>短信發送日誌記錄</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--篩選表單-->
+            <div class="x_title">
+                <h2>篩選條件</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="get" action="{:U('/back/Sms/index')}">
+                    <div class="form-group col-md-3">
+                        <label class="col-md-12 col-sm-12 col-xs-12 text-left" for="username">用戶名</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12" value="{$Think.get.username}">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="col-md-12 col-sm-12 col-xs-12 text-left" for="phone">號碼</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" id="phone" name="phone" required="required" class="form-control col-md-7 col-xs-12" value="{$Think.get.phone}">
+                        </div>
+                    </div>
+                    <!--操作类型-->
+                    <div class="form-group col-md-2">
+                        <label class="col-md-12 col-sm-12 col-xs-12 text-left" >操作類型</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <select name="type"  class="form-control">
+									<volist name="send_type" id="vo">
+								        <option  value="{$key}"  <if condition="$Think.get.type eq $key"> selected="selected" </if> >{$vo}</option>
+								    </volist>
+							</select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label class="col-md-12 col-sm-12 col-xs-12 text-left">&nbsp;</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success">查找</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <!--用戶列表-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>短信發送的日誌記錄</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row" style="margin-bottom: 10px;overflow: inherit!important;">
+                                <div class="col-sm-6">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb" style="padding-bottom: 50px;">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 92.667px;">用戶ID</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217.667px;">用戶名</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 299.667px;">電話號碼</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 253.667px;">發送短信類型</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 241px;">時間</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <volist name="code_list" id="vo">
+                                            <tr role="row" class="even">
+                                                <td class="sorting_1" id="uidval">{$vo['uid']}</td>
+                                                <td>{$vo['username']}</td>
+                                                <td>{$vo['phonenum']}</td>
+                                                <td>{$vo['type']|FormatSmsType=###}</td>
+                                                <td>{$vo['add_time']|date='Y:m:d H:i:s',###}</td>
+                                            </tr>
+                                        </volist>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--分頁器-->
+                            <div class="row">
+                                <div class="col-sm-5">
+                                </div>
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer"/>

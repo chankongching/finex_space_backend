@@ -1,0 +1,176 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<!--导航 -->
+				<!-- end -->
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>分配權限</h3>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>為{$group_data['title']}分配權限</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<!--切換菜單-->
+								<div class="col-xs-3">
+									<ul class="nav nav-tabs tabs-left">
+                                      <foreach name="rule_data" item="v">
+                                            <li>
+												<a href="div[lable='{$v["id"]}']" data-toggle="tab">{$v['title']}</a>
+											</li>
+                                      </foreach>
+									</ul>
+									<br/><br/>
+					  				<input type="button" name="" id="submitAuth" value="更新權限" class="btn btn-lg btn-block btn-default" />
+								</div>
+
+								<div class="col-xs-9">
+
+									<!-- Tab panes -->
+									<div class="tab-content">
+										<foreach name="rule_data" item="v">
+											<div class="tab-pane" lable="{$v['id']}">
+												<div class="col-md-12 col-sm-12 col-xs-12">
+													<div class="x_panel">
+														<div class="x_content">
+															<ul>
+																<!--第一級菜單-->
+																<div menulevel="1">
+																	<li>
+																		<input type="checkbox" name="" value="{$v['id']}" /> {$v['title']}
+																	</li>
+																</div>
+
+
+																<!--第二級菜單-->
+																<foreach name="v['_data']" item="vo">
+																		<div menulevel="2" number="{$vo['id']}">
+																			<li>
+																				└─&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="" value="{$vo['id']}" name="check" /> {$vo['title']}
+																			</li>
+																		</div>
+																		<!--第三級菜單-->
+																		<div menulevel="3" number="{$vo['id']}">
+																			<foreach name="vo['_data']" item="vosb">
+																				<li>
+																					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" value="{$vosb['id']}" name="check" /> {$vosb['title']}
+																				</li>
+																			</foreach>
+																		</div>
+																</foreach>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+										</foreach>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end -->
+			</div>
+		</div>
+
+		<!-- jQuery -->
+<include file="Public:footer"/>
+<script type="text/javascript">
+		var second_menu_total =  [<?php foreach($auth_rule_id as $Key=>$value){echo $value.',';} ?>];
+		var user_get_auth =  [<?php foreach($user_auth_data as $Key=>$value){echo $value.',';} ?>];
+		var group_id =  "<?php echo $group_id ?>";
+			//  一级菜单
+			$("div[lable]").find("div[menulevel='1']").find("input").click(function() {
+				
+				if($(this).is(":checked")) {
+					$(this).parent().parent().parent().find("div[menulevel]").find("input[type='checkbox']").prop("checked", true);
+				} else {
+					$(this).parent().parent().parent().find("div[menulevel]").find("input[type='checkbox']").prop("checked", false);
+				}
+			});
+
+			// 二级菜单 优化
+			var second_menu_total = 1000;
+			$("div[lable]").find("div[menulevel='2']").find("input").click(function() {
+				
+				var ths = $(this);
+				var key_number = $(this).parent().parent().attr("number");
+				for(i = 1; i < second_menu_total; i++) {
+					if(ths.is(":checked") && key_number == i) {
+						ths.parent().parent().parent().find("div[menulevel='3'][number=" + i + "]").find("input[type='checkbox']").prop("checked", true);
+					} else if(!ths.is(":checked") && key_number == i) {
+						ths.parent().parent().parent().find("div[menulevel='3'][number=" + i + "]").find("input[type='checkbox']").prop("checked", false);
+					}
+				}
+			});
+
+			//三级菜单
+			$("div[lable]").find("div[menulevel='3']").find("input").each(function() {
+				$(this).click(function() {
+					
+					var ths = $(this);
+					var key_number = ths.parent().parent().attr("number");
+					var allCheck = true;
+					if(allCheck) {
+						ths.parent().parent().parent().find("div[menulevel='2'][number=" + key_number + "]").find("input").prop("checked", true);
+					} else {
+						ths.parent().parent().parent().find("div[menulevel='2'][number=" + key_number + "]").find("input").prop("checked", false);
+					}
+
+				});
+			});
+			
+			
+			//ajax提交部分数据
+			$(document).ready(function(){
+			
+				$(".tab-pane").eq(0).addClass("active");
+				$(".tab-content").find("input").each(function(){
+					var ths = $(this);
+					var inputKey = ths.val();
+					var newKey = Number(inputKey);
+					var isOk = user_get_auth.indexOf(newKey);
+					if(isOk != -1){
+						ths.prop("checked", true);
+					}
+				});
+			});
+		
+				$("#submitAuth").click(function(){
+
+					var authArray = [];
+					$(".tab-content").find("input").each(function(){
+						var ths = $(this);
+						if(ths.is(":checked")){
+							var myID = Number(ths.val());
+							authArray.push(myID);
+						}
+					});
+					$.ajax({
+						 type: "POST",
+						 url: "{:U('Back/Rule/rule_group')}",
+						 data: {
+							'id' : group_id,
+							'rule_ids' : authArray
+						 },
+						 dataType: "json",
+						 success: function(data){
+								layer.msg(data.info);
+								window.setTimeout("window.location.reload()",2000);
+						}
+					});
+
+				});
+</script>

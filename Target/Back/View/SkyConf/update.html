@@ -1,0 +1,130 @@
+<include file="Public:header"/>
+<include file="Public:nav"/>
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>修改空投配置</h3>
+        </div>
+    </div>
+    <div class="row">
+        <!--回復留言-->
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content mb">
+                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate=""
+                          method='post' href="{:U('/Back/RewardConf/update')}">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">空头期数</label>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <input type="number" id="first-name" required="required" name="issue_num"
+                                       class="form-control col-md-7 col-xs-12" value="{$sky_conf.issue_num}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">HVC总的空投量</label>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <input type="number" id="first-name" required="required" name="all_num"
+                                       class="form-control col-md-7 col-xs-12" value="{$sky_conf.all_num}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">剩余数量</label>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <input type="number" id="first-name" required="required" name="rest_num"
+                                       class="form-control col-md-7 col-xs-12" value="{$sky_conf.rest_num}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">空投波比</label>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <input type="number" id="first-name" required="required" name="rate"
+                                       class="form-control col-md-7 col-xs-12" value="{$sky_conf.rate}">
+                            </div>
+                        </div>
+
+                        <!-- 状态 -->
+                        <div class="form-group">
+                            <label class="control-label col-md-1 col-sm-1 col-xs-12" style="line-height: 30px;">状态</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <p style="padding-top: 10px;">
+                                    <label>
+                                        <input type="radio" name="stat" value="1" <eq name="sky_conf['stat']" value="1"> checked="checked" </eq>> 开放
+                                    </label>&nbsp;&nbsp;
+                                    <label>
+                                        <input type="radio" name="stat" value="2" <eq name="sky_conf['status']" value="2"> checked="checked" </eq>> 暂停
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="stat" value="3" <eq name="sky_conf['status']" value="3"> checked="checked" </eq>> 结束
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!--添加时间-->
+                        <div class="form-group">
+                            <label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name"></label>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <!--發送留言按鈕-->
+                                <div class="form-group">
+                                    <button type="submit" class="btn  btn-info">提交</button>
+                                    <a href="{:U('back/RewardConf/index')}" class="btn btn-success">返回列表</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- jQuery -->
+<script src="__ADMIN_JS__/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="__ADMIN_JS__/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="__ADMIN_JS__/fastclick.js"></script>
+<!-- NProgress -->
+<script src="__ADMIN_JS__/nprogress.js"></script>
+<!-- gauge.js -->
+<script src="__ADMIN_JS__/gauge.min.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="__ADMIN_JS__/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="__ADMIN_JS__/icheck.min.js"></script>
+<!-- Skycons -->
+<script src="__ADMIN_JS__/skycons.js"></script>
+<!-- Flot -->
+<script src="__ADMIN_JS__/jquery.flot.js"></script>
+<script src="__ADMIN_JS__/jquery.flot.pie.js"></script>
+<script src="__ADMIN_JS__/jquery.flot.time.js"></script>
+<script src="__ADMIN_JS__/jquery.flot.stack.js"></script>
+<script src="__ADMIN_JS__/jquery.flot.resize.js"></script>
+<!-- Flot plugins -->
+<script src="__ADMIN_JS__/jquery.flot.orderBars.js"></script>
+<script src="__ADMIN_JS__/jquery.flot.spline.min.js"></script>
+<script src="__ADMIN_JS__/curvedLines.js"></script>
+<!-- DateJS -->
+<script src="__ADMIN_JS__/date.js"></script>
+<!-- JQVMap -->
+
+<!-- bootstrap-daterangepicker -->
+<script src="__ADMIN_JS__/moment/moment.min.js"></script>
+<script src="__ADMIN_JS__/datepicker/daterangepicker.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="__ADMIN_JS__/custom.js"></script>
+<!-- uEditor -->
+<script src="__ADMIN_JS__/utf8-php/ueditor.config.js" type="text/javascript" charset="utf-8"></script>
+<script src="__ADMIN_JS__/utf8-php/ueditor.all.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('editor-one');
+    var ue = UE.getEditor('editor-one2');
+    var ue = UE.getEditor('editor-one3');
+</script>
+</body>
+</html>

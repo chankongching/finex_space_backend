@@ -1,0 +1,208 @@
+<include file="Public:header"/>
+<include file="Public:nav"/>
+        <div class="right_col" role="main">
+            <!--標題-->
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>預約升級</h3>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+                <div class="x_panel">
+                    <!--篩選表單-->
+                    <div class="x_title">
+                        <h2>篩選條件</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br>
+                        <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method='post' action="{:U('User/upgradeAppointment')}">
+                            <!--用戶名-->
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">預約時間</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <!-- 從當天開始的7個工作日，不包括週六日！！！ -->
+                                    <select class="form-control" id="" name="day">
+                                        <volist name="days" id="vo">
+                                            <option value="{$vo['date']}" <if condition="$vo['date'] eq $day" >selected='true'</if>>{$vo['date']} {$vo['week']}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <button type="submit" class="btn btn-success">查找</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+                <div class="x_panel">
+                    <!--認證預約-->
+                    <div class="x_title">
+                        <h2>認證預約 &nbsp;&nbsp;{$data1['0']['day']} </h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br>
+                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                            <div class="col-sm-12 mb">
+                                <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting text-center" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">時間段</th>
+                                            <th class="sorting text-center" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">時間</th>
+                                            <th class="sorting text-center" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">預約人數</th>
+                                            <th class="sorting text-center" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr role="row">
+                                        <td rowspan="3" class="sorting_1 text-center" style="line-height: 130px;font-size: 16px;">上午</td>
+                                        <td class="text-center" style="font-size: 14px;line-height: 47px;">11:00:00 -- 12:00:00</td>
+                                        <td class="text-center" style="padding-top:11px;">
+                                            <input type="hidden" value="{$data1['0']['id']}" name="id1">
+                                            <input class="form-control" type="text" name="people" value="{$data1['0']['quantity']}" placeholder="只能輸入數字" style="width: 30%;display: inline-block;" /></td>
+                                        <td class="text-center" style="padding-top:20px;">
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['0']['available'] eq 0">checked="checked"</if> checked name="is_real1" value="0"> 空閒
+                                            </label>&nbsp;&nbsp;
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['0']['available'] eq 1">checked="checked"</if> name="is_real1" value="1"> 繁忙
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" style="background-color: rgba(125, 125, 125, 0.43);">
+                                        <td class="sorting_1 text-center" style="font-size: 14px;line-height: 47px;">12:00:00 -- 13:00:00</td>
+                                        <td class="text-center" style="padding-top:11px;">
+                                            <input type="hidden" value="{$data1['1']['id']}" name="id2">
+                                            <input class="form-control" type="text" name="people" value="{$data1['1']['quantity']}" placeholder="只能输入数字" style="width: 30%;display: inline-block;"></td>
+                                        <td class="text-center" style="padding-top:20px;">
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['1']['available'] eq 0">checked="checked"</if> checked name="is_real2" value="0"> 空閒
+                                            </label>&nbsp;&nbsp;
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['1']['available'] eq 1">checked="checked"</if> name="is_real2" value="1"> 繁忙
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="sorting_1 text-center" style="font-size: 14px;line-height: 47px;">13:00:00 -- 14:00:00</td>
+                                        <td class="text-center" style="padding-top:11px;">
+                                            <input type="hidden" value="{$data1['2']['id']}" name="id2">
+                                            <input class="form-control" type="text" name="people" placeholder="只能输入数字" value="{$data1['2']['quantity']}" style="width: 30%;display: inline-block;"></td>
+                                        <td class="text-center" style="padding-top:20px;">
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['2']['available'] eq 0">checked="checked"</if> checked name="is_real3" value="0"> 空閒
+                                            </label>&nbsp;&nbsp;
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['2']['available'] eq 1">checked="checked"</if> name="is_real3" value="1"> 繁忙
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td rowspan="3" class="sorting_1 text-center" style="line-height: 130px;font-size: 16px;">下午</td>
+                                        <td class="text-center" style="font-size: 14px;line-height: 47px;">14:00:00 -- 15:00:00</td>
+                                        <td class="text-center" style="padding-top:11px;">
+                                            <input type="hidden" value="{$data1['3']['id']}" name="id4">
+                                            <input class="form-control" type="text" name="people" placeholder="只能输入数字" value="{$data1['3']['quantity']}" style="width: 30%;display: inline-block;"></td>
+                                        <td class="text-center" style="padding-top:20px;">
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['3']['available'] eq 0">checked="checked"</if> checked name="is_real4" value="0"> 空閒
+                                            </label>&nbsp;&nbsp;
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['3']['available'] eq 1">checked="checked"</if> name="is_real4" value="1"> 繁忙
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr role="row" style="background-color: transparent;">
+                                        <td class="sorting_1 text-center" style="font-size: 14px;line-height: 47px;">15:00:00 -- 16:00:00</td>
+                                        <td class="text-center" style="padding-top:11px;">
+                                            <input type="hidden" value="{$data1['4']['id']}" name="id5">
+                                            <input class="form-control" type="text" name="people" placeholder="只能输入数字" value="{$data1['4']['quantity']}" style="width: 30%;display: inline-block;"></td>
+                                        <td class="text-center" style="padding-top:20px;">
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['4']['available'] eq 0">checked="checked"</if> checked name="is_real5" value="0"> 空閒
+                                            </label>&nbsp;&nbsp;
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['4']['available'] eq 1">checked="checked"</if> name="is_real5" value="1"> 繁忙
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="sorting_1 text-center" style="font-size: 14px;line-height: 47px;">16:00:00 -- 17:00:00</td>
+                                        <td class="text-center" style="padding-top:11px;">
+                                            <input type="hidden" value="{$data1['5']['id']}" name="id6">
+                                            <input class="form-control" type="text" name="people" placeholder="只能输入数字" value="{$data1['5']['quantity']}" style="width: 30%;display: inline-block;"></td>
+                                        <td class="text-center" style="padding-top:20px;">
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['5']['available'] eq 0">checked="checked"</if> checked name="is_real6" value="0"> 空閒
+                                            </label>&nbsp;&nbsp;
+                                            <label>
+                                                <input type="radio" class="flat" <if condition="$data1['5']['available'] eq 1">checked="checked"</if> name="is_real6" value="1"> 繁忙
+                                            </label>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                    <!--提交按鈕-->
+                                    <button type="button" class="btn btn-success btn-lg" onclick="subTime()">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="Public:footer"/>
+<script>
+var arr = new Array();
+var i = 0;
+
+//重组数组
+function resetArr(){
+    $('tr[role=row]').each(function(){
+        arr[i] = new Array();
+        var id   = $(this).find('input[type=hidden]').val();
+        var people   = $(this).find('input[name=people]').val();
+        var is_real  = $(this).find('input[name^=is_real]:checked').val();
+        arr[i] = [id,people,is_real];
+        i++;
+    });
+    return arr;
+}
+
+//提交表單
+function subTime(){
+    var data = resetArr(); 
+    $.ajax({
+        url:"{:U('User/subUpgrade')}",
+        data:{'date':data},
+        dataType:'json',
+        type:'post',
+        success:function(data){
+            layer.msg(data.info);
+            if(data.static==1){
+                window.setTimeout("window.location.reload()", 2000);
+            }
+        } 
+    }); 
+}
+</script>

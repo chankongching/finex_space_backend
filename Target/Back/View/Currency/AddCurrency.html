@@ -1,0 +1,81 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>幣種管理</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--短信配置表單-->
+            <div class="x_title">
+                <h2>添加幣種</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('Currency/AddCurrency')}" enctype="multipart/form-data">
+                    <!--CoinConfig表的属性添加-->
+                        <!--币种名-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">選擇幣種名</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="currency_id">
+                             <option value="">選擇幣種類型</option>
+                              <volist name="currency_list" id="vo">
+                                         <option value="{$key}" >{$vo}</option>
+                               </volist>
+                        </select>
+                       </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">所屬市場級別</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="flag">
+                             <option value="">選擇幣種市場</option>
+                              <volist name="classMarket" id="vo">
+                                         <option value="{$key}" >{$vo}</option>
+                               </volist>
+                        </select>
+                       </div>
+                    </div>
+                  
+                   
+                    
+                   
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">限制線下交易挂售最大數量(個)
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="maximum_num" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">限制線下交易挂售最小數量(個)
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="minimum_num" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">提交</button>
+                            <a href="{:U('Currency/CurrencyList')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />

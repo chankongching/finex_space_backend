@@ -1,0 +1,89 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+	<!--標題-->
+	<div class="page-title">
+		<div class="title_left">
+			<h3>錢包模塊幣種配置</h3>
+		</div>
+	</div>
+	<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+		<div class="x_panel">
+			<!--筛选条件表單-->
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content"></div>
+		</div>
+	</div>
+	<div class="">
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>錢包模塊幣種配置列表</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<div id="datatable_wrapper"
+							class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+							<div class="row">
+								<div class="col-sm-12 mb">
+									<table id="datatable"
+										class="table table-striped table-bordered dataTable no-footer"
+										role="grid" aria-describedby="datatable_info">
+										<thead>
+											<tr role="row">
+												<th class="sorting" tabindex="0" aria-controls="datatable"
+													rowspan="1" colspan="1"
+													aria-label="Position: activate to sort column ascending">幣種</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable"
+													rowspan="1" colspan="1"
+													aria-label="Position: activate to sort column ascending">臨時維護</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable"
+													rowspan="1" colspan="1"
+													aria-label="Position: activate to sort column ascending">關閉充幣申請</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable"
+													rowspan="1" colspan="1"
+													aria-label="Position: activate to sort column ascending">關閉提幣申請</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable"
+													rowspan="1" colspan="1"
+													aria-label="Office: activate to sort column ascending">修改時間</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable"
+													rowspan="1" colspan="1"
+													aria-label="Start date: activate to sort column ascending">操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<volist name="list" id="vo">
+											<tr role="row" class="even">
+												<td class="sorting_1 idval">{$vo['currency_name']|strtoupper}</td>
+												<td class="sorting_1">{$vo['maintain_currency']}</td>
+												<td>{$vo['close_recharge']}</td>
+												<td>{$vo['close_carry']}</td>
+												<td><if condition="($vo['time'] eq 0)"> - <else />
+													{$vo['time']|date='Y-m-d H:i',###} </if></td>
+												<td><a
+													href="{:U('Maintain/currency',array('id'=>$vo['id']))}"
+													class="btn btn-success btn-xs">修改</a></td>
+											</tr>
+											</volist>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="row"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+<script>
+	
+</script>

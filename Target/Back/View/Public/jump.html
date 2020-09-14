@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- Meta, title, CSS, favicons, etc. -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>BTCSALE後台管理</title>
+		<link rel="icon" type="Aipower" href="__ADMIN_IMG__/aipower_ico.ico" />
+
+		<!-- Bootstrap -->
+		<link href="__ADMIN_CSS__/bootstrap.min.css" rel="stylesheet">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/font-awesome/css/font-awesome.css" />
+		<!-- NProgress -->
+		<link href="__ADMIN_CSS__/nprogress.css" rel="stylesheet">
+		<!-- iCheck -->
+		<link href="__ADMIN_CSS__/blue.css" rel="stylesheet">
+		<!-- bootstrap-progressbar -->
+		<link href="__ADMIN_CSS__/bootstrap-progressbar-3.3.4.css" rel="stylesheet">
+		<!-- JQVMap -->
+		<link href="__ADMIN_CSS__/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+		<!-- bootstrap-daterangepicker -->
+		<link href="__ADMIN_CSS__/daterangepicker.css" rel="stylesheet">
+
+		<!-- Custom Theme Style -->
+		<link href="__ADMIN_CSS__/custom.min.css" rel="stylesheet">
+		<style type="text/css">
+			body .container.body .right_col{
+				background: url("__ADMIN_IMG__/blurry_blue_background_ii-wallpaper-2400x1350.jpg") no-repeat;
+				background-size: cover;
+			}
+		</style>
+	</head>
+	<!--頭部-->
+
+	<body class="">
+		<div class="container body">
+			<div class="main_container">
+				<div class="right_col" role="main">
+					<div class="col-lg-12 text-center" style="margin-top:13%;background:rgba(0,0,0,.075) ; color: white;">
+							<h1 style="margin-top: 30px;">{$message}{$error}</h1>
+							<h3 style="padding-bottom: 30px;">頁面將在 <span style="color: #f2ff22;" href="{$jumpUrl}" id="wait">{$waitSecond}</span> 秒后<a id="href" href="{$jumpUrl}" style="color: white;">跳轉</a> </h3>
+					</div>					
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="__ADMIN_JS__/jquery.min.js"></script>
+		<!-- Bootstrap -->
+		<script src="__ADMIN_JS__/bootstrap.min.js"></script>
+		<!-- FastClick -->
+		<script src="__ADMIN_JS__/fastclick.js"></script>
+		<!-- NProgress -->
+		<script src="__ADMIN_JS__/nprogress.js"></script>
+		<!-- gauge.js -->
+		<script src="__ADMIN_JS__/gauge.min.js"></script>
+		<!-- bootstrap-progressbar -->
+		<script src="__ADMIN_JS__/bootstrap-progressbar.min.js"></script>
+		<!-- iCheck -->
+		<script src="__ADMIN_JS__/icheck.min.js"></script>
+		<!-- Skycons -->
+		<script src="__ADMIN_JS__/skycons.js"></script>
+		<!-- Flot -->
+		<script src="__ADMIN_JS__/jquery.flot.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.pie.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.time.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.stack.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.resize.js"></script>
+		<!-- Flot plugins -->
+		<script src="__ADMIN_JS__/jquery.flot.orderBars.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.spline.min.js"></script>
+		<script src="__ADMIN_JS__/curvedLines.js"></script>
+		<!-- DateJS -->
+		<script src="__ADMIN_JS__/date.js"></script>
+		<!-- JQVMap -->
+		<!--<script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
+		<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+		<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>-->
+		<!-- bootstrap-daterangepicker -->
+		<script src="__ADMIN_JS__/moment/moment.min.js"></script>
+		<script src="__ADMIN_JS__/datepicker/daterangepicker.js"></script>
+
+		<!-- Custom Theme Scripts -->
+		<script src="__ADMIN_JS__/custom.js"></script>
+		<script type="text/javascript">
+			(function() {
+				var wait = document.getElementById('wait'),
+					href = document.getElementById('href').href;
+				var interval = setInterval(function() {
+					var time = --wait.innerHTML;
+					if(time <= 0) {
+						location.href = href;
+						clearInterval(interval);
+					};
+				}, 1000);
+			})();
+		</script>
+	</body>
+
+</html>

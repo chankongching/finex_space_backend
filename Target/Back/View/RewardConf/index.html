@@ -1,0 +1,78 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>奖励配置管理</h3>
+						</div>
+					</div>
+					<div class="">
+						<div class="clearfix"></div>
+						<!--公告列表-->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>奖励配置列表</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+											<div class="row">
+												<div class="col-sm-12 text-right">
+													<a class="btn btn-success" href="{:U('back/RewardConf/create')}">添加{$type_name}记录</a>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12 mb">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">序號</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">项目名称</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">项目描述</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">直推奖励百分比</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">等级为V2的见点奖比例</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">等级为V3的见点奖比例</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">等级为V4的见点奖比例</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">等级为V5的见点奖比例</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">操作</th>
+															</tr>
+														</thead>
+														<tbody>
+															<foreach name="list" item="vo" key="k">
+																<tr role="row" class="even">
+																	<td>{$vo['id']}</td>
+																	<td>{$vo['pro_name']}</td>
+																	<td>{$vo['pro_content']}</td>
+																	<td>{$vo['lv1']}</td>
+																	<td>{$vo['lv2']}</td>
+																	<td>{$vo['lv3']}</td>
+																	<td>{$vo['lv4']}</td>
+																	<td>{$vo['lv5']}</td>
+																	<td>
+																		<a class="btn btn-xs btn-primary hov1" href="{:U('/Back/RewardConf/update',array('id'=>$vo['id']))}">修改</a>
+																		<a class="btn btn-xs btn-danger " href="javascript:if(confirm('确定删除？'))location='{:U('/Back/RewardConf/delete',array('id'=>$vo['id']))}'">刪除</a>
+																	</td>
+																</tr>
+															</foreach>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="row">
+												{$page}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	
+<include file="Public:footer" />

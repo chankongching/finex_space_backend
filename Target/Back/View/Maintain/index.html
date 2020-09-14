@@ -1,0 +1,82 @@
+<include file="Public:header"/>
+<include file="Public:nav"/>
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>網站交易維護配置</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--筛选条件表單-->
+            <div class="x_title">
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>網站交易維護配置列表</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">ID</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">交易模式</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">掛單</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">訂單列表</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">未完成訂單</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">總開關</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">修改時間</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <volist name="list" id="vo">
+                                            <tr role="row" class="even">
+                                                <td class="sorting_1 idval">{$vo['id']}</td>
+                                                <td class="sorting_1">{$vo['type_str']}</td>
+                                                <td>{$vo['forbid_order']}</td>
+                                                <td>{$vo['list_order']}</td>
+                                                <td>{$vo['deal_order']}</td>
+                                                <td>{$vo['master_switch']}</td>
+                                                <td>
+                                                    <if  condition="($vo['time'] eq 0)">
+                                                      -
+                                                    <else />
+                                                      {$vo['time']|date='Y-m-d H:i',###}
+                                                   </if>
+                                                </td>
+                                                <td> 
+                                                   <a href="{:U('Maintain/getItemById',array('type'=>$vo['type']))}" class="btn btn-success btn-xs">修改</a>
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer"/>

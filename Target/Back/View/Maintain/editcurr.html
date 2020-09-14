@@ -1,0 +1,95 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>錢包模塊幣種配置</h3>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2 id= 'curr_id' curr_id="{$data['id']}">{$data['type_str']}</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							
+							 <div class="alert alert-success alert-dismissible fade in" role="alert">
+				                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+				                    </button>
+				                    <strong>臨時維護  : </strong>
+				                                  維護中表示錢包模塊能看到幣種處於維護中，無法點擊加載數據
+				                       <br/> 
+				                        <strong>關閉充提幣  : </strong>
+				                                    維護中表示錢包模塊看不到該幣種
+				            <br/> 
+				                  </div>
+							
+							<div class="x_content">
+								<br> 
+								<div id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+									<div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">臨時維護
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input  type="radio"  class="flat_currency" name="maintain_currency" value="1" <if condition="$data['maintain_currency'] eq 1">checked="checked"</if> >維護中
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat_currency" name="maintain_currency" value="0" <if condition="$data['maintain_currency'] eq 0">checked="checked"</if> > 停止維護
+				                                </label>
+				                            </p>
+				                        </div>
+				                    </div>
+				                    
+									<div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">關閉充幣
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input type="radio" class="flat_currency" name="close_recharge" value="1" <if condition="$data['close_recharge'] eq 1">checked="checked"</if> > 維護中
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat_currency" name="close_recharge" value="0" <if condition="$data['close_recharge'] eq 0">checked="checked"</if> >停止維護
+				                                </label>
+				                            </p>
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">關閉提幣
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input type="radio" class="flat_currency" name="close_carry" value="1" <if condition="$data['close_carry'] eq 1">checked="checked"</if> > 維護中
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat_currency" name="close_carry" value="0" <if condition="$data['close_carry'] eq 0">checked="checked"</if> >停止維護
+				                                </label>
+				                            </p>
+				                        </div>
+				                    </div>
+				                    
+				                     <div class="form-group">
+				                     <hr>
+				                       <label class="control-label col-md-3 col-sm-3 col-xs-12">
+				                        <a href="{:U('Maintain/currency')}" class="btn btn-primary pull-left">返回列表</a>
+				                        </label>
+				                     </div>
+				                   
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />
+<script src="__ADMIN_JS__/maintain_trade.js"></script>

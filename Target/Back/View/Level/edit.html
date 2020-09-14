@@ -1,0 +1,119 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>等級管理</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>修改幣種</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('Level/edit')}">
+                   <!-- 选择等级 -->                   
+                   <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">選擇等級類型</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="level"  disabled="disabled">
+                             <option value="">選擇幣種類型</option>
+                              <volist name="level_vip" id="vo">
+                                   <option value="{$key}" <if condition="($data['vip_level'] eq $key) ">selected='true'</if>>{$vo}</option>
+                              </volist>
+                        </select>
+                       </div>
+                    </div>
+                    <!--币种名-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">選擇幣種名</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="currency_id"  disabled="disabled">
+                             <option value="">選擇幣種類型</option>
+                              <volist name="currency_list" id="vo">
+                                         <option value="{$key}" <if condition="($data['currency_id'] eq $key) ">selected='true' disabled="disabled"</if>>{$vo}</option>
+                               </volist>
+                        </select>
+                       </div>
+                    </div>
+                    <!-- 影藏文本域 -->
+                    <input  type="hidden" name='l_id' value="{$data['id']}">
+                    <input  type="hidden" name='cid' value="{$cid}">
+                    <input  type="hidden" name='serachLevel' value="{$level}">
+                    
+                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">幣種提幣手續費
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="coin_fee" value="{$data['coin_fee']}" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">每日最大掛單數量
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="day_max_sell_amount"  value="{$data['day_max_sell_amount']}" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">單筆提幣最小數量
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="min_tibi_amount" value="{$data['min_tibi_amount']}"  required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">每日提幣數量
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="day_max_tibi_amount" value="{$data['day_max_tibi_amount']}"  required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <!--买单数-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">買單數
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="buy_order" value="{$data['buy_order']}"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <!--賣單數-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">賣單數
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="sell_order" value="{$data['sell_order']}"  required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">美金提现
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="ti_usd_fee"   value="{$data['ti_usd_fee']}"   required="required" class="form-control col-md-7 col-xs-12">
+                    </div>
+                    </div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">修改</button>
+                             <a href="{:U('Level/index',array('level'=>$data['vip_level']))}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+<include file="Public:footer" />

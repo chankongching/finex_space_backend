@@ -1,0 +1,161 @@
+<include file="Public:header"/>
+<include file="Public:nav"/>
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>等級</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--筛选条件表單-->
+            <div class="x_title">
+                <h2>篩選條件</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="get" action="{:U('Level/index')}">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <td>
+                                <label class="control-label col-md-2 col-sm-3 col-xs-12" for="start_time">幣種類型</label>
+                                 <div class="col-md-10 col-sm-3 col-xs-12">
+                                    <select class="form-control"  id="searchCurr" name="currency_id">
+                                        <option value="">===選擇幣種類型===</option>
+                                        <volist name="currency_list" id="vo">
+                                            <option value="{$key}" <if condition="$Think.get.currency_id eq $key">selected='true'</if>>{$vo}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </td>
+                            <!--選擇查看類型select框-->
+                            <td>
+                                <label class="control-label col-md-2 col-sm-3 col-xs-12">選擇等級類型</label>
+                                <div class="col-md-10 col-sm-3 col-xs-12">
+                                    <select class="form-control" id="serachLevel" name="level">
+                                        <option value="" >===選擇等級類型===</option>
+                                        <volist name="level_vip_search" id="vo">
+                                            <option value="{$key}" <if condition="$Think.get.level eq $key">selected='true'</if>>{$vo}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </td>
+                            <!--提交按鈕-->
+                            <td>
+                                <button type="submit" class="col-md-10 col-sm-2 col-xs-10 btn btn-success">查找</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>等級列表</h2>
+                         <a href="{:U('Level/add')}" class="btn btn-success pull-right">添加等级配置</a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">幣種</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">等級</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">每日最大掛單數量</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">单笔提幣最小數量</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">每日提幣數量</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">買單數</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">賣單數</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">美金提现</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">幣种提幣手續費</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">添加日期</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">修改日期</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <volist name="data_list" id="vo">
+                                            <tr role="row" class="even">
+                                                <td class="sorting_1 idval">{$vo['currency_id']|getCurrencyName=###}</td>
+                                                <td class="sorting_1">{$vo['vip_level']|formatLevel=###}</td>
+                                                <td>{$vo['day_max_sell_amount']}</td>
+                                                 <td>{$vo['min_tibi_amount']}</td>
+                                                <td>{$vo['day_max_tibi_amount']}</td>
+                                                <td>{$vo['buy_order']}</td>
+                                                <td>{$vo['sell_order']}</td>
+                                                <td>{$vo['ti_usd_fee']}</td>
+                                                <td>{$vo['coin_fee']}</td>
+                                                <td>{$vo['add_time']|date='Y-m-d H:i:s',###}</td>
+                                                <td>
+                                                   <if  condition="($vo['update_time'] eq 0)">
+                                                      -
+                                                    <else />
+                                                      {$vo['update_time']|date='Y-m-d H:i:s',###}
+                                                   </if>
+                                                </td>
+                                                 <td>
+                                                 <a class="btn btn-success btn-xs jumpwithSearch"  did="{$vo['id']}">修改</a> 
+                                                 <span class="btn btn-danger btn-xs" onclick="delLevel(this)"  d_id="{$vo['id']}">刪除</span>
+                                                 </td>
+                                            </tr>
+                                        </volist>
+                                        </tbody>
+                                    </table>
+                                </div>	
+                            </div>
+                            <div class="row">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer"/>
+<script>
+     //删除记录
+     function delLevel(_t)
+     { 
+        var id= $(_t).attr('d_id');
+        layer.confirm(
+           	 "<span style='color:#fff'>確定删除嗎？</span>", 
+                {
+           	       title:"*提示",
+           	       btn: ["確定","取消"]
+                }, 
+                function()
+                {
+           		   window.location.href="/Back/Level/delete/id/"+id;
+                });  
+     }
+     
+     $(".jumpwithSearch").click(function(){
+    	  var id=$(this).attr('did');
+    	  var cid=$("#searchCurr").find("option:selected").val();
+    	  var level=$("#serachLevel").find("option:selected").val();
+    	  
+    	  var str="?id="+id+"&currency_id="+cid+"&level="+level;
+    	  window.location.href="/Back/level/edit"+str;
+     })
+     
+     
+     
+</script>

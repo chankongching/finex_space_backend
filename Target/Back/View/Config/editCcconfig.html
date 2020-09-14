@@ -1,0 +1,78 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>幣種管理</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--短信配置表單-->
+            <div class="x_title">
+                <h2>修改幣種</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('Config/editCcconfig')}" >
+                    <input type="hidden" name="currency_id" value="{$res.currency_id}"/>
+                    <!--c2c配置表-->
+                    <!--币种名-->
+                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">幣種名稱
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="" required="required"  disabled="readonly" value="{$res.currency_name}" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">最小金額<span style="color:red">($美金)</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="min_trade_money" maxlength="16" required="required" value="{$res.min_trade_money}" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">保證金
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="bond_num" maxlength="20" required="required" value="{$res.bond_num}" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">買家手續費
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text"name="buy_fee" maxlength="20" required="required" value="{$res.buy_fee}" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">賣家手續費
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="sell_fee" maxlength="20" required="required" value="{$res.sell_fee}" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">提交</button>
+                            <a href="{:U('Config/ccfonfig')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />

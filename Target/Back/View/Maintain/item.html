@@ -1,0 +1,117 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>系統維護配置</h3>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+						<div class="x_panel">
+							<!--短信配置表單-->
+							<div class="x_title">
+								<h2 id= 'type_id' type_id="{$data['type']}">{$data['type_str']}</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix">
+								</div>
+							</div>
+							 <div class="alert alert-success alert-dismissible fade in" role="alert">
+				                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+				                    </button>
+				                    <strong>停止掛單  : </strong>
+				                                 維護中表示用戶不能進行掛單
+				                       <br/> 
+				                        <strong>市場訂單  : </strong>
+				                                  維護中表示關閉市場訂單,用戶看不到任何市場訂單
+				            <br/> 
+				                        <strong>正在交易訂單 : </strong>
+				                                 維護中表示正在交易的訂單無法正常走完交易流程.
+				                                  <br/> 
+				                        <strong>交易模式縂開関 : </strong>
+				                                 維護中表示關閉整個當前交易模式的每個入口.
+				                  </div>
+							<div class="x_content">
+								<br> 
+								<div id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+									<div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">停止掛單
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input  type="radio"  class="flat_radio" name="forbid_order" value="1" <if condition="$data['forbid_order'] eq 1">checked="checked"</if> > 維護中
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat_radio" name="forbid_order" value="0" <if condition="$data['forbid_order'] eq 0">checked="checked"</if> > 停止維護
+				                                </label>
+				                            </p>
+				                        </div>
+				                    </div>
+				                    
+									<div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">市場訂單
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input type="radio" class="flat_radio" name="list_order" value="1" <if condition="$data['list_order'] eq 1">checked="checked"</if> > 維護中
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat_radio" name="list_order" value="0" <if condition="$data['list_order'] eq 0">checked="checked"</if> >停止維護
+				                                </label>
+				                            </p>
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">正在交易訂單
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input type="radio" class="flat_radio" name="deal_order" value="1" <if condition="$data['deal_order'] eq 1">checked="checked"</if> > 維護中
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat_radio" name="deal_order" value="0" <if condition="$data['deal_order'] eq 0">checked="checked"</if> > 停止維護
+				                                </label>
+				                                &nbsp;&nbsp;
+				                                <span style="color :red">   &nbsp;&nbsp;{$data['deal_order_str']}</span>
+				                            </p> 
+				                        </div>
+				                    </div>
+				                     <div class="form-group">
+				                        <label class="control-label col-md-3 col-sm-3 col-xs-12">交易模式縂開関
+				                        </label>
+				                        <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <p style="padding-top: 10px;">
+				                                <label>
+				                                    <input type="radio" class="flat_radio" name="master_switch" value="1" <if condition="$data['master_switch'] eq 1">checked="checked"</if> > 維護中
+				                                </label>&nbsp;&nbsp;
+				                                <label>
+				                                    <input type="radio" class="flat_radio" name="master_switch" value="0" <if condition="$data['master_switch'] eq 0">checked="checked"</if> > 停止維護
+				                                </label>
+				                                &nbsp;&nbsp;
+				                                <span style="color:red"> &nbsp;&nbsp;{$data['deal_order_str']}</span>
+				                            </p> 
+				                        </div>
+				                    </div>
+				                     <div class="form-group">
+				                     <hr>
+				                       <label class="control-label col-md-3 col-sm-3 col-xs-12">
+				                        <a href="{:U('Maintain/index')}" class="btn btn-primary pull-left">返回列表</a>
+				                        </label>
+				                     </div>
+				                   
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />
+<script src="__ADMIN_JS__/maintain_trade.js"></script>

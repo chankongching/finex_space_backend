@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>添加FAQ標題</h3>
+						</div>
+					</div>
+					<div class="row">
+						<!--回復留言-->
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_content mb">
+									<form id="demo-form2" data-parsley-validate="" action="{:U('Faq/addFaqTitle')}"method="post" class="form-horizontal form-label-left" novalidate="">
+										<!--标题-->
+										<div class="form-group">
+											<label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">選擇標題類型</label>
+											<div class="col-md-10 col-sm-10 col-xs-12">
+												<select class="form-control col-md-5 col-xs-12" name="pid">
+													<option value="0">選擇主標題</option>
+												   <volist name="list" id="vo">
+													 <option value="{$vo.id}">{$vo.zh-tw-title}</option>
+												   </volist>
+												</select>
+											</div>
+										</div>
+<!--										<div class="form-group">-->
+<!--											<label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">简体中文標題</label>-->
+<!--											<div class="col-md-10 col-sm-10 col-xs-12">-->
+<!--												<input type="text" id="first-name" required="required" name="zh-cn-title" class="form-control col-md-7 col-xs-12" value="">-->
+<!--											</div>-->
+<!--										</div>-->
+<!--										&lt;!&ndash;添加时间&ndash;&gt;-->
+<!--										-->
+<!--										<div class="form-group">-->
+<!--											<label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">繁體中文標題</label>-->
+<!--											<div class="col-md-10 col-sm-10 col-xs-12">-->
+<!--												<input type="text" id="first-name" required="required" name="zh-tw-title" class="form-control col-md-7 col-xs-12" value="">-->
+<!--											</div>-->
+<!--										</div>-->
+										
+										<div class="form-group">
+											<label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">英文標題</label>
+											<div class="col-md-10 col-sm-10 col-xs-12">
+												<input type="text" id="first-name" required="required" name="en-us-title" class="form-control col-md-7 col-xs-12" value="">
+											</div>
+										</div>
+										<!--添加时间-->
+										<div class="form-group">
+												<div class="control-label col-md-1 col-sm-1 col-xs-12"></div>
+												<div class="col-md-10 col-sm-10 col-xs-12">
+													<button type="submit" class="btn  btn-info">提交</button>
+													<a href="{:U('Faq/showFaqList')}" class="btn btn-success">返回列表</a>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="__ADMIN_JS__/jquery.min.js"></script>
+		<!-- Bootstrap -->
+		<script src="__ADMIN_JS__/bootstrap.min.js"></script>
+		<!-- FastClick -->
+		<script src="__ADMIN_JS__/fastclick.js"></script>
+		<!-- NProgress -->
+		<script src="__ADMIN_JS__/nprogress.js"></script>
+		<!-- gauge.js -->
+		<script src="__ADMIN_JS__/gauge.min.js"></script>
+		<!-- bootstrap-progressbar -->
+		<script src="__ADMIN_JS__/bootstrap-progressbar.min.js"></script>
+		<!-- iCheck -->
+		<script src="__ADMIN_JS__/icheck.min.js"></script>
+		<!-- Skycons -->
+		<script src="__ADMIN_JS__/skycons.js"></script>
+		<!-- Flot -->
+		<script src="__ADMIN_JS__/jquery.flot.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.pie.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.time.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.stack.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.resize.js"></script>
+		<!-- Flot plugins -->
+		<script src="__ADMIN_JS__/jquery.flot.orderBars.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.spline.min.js"></script>
+		<script src="__ADMIN_JS__/curvedLines.js"></script>
+		<!-- DateJS -->
+		<script src="__ADMIN_JS__/date.js"></script>
+		<!-- JQVMap -->
+		
+		<!-- bootstrap-daterangepicker -->
+		<script src="__ADMIN_JS__/moment/moment.min.js"></script>
+		<script src="__ADMIN_JS__/datepicker/daterangepicker.js"></script>
+
+		<!-- Custom Theme Scripts -->
+		<script src="__ADMIN_JS__/custom.js"></script>
+		<!-- uEditor -->
+	</body>
+</html>
+

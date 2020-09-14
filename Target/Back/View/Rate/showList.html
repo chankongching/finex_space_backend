@@ -1,0 +1,212 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>匯率列表</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--篩選表單-->
+            <div class="x_title">
+                <h2>篩選條件</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" action="{:U('Rate/showList')}" method="post">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <!--用戶名-->
+                            <td>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">日期時間段選擇</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select name="timePeriod" class="form-control">
+                                        <option value="">匯率添加時間</option>
+                                        <option value="1" <if condition="$Think.get.timePeriod eq 1">selected='true'</if>>近壹個星期</option>
+                                        <option value="2" <if condition="$Think.get.timePeriod eq 2">selected='true'</if>>近壹個月</option>
+                                        <option value="3" <if condition="$Think.get.timePeriod eq 3">selected='true'</if>>近三個個月</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-success">查找</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <!--投訴列表-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <!--<div class="x_title">-->
+                        <!--<h2>汇率列表</h2>-->
+                         <!--<a href="{:U('Rate/addRate')}" class="btn btn-success pull-right">新增汇率</a>-->
+                        <!--<div class="clearfix"></div>-->
+                    <!--</div>-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group pull-right">
+
+                                <button class="btn btn-success" data-toggle="modal" data-target="#add_admin">新增匯率</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 100px;">匯率</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 100px;">两周平均匯率</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200px;">添加時間</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200px;">修改時間</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 200px;">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <volist name="rate_list" id="vo">
+                                            <tr role="row" class="even">
+                                                <td>{$vo['rate']}</td>
+                                                <td>
+                                                    <if condition="$vo['rate_avg'] eq 0 ">-
+                                                        <else />{$vo['rate_avg']}
+                                                    </if>
+                                                </td>
+                                                <td>{$vo['add_time']|date="Y-m-d H:i:s",###}</td>
+                                                <td>
+                                                    <if condition="$vo['update_time'] eq 0 ">-
+                                                        <else />{$vo['update_time']|date="Y-m-d H:i:s",###}
+                                                    </if>
+                                                </td>
+                                                <td>
+                                                    <button type="button" data-toggle="modal" idVal ="{$vo['id']}" class="btn btn-xs btn-primary hov1" data-target="#change">修改</button>
+                                                    <button type="button" id ="onekey" tid ="{$vo['id']}" onclick="oneKeySave('{$vo['id']}')" class="btn btn-xs btn-success">更新</button>
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!--新增汇率-->
+<div class="modal fade bs-example-modal-lg in" id="add_admin" tabindex="-1" role="dialog" aria-hidden="true" style=" padding-right: 17px;margin-top: 15%;">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel2">添加匯率</h4>
+            </div>
+            <form id="demo-form2" data-parsley-validate=""   action="{:U('Back/Rate/addRate')}" method="post"  class="form-horizontal form-label-left" novalidate="">
+                <div class="modal-body">
+                    <!--用戶組名-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">匯率</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="first-name" name="rate"  required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                </div>
+                <!--提交按鈕-->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-sm in" id="change" tabindex="-1" role="dialog" aria-hidden="true" style=" padding-right: 17px; margin-top: 20%;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">修改匯率</h4>
+            </div>
+            <div class="modal-body">
+                <form id="" data-parsley-validate=""   action="{:U('Back/Rate/changeRate')}"   method="post"   class="form-horizontal form-label-left" novalidate="">
+                    <!--用戶組名-->
+                    <!--注意进行赋值  name属性值-->
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12" for="first-name">匯率</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input type="text"  name="rate" id="perName"  required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+            </div>
+            <!--提交按鈕-->
+            <div class="modal-footer">
+                <!-- 表单隐藏域   当前编辑修auth  group的id -->
+                <input type="hidden" name="id" id="editId" value=""/>
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<include file="Public:footer" />
+<script type="text/javascript">
+    $('.hov1').click(function(){
+        var id = $(this).attr('idVal');
+        $('#editId').val(id);
+        $.post("{:U('back/Rate/getRateAjax')}",{id:id},function(result){
+            result = JSON.parse(result);
+            $('#perName').val(result.rate);
+        });
+    });
+    $('.changeRate').click(function(){
+        var id = $(this).attr('idVal');
+        $('#editId').val(id);
+    });
+    
+    function oneKeySave(tid){
+        var id = tid;
+        $.ajax({
+            type: "POST",
+            url: "/back/Rate/oneKeySave",        //传入url变量
+            data: {'id' : id},     //传入data变量
+            dataType: "json",
+            success: function(data) {
+                if(data.status ==200){
+                    layer.msg(data.msg);
+                    window.setTimeout(function(){
+                        window.location.reload();
+                    },1000);
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        });
+    }
+</script>

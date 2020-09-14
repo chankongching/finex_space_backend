@@ -1,0 +1,305 @@
+<include file="Public:header" />
+<link rel="stylesheet" href="__ADMIN_JS__/timepicker/bootstrap-datetimepicker.css">
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>身份認證</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--篩選表單-->
+            <div class="x_title">
+                <h2>篩選條件</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="get" action="{:U('Security/showIdCardList')}">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <!--用戶ID-->
+                            <td>
+                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">用戶ID</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="uid" value="{$Think.get.uid}">
+                                </div>
+                            </td>
+                            <!--用戶名-->
+                            <td>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">用戶名</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" id="first-name" name="username" required="required" value="{$Think.get.username}" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </td>
+                            <!--證件號碼-->
+                            <td>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="card-code">證件號碼</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" id="card-code" name="card_num" value="{$Think.get.card_num}" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </td>
+                            <!--提交按鈕-->
+                            <td>
+                                <button type="submit" class="btn btn-success">查找</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <!--身份認證列表-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>身份認證列表</h2>
+                        <button type="button" id="sub" class="btn btn-primary modifyGid pull-right SureOut_excel">導出所有</button>
+                        <div class="form-group input-group col-md-2 pull-right">
+                            <span class="input-group-addon">結束日期</span>
+                            <input type="text" name="endTime" value="" class="form-control bootstrap-timepicker" placeholder="結束时间" readonly="readonly">
+                        </div>
+                        <div class="form-group input-group col-md-2 pull-right">
+                            <span class="input-group-addon">起始日期</span>
+                            <input type="text" name="startTime" value="" class="form-control bootstrap-timepicker" placeholder="開始时间" readonly="readonly">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">ID</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">用戶ID</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">用戶名</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">證件類型</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">證件姓名</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">證件號碼</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">證件正面圖像</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">證件和銀行卡合影圖像</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">證件過期時間</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">申請時間</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">審核時間</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">狀態</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <volist name="list" id="vo">
+                                                <tr role="row" class="even">
+                                                    <td class="sorting_1">{$vo['id']}</td>
+                                                    <td class="sorting_1">{$vo['uid']}</td>
+                                                    <td>{$vo['username']|default="未找到該用戶"}</td>
+                                                    <td>{$vo['card_type']|formatCardType=###}</td>
+                                                    <td>{$vo['card_name']}</td>
+                                                    <td>{$vo['card_num']}</td>
+                                                    <td><img src="{$vo['up_img']}" alt="" width="100"></td>
+                                                    <td><img src="{$vo['all_img']}" alt="" width="100"></td>
+                                                    <td>{$vo['expire_time']|bigIntTimeStampeToDate=###}</td>
+                                                    <td>{$vo['add_time']|date='Y-m-d H:i:s',###}</td>
+                                                    <td>{$vo['check_time']?$vo['check_time']|date='Y-m-d H:i:s',###:"未審核"}</td>
+                                                    <td>
+                                                        <if condition="$vo['status'] eq 0">
+                                                            <span>審核中</span>
+                                                        </if>
+                                                        <if condition="$vo['status'] eq 1">
+                                                            <span style="color:#008000">審核通過</span>
+                                                        </if>
+                                                        <if condition="$vo['status'] eq -1">
+                                                            <span style="color:#de1616">審核未通過</span>
+                                                        </if>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{:U('Security/userDetail')}?uid={$vo.uid}" class="btn btn-info btn-xs">查看詳情</a>
+                                                    </td>
+                                                </tr>
+                                            </volist>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="__ADMIN_JS__/jquery.min.js"></script>
+<script src="__ADMIN_JS__/xlsx.full.min.js"></script>
+<script src="__ADMIN_JS__/FileSaver.js"></script>
+<script src="__ADMIN_JS__/timepicker/bootstrap-datetimepicker.js"></script>
+<script>
+    $(".bootstrap-timepicker").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        minView: 0,
+        autoclose: true,
+        language: 'cn',
+        minuteStep: 1
+    });
+    var num = 0;
+    $("#sub").click(function() {
+
+        if (num == 0) {
+            num = 1;
+            $.ajax({
+                type: "post",
+                url: "/Security/outExcel",
+                data: {
+                    "s_time": $("input[name=startTime]").val(),
+                    "e_time": $("input[name=endTime]").val()
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.code == 200) {
+                        num = 0;
+                        var DataHtml = "";
+                        var title = data.data.title;
+                        var res_length = data.data.res.length;
+                        var res = data.data.res;
+                        var jsonData = [];
+                        for (var i = 0; i < res_length; i++) {
+                            var str = {
+                                "用戶ID": res[i].uid,
+                                "用戶名": res[i].name,
+                                "證件類型": res[i].type_str,
+                                "證件姓名": res[i].card_name,
+                                "證件號碼": res[i].card_num,
+                                "審核時間": res[i].check_time,
+                                "處理人": res[i].operat_name,
+                                "狀態": res[i].status_str,
+                            }
+                            jsonData.push(str);
+                        }
+                        downloadExl(jsonData, title);
+                    } else {
+                        layer.msg(data.msg)
+                        num = 0;
+                    }
+                }
+            })
+        }
+
+
+    })
+    var wopts = {
+        bookType: 'xlsx',
+        bookSST: false,
+        type: 'binary'
+    };
+    // 导出函数
+    function downloadExl(data, WhatTitle) {
+        
+        var startTime = $("input[name=startTime]").val();
+        var endTime = $("input[name=endTime]").val();
+        const wb = {
+            SheetNames: ['Sheet1'],
+            Sheets: {},
+            Props: {}
+        };
+        const title = [{
+            "title": "123"
+        }]
+        const json_sheet = wb.Sheets['Sheet1'] = XLSX.utils.json_to_sheet(title);
+        console.log(json_sheet,WhatTitle)
+        wb.Sheets['Sheet1'].A1.v = WhatTitle;
+        wb.Sheets['Sheet1']["!merges"] = [{
+            s: {
+                c: 0,
+                r: 0
+            },
+            e: {
+                c: 8,
+                r: 0
+            }
+        }];
+
+        wb.Sheets['Sheet1'] = XLSX.utils.sheet_add_json(json_sheet, data, {
+            origin: "A2"
+        });
+        var blob = new Blob([s2ab(XLSX.write(wb, wopts))], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "" + startTime + "至" + endTime + "的身份認證數據.xlsx");
+    }
+    //转换格式
+    function s2ab(s) {
+        if (typeof ArrayBuffer !== 'undefined') {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        } else {
+            var buf = new Array(s.length);
+            for (var i = 0; i != s.length; ++i) buf[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+    }
+    // 上一个月
+    function getPreMonth(date) {
+        var arr = date.split("-");
+        var year = arr[0]; //获取当前日期的年份
+        var month = arr[1]; //获取当前日期的月份
+        var day = arr[2]; //获取当前日期的日
+        var days = new Date(year, month, 0);
+        days = days.getDate(); //获取当前日期中月的天数
+        var year2 = year;
+        var month2 = parseInt(month) - 1;
+        if (month2 == 0) {
+            year2 = parseInt(year2) - 1;
+            month2 = 12;
+        }
+        var day2 = day;
+        var days2 = new Date(year2, month2, 0);
+        days2 = days2.getDate();
+        if (day2 > days2) {
+            day2 = days2;
+        }
+        if (month2 < 10) {
+            month2 = "0" + month2;
+        }
+        var t2 = year2 + "-" + month2 + "-" + day2;
+        return t2;
+    }
+    // 当前日期
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
+    var stat_data = getNowFormatDate();
+    $("input[name=startTime]").val(getPreMonth(stat_data) + ' 00:00'),
+    $("input[name=endTime]").val(stat_data + ' 00:00')
+</script>
+<!-- jQuery -->
+<include file="Public:footer" />

@@ -1,0 +1,75 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>幣種列表</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--篩選表單-->
+              <div class="x_title">
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <!--投訴列表-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>幣種列表</h2>
+                         <a href="{:U('Currencycfg/add')}" class="btn btn-success pull-right">添加幣種</a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 100.667px;">ID</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 117.667px;">幣種名</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 117.667px;">幣種状态</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 177.667px;">線下交易賣家手續費</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 299.667px;">線下交易買家手續費</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 241px;">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <volist name="data_list" id="vo">
+                                            <tr role="row" class="even">
+                                                <td>{$vo['id']}</td>
+                                                <td>{$vo['currency_name']}</td>
+                                                 <td><if condition="$vo['status'] eq 1">開<else/>關</if> </td>
+                                                <td>{$vo['sell_off_line_fee']}</td>
+                                                <td>{$vo['buy_off_line_fee']}</td>
+                                                <td><a class="btn btn-success btn-xs" href="{:U('Currencycfg/edit',array('id'=>$vo['id']))}">修改</a></td>
+                                            </tr>
+                                        </volist>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />

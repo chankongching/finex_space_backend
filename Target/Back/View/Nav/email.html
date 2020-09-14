@@ -1,0 +1,137 @@
+<include file="Public:header" />
+
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>修改用戶信息</h3>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <!--用戶信息-->
+            <div class="x_title">
+                <h2>用戶信息</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('Nav/email')}">
+                    <input type="hidden" name="id" value="{$user_list['id']}" />
+
+
+                    <!--邮箱配置Name-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" style="line-height: 30px;">邮箱配置Name</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <p style="line-height: 45px;">{$user_list['emailhost']}</p>
+                        </div>
+                    </div>
+                    <!--邮箱配置HOST-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" style="line-height: 30px;">邮箱配置HOST</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <p style="line-height: 45px;">{$user_list['formname']}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailUserName" class="control-label col-md-3 col-sm-3 col-xs-12">邮箱地址</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="emailUserName" name="emailUserName" value="{$user_list['emailusername']}" class="form-control col-md-7 col-xs-12" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailPassWord" class="control-label col-md-3 col-sm-3 col-xs-12">邮箱密码</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="emailPassWord" name="emailPassWord" value="{$user_list['emailpassword']}" class="form-control col-md-7 col-xs-12" type="text">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">提交</button>
+                            <a href="{:U('User/index')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                    <!-- 备注 -->
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+
+
+<script>
+    // at 添加快捷 內容
+    $(".replay-add").click(function() {
+        let content = $('.q_conetnt').val();
+        if (content == '' || content == null) {
+            layer.msg('請填寫快捷回復內容');
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/ReplyMsg/add",
+            data: {
+                'content': content,
+                'type': '{$user_quick_type}'
+            },
+            dataType: "json",
+            error: function(request) {},
+            success: function(res) {
+                layer.msg(res.msg);
+                if (res.code == 200) {
+                    html = '<div class="quick-reply-list_' + res.data.id + '">';
+                    html += '<span class="quickreply-c">' + content + '。</span> ';
+                    html += '<span class="add-content btn btn-primary btn-xs">添加至回復</span> ';
+                    html += ' <span class="del-content btn btn-danger btn-xs del_reply" qr-id="' + res.data.id + '">刪除此留言</span>';
+                    html += '</div>';
+                    $('.reply_list').append(html);
+                    $('.q_conetnt').val('');
+                }
+            }
+        });
+    })
+
+    //at 設置語言
+    $('body').on('click', '.add-content', function() {
+        var _this = $(this);
+        var mark = $('.resizable_textarea[name="mark"]');
+        mark.val(mark.val() + _this.prev().text());
+    })
+    // at 刪除快捷回復
+    $("body").on('click', ".del_reply", function() {
+        let id = $(this).attr('qr-id');
+        $.ajax({
+            type: "POST",
+            url: "/ReplyMsg/del",
+            data: {
+                'id': id
+            },
+            dataType: "json",
+            error: function(request) {},
+            success: function(data) {
+                layer.msg(data.msg);
+                if (data.code == 200) {
+                    $('.quick-reply-list_' + id).remove();
+                }
+            }
+        });
+    })
+</script>

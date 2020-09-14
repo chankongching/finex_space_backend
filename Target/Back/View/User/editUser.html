@@ -1,0 +1,282 @@
+<include file="Public:header" />
+
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>修改用戶信息</h3>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <!--用戶信息-->
+            <div class="x_title">
+                <h2>用戶信息</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('User/editUser')}">
+                    <input type="hidden" name="uid" value="{$user_list['uid']}" />
+                    <!--用戶賬號-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">用戶賬號</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" readonly="readonly" id="username" name="username" value="{$user_list['username']}" required="required" class="form-control col-md-7 col-xs-12" value="wenweichao">
+                        </div>
+                    </div>
+                    <!--用戶賬號-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">用户昵称</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text"  id="nickname" name="nickname" value="{$user_list['nickname']}" required="required" class="form-control col-md-7 col-xs-12" value="wenweichao">
+                        </div>
+                    </div>
+                    <!--手機號碼-->
+                    <div class="form-group">
+                        <label for="phone" class="control-label col-md-3 col-sm-3 col-xs-12">手機號碼</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="phone" name="phone" maxlength="20" value="{$user_list['phone']}" type="text" class="form-control col-md-7 col-xs-12" />
+                            <!--<span class=" form-control-feedback left" aria-hidden="true">{$user_list['om']}</span>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">郵箱</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="email" name="email" value="{$user_list['email']}" class="form-control col-md-7 col-xs-12" type="text">
+                        </div>
+                    </div>
+                    <!--密碼-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">密碼 </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="password" name="password" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <!--二級密碼-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="trade_password">資金密碼 </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="trade_password" name="trade_password" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <!--註冊時間-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="reg_time">註冊時間</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" readonly="readonly" id="reg_time" name="reg_time" <if condition="$user_list['reg_time'] eq 0">value=""
+                            <else/>value="{$user_list['reg_time']|date='Y-m-d H:i:s',###}"</if>
+                            required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" >
+                        </div>
+                    </div>
+                    <!--加盐-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="trade_password">SALT</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" id="SALT"  readonly="readonly" name="SALT" value="{$user_list['salt']}" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <!--信譽積分-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" for="credit_level">信譽積分</label>-->
+                        <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                            <!--<input type="number" id="credit_level" name="credit_level" value="{$user_list['credit_level']}" required="required" class="form-control col-md-7 col-xs-12" value="0.0">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!-- 如果用户存在这个资产金额就显示   修改用户美金余额 -->
+                    <!--<if condition="$user_list['assets'] gt 0">-->
+                        <!--<div class="form-group">-->
+                            <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" for="credit_level">用戶美金余額</label>-->
+                            <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                                <!--<input type="number" id="assets" name="assets" value="{$user_list['assets']}" oninput="if(value.length>20)value=value.slice(0,20)" required="required" class="form-control col-md-7 col-xs-12">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</if>-->
+                    <!--超時次數-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" for="overtime_num">失信次數</label>-->
+                        <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                            <!--<input type="number" id="overtime_num" value="{$user_list['overtime_num']}" name="overtime_num" required="required" class="form-control col-md-7 col-xs-12">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--是否實名認證-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-md-3 col-sm-3 col-xs-12" style="line-height: 30px;">是否實名認證</label>-->
+                        <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                            <!--<p style="padding-top: 10px;">-->
+                                <!--<if condition="$status eq 0">-->
+                                    <!--未进行實名提交-->
+                                    <!--<elseif condition="$status eq 1" /> 已通过實名-->
+                                    <!--<elseif condition="$status eq -1" /> 未通过實名-->
+                                <!--</if>-->
+                            <!--</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--賬號狀態-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" style="line-height: 30px;">賬號狀態</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <p style="padding-top: 10px;">
+                                <label>
+                                            <input type="radio" class="flat" name="status" value="0" <eq name="user_list['status']" value="0"> checked="checked" </eq>> 未激活
+                                        </label>&nbsp;&nbsp;
+                                <label>
+                                            <input type="radio" class="flat" name="status" value="1" <eq name="user_list['status']" value="1"> checked="checked" </eq>> 激活
+                                        </label>&nbsp;&nbsp;
+
+                            </p>
+                        </div>
+                    </div>
+                    <!--用户等级-->
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" style="line-height: 30px;">用戶等級</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <p style="line-height: 45px;">{$user_list['level']|formatLevel=###}</p>
+                        </div>
+                    </div>
+
+                    <!-- 备注 -->
+                    <!--<div class="form-group" style="margin-top:30px">-->
+                        <!--<label class="control-label col-md-3 col-sm-3 col-xs-12">备注</label>-->
+                        <!--<div class="col-md-6 col-sm-3 col-xs-12">-->
+                            <!--<textarea class="resizable_textarea form-control" name="mark" placeholder="请输入..."></textarea>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">提交</button>
+                            <a href="{:U('User/index')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                    <!-- 备注 -->
+                </form>
+                <!--<div class="x_content reply_list" style="margin:20px 0px 15px 0">-->
+                    <!--<h4>添加快捷回复</h4>-->
+                    <!--<div class="row addreplylist">-->
+                        <!--<div class="col-md-8">-->
+                            <!--<input type="text" class="form-control q_conetnt" maxlength="200" value='' />-->
+                        <!--</div>-->
+                        <!--<div class="col-md-2">-->
+                            <!--<input type="button" value="+" class="btn btn-success replay-add">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<volist name="reply_user" id="vo">-->
+                        <!--<div class="quick-reply-list_{$vo.id}">-->
+                            <!--<span class="quickreply-c">{$vo.content}。</span>-->
+                            <!--<span class="add-content btn btn-primary btn-xs">添加至回復</span>-->
+                            <!--<span class="del-content btn btn-danger btn-xs del_reply" qr-id="{$vo.id}">刪除此留言</span>-->
+                        <!--</div>-->
+                    <!--</volist>-->
+                <!--</div>-->
+                <!--<div style="margin-top:20px!important" class="form-group">-->
+                    <!--<div class="x_panel">-->
+                        <!--<div class="x_title">-->
+                            <!--<h2>備注列表</h2>-->
+                            <!--<ul class="nav navbar-right panel_toolbox">-->
+                                <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+                            <!--</ul>-->
+                            <!--<div class="clearfix"></div>-->
+                        <!--</div>-->
+                        <!--<div class="x_content">-->
+
+                            <!--<table class="table table-bordered">-->
+                                <!--<thead>-->
+                                    <!--<tr>-->
+                                        <!--<th>ID</th>-->
+                                        <!--<th>管理員</th>-->
+                                        <!--<th>添加時間</th>-->
+                                        <!--<th>内容</th>-->
+                                    <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                    <!--<volist name="mark_list" id="vo">-->
+                                        <!--<tr>-->
+                                            <!--<th scope="row">{$vo.id}</th>-->
+                                            <!--<td>{$vo.admin_name}</td>-->
+                                            <!--<td>{$vo.add_time|date="Y-m-d h:i:s",###}</td>-->
+                                            <!--<td>{$vo.mark}</td>-->
+                                        <!--</tr>-->
+                                    <!--</volist>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+
+
+<script>
+    // at 添加快捷 內容 
+    $(".replay-add").click(function() {
+        let content = $('.q_conetnt').val();
+        if (content == '' || content == null) {
+            layer.msg('請填寫快捷回復內容');
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/ReplyMsg/add",
+            data: {
+                'content': content,
+                'type': '{$user_quick_type}'
+            },
+            dataType: "json",
+            error: function(request) {},
+            success: function(res) {
+                layer.msg(res.msg);
+                if (res.code == 200) {
+                    html = '<div class="quick-reply-list_' + res.data.id + '">';
+                    html += '<span class="quickreply-c">' + content + '。</span> ';
+                    html += '<span class="add-content btn btn-primary btn-xs">添加至回復</span> ';
+                    html += ' <span class="del-content btn btn-danger btn-xs del_reply" qr-id="' + res.data.id + '">刪除此留言</span>';
+                    html += '</div>';
+                    $('.reply_list').append(html);
+                    $('.q_conetnt').val('');
+                }
+            }
+        });
+    })
+
+    //at 設置語言
+    $('body').on('click', '.add-content', function() {
+            var _this = $(this);
+            var mark = $('.resizable_textarea[name="mark"]');
+            mark.val(mark.val() + _this.prev().text());
+        })
+        // at 刪除快捷回復
+    $("body").on('click', ".del_reply", function() {
+        let id = $(this).attr('qr-id');
+        $.ajax({
+            type: "POST",
+            url: "/ReplyMsg/del",
+            data: {
+                'id': id
+            },
+            dataType: "json",
+            error: function(request) {},
+            success: function(data) {
+                layer.msg(data.msg);
+                if (data.code == 200) {
+                    $('.quick-reply-list_' + id).remove();
+                }
+            }
+        });
+    })
+</script>

@@ -1,0 +1,134 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>可兌換幣種管理</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--篩選條件表單-->
+            <div class="x_title">
+                <h2>篩選條件表單</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" menthod="get" action="{:U('CtwoC/canExchange')}">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <!--国家名-->
+                            <td>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" >交易區幣種名 </label>
+                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                    <select class="form-control" name="entrust_id">
+                                        <option value="-1">請選擇以下幣種...</option>
+                                        <volist name="change_list" id="vo">
+                                            <option value="{$vo['trade_area_id']}" <if condition="$Think.get.entrust_id eq $vo['trade_area_id']">selected='true'</if>>{$vo['coin_name']}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                                 <button type="submit" class="btn btn-success">搜索</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <!--財務日誌報表-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>可兌換幣種管理列表</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">ID</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">交易區幣種</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">可兌換幣種</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">添加時間</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <volist name="list" id="vo">
+                                            <tr role="row" class="even">
+                                                <td class="sorting_1">{$vo.id}</td>
+                                                <td>{$vo.currency_name}</td>
+                                                <td>{$vo.can_exchange_str}</td>
+                                                <td>{$vo.add_time|date='Y-m-d H:i:s',###}</td>
+                                                <td>
+                                                    <button type="button" data-toggle="modal" data-target="#set" onclick="changeCanExchange({$vo['id']})" class="btn btn-xs btn-primary hov1">修改</button>
+                                                    <button type="button" onclick="delCanExchange({$vo['id']})" class="btn btn-xs btn-danger delBank">刪除</button>
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+<script type="text/javascript">
+    function delCanExchange(id) {
+        layer.confirm(
+            "<span style='color:#fff'>確定删除嗎？</span>",
+            {
+                title:"*提示",
+                btn: ["確定","取消"]
+            },
+            function(){
+                $.ajax({
+                    url:'/Back/CtwoC/delCanExchange',
+                    data:{id:id},
+                    type:'post',
+                    jsonType:'json',
+                    success:function(data){
+                        layer.msg(data.msg);
+                        if( data.status == 200 ){
+                            setTimeout(function(){window.location.href='/Back/CtwoC/canExchange';},2000);
+                        }
+                    }
+                })
+            }
+        );
+    }
+
+    function changeCanExchange(id) {
+        window.location.href = '/Back/CtwoC/editCanExchange/id/'+id;
+    }
+</script>
+
+</body>
+
+</html>

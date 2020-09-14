@@ -1,0 +1,108 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>修改公告</h3>
+						</div>
+					</div>
+					<div class="row">
+						<!--回復留言-->
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_content mb">
+									<form id="demo-form2" data-parsley-validate="" enctype="multipart/form-data" class="form-horizontal form-label-left" novalidate="" method='post'href="{:U('Notice/changeNotice')}">
+										<input type="hidden"  required="required" name="id"  value="{$notice['id']}">
+										<div class="form-group">
+											<label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">标题</label>
+											<div class="col-md-10 col-sm-10 col-xs-12">
+												<input type="text" id="first-name" required="required" name="title" class="form-control col-md-7 col-xs-12" value="{$notice['title']}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">简介</label>
+											<div class="col-md-10 col-sm-10 col-xs-12">
+												<input type="text" id="name" required="required" name="abstract" class="form-control col-md-7 col-xs-12" value="{$notice['abstract']}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-1 col-sm-1 col-xs-12">封面
+											</label>
+											<div class="col-md-10 col-sm-10 col-xs-12">
+												<input type="file" name="face_img" required="required"
+													   class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<!--添加时间-->
+										<div class="form-group">
+											<label class="control-label col-md-1 col-sm-1 col-xs-12" for="first-name">內容</label>
+											<div class="col-md-10 col-sm-10 col-xs-12">
+												<div id="alerts"></div>
+
+												<textarea id="editor-one" name="content" class="editor-wrapper placeholderText" contenteditable="true">{$notice['content']}</textarea>
+												<!--回復留言輸入框-->
+												<textarea name="descr" id="descr" style="display:none;"></textarea>
+												<br>
+												<!--發送留言按鈕-->
+												<div class="form-group">
+													<button type="submit" class="btn  btn-info">提交</button>
+													<a href="{:U('Notice/showNoticeList')}" class="btn btn-success">返回新闻列表</a>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="__ADMIN_JS__/jquery.min.js"></script>
+		<!-- Bootstrap -->
+		<script src="__ADMIN_JS__/bootstrap.min.js"></script>
+		<!-- FastClick -->
+		<script src="__ADMIN_JS__/fastclick.js"></script>
+		<!-- NProgress -->
+		<script src="__ADMIN_JS__/nprogress.js"></script>
+		<!-- gauge.js -->
+		<script src="__ADMIN_JS__/gauge.min.js"></script>
+		<!-- bootstrap-progressbar -->
+		<script src="__ADMIN_JS__/bootstrap-progressbar.min.js"></script>
+		<!-- iCheck -->
+		<script src="__ADMIN_JS__/icheck.min.js"></script>
+		<!-- Skycons -->
+		<script src="__ADMIN_JS__/skycons.js"></script>
+		<!-- Flot -->
+		<script src="__ADMIN_JS__/jquery.flot.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.pie.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.time.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.stack.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.resize.js"></script>
+		<!-- Flot plugins -->
+		<script src="__ADMIN_JS__/jquery.flot.orderBars.js"></script>
+		<script src="__ADMIN_JS__/jquery.flot.spline.min.js"></script>
+		<script src="__ADMIN_JS__/curvedLines.js"></script>
+		<!-- DateJS -->
+		<script src="__ADMIN_JS__/date.js"></script>
+		<!-- JQVMap -->
+		
+		<!-- bootstrap-daterangepicker -->
+		<script src="__ADMIN_JS__/moment/moment.min.js"></script>
+		<script src="__ADMIN_JS__/datepicker/daterangepicker.js"></script>
+
+		<!-- Custom Theme Scripts -->
+		<script src="__ADMIN_JS__/custom.js"></script>
+		<!-- uEditor -->
+		<script src="__ADMIN_JS__/utf8-php/ueditor.config.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__ADMIN_JS__/utf8-php/ueditor.all.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var ue = UE.getEditor('editor-one');
+			// var ue = UE.getEditor('editor-one2');
+			// var ue = UE.getEditor('editor-one3');
+		</script>
+	</body>
+</html>

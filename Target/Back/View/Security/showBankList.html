@@ -1,0 +1,172 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+	<!--標題-->
+	<div class="page-title">
+		<div class="title_left">
+			<h3>銀行卡信息</h3>
+		</div>
+	</div>
+	<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+		<div class="x_panel">
+			<!--篩選表單-->
+			<div class="x_title">
+				<h2>篩選條件</h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li>
+						<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br>
+				<form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method='get' action="{:U('Security/showBankList')}">
+					<!--用戶名-->
+					<div class="form-group">
+						<label class="control-label col-md-1 col-sm-2 col-xs-12" for="first-name">用戶ID
+						</label>
+						<div class="col-md-3 col-sm-3 col-xs-12">
+							<input type="text" id="first-name" value="{$Think.get.user_id}" required="required" name="user_id" class="form-control col-md-3 col-xs-12">
+						</div>
+
+						<label class="control-label col-md-1 col-sm-2 col-xs-12" for="first-name">用戶名
+                        </label>
+						<div class="col-md-3 col-sm-3 col-xs-12">
+							<input type="text" id="first-name" value="{$Think.get.name}" required="required" name="name" class="form-control col-md-3 col-xs-12">
+						</div>
+						<div class="col-md-3 col-sm-3 col-xs-12">
+							<button type="submit" class="btn btn-success">查找</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="">
+		<div class="clearfix"></div>
+		<!--銀行卡列表-->
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>銀行卡列表</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+							<div class="row">
+								<div class="col-sm-12 text-right">
+									<a class="btn btn-default" href="{:U('User/index')}">返回用戶列表</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 mb">
+									<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+										<thead>
+											<tr role="row">
+                                                                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">Id</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">用戶Id</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">用戶名</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending"> 開戶銀行</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending"> 開戶銀行卡號</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">開戶銀行地址</th>
+												<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">添加時間</th>
+											</tr>
+										</thead>
+										<tbody>
+											<volist name="list" id="vo">
+												<tr role="row" class="even">
+                                                <td class="sorting_1">{$vo.id}</td>
+													<td class="sorting_2">{$vo.uid}</td>
+													<td class="uname">{$vo.username}</td>
+													<td class="bank_type1">{$vo.bank_list_id|formatBankType=###}</td>
+													<td class="banknum">{$vo.bank_num}</td>
+													<td class="bankadd">{$vo.bank_address}</td>
+													<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+												</tr>
+											</volist>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="row">
+								{$page}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<div class="modal fade bs-example-modal-lg in" id="set" tabindex="-1" role="dialog" aria-hidden="true" style="padding-right: 17px; margin-top: 15%; ">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title" id="myModalLabel">修改銀行卡信息</h4>
+			</div>
+			<div class="modal-body">
+				<form id="" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('Security/editBank')}">
+                                        <!--用戶ID-->
+                                        <div class="form-group">
+                                                <label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">Id</label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <input type="text" readonly="readonly" id="id" name='id'  required="required" class="form-control col-md-7 col-xs-12 id">
+                                                </div>
+                                        </div>	
+                                        <!--用戶ID-->
+					<div class="form-group">
+						<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">用護ID</label>
+						<div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <input type="text" disabled="disabled" id="uid" name='uid'  required="required" class="form-control col-md-7 col-xs-12 id">
+						</div>
+					</div>
+					<!--用戶名稱-->
+					<div class="form-group">
+						<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">用護名稱</label>
+						<div class="col-md-9 col-sm-9 col-xs-12">
+							<input type="text" disabled="disabled"id="name" name="name" required="required" class="form-control col-md-7 col-xs-12 nametext">
+						</div>
+					</div>
+					<!--開戶銀行-->
+					<div class="form-group">
+						<label class=" col-md-3 col-sm-3 col-xs-12" style="line-height: 30px;">開護銀行</label>
+						<div class="col-md-9 col-sm-9 col-xs-12">
+							<select name="bank_type"   class="form-control" id="select_id" >
+                                   <volist name="bank_list" id="vo">
+                                     <option value="{$key}">{$vo}</option>
+                                 </volist>
+							</select>
+						</div>
+					</div>
+					<!--開戶銀行卡-->
+					<div class="form-group">
+						<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">開護銀行卡</label>
+						<div class="col-md-9 col-sm-9 col-xs-12">
+							<input type="text" id="first-name" name="bank_num" class="form-control col-md-7 col-xs-12 cnum">
+						</div>
+					</div>
+					<!--開戶地址-->
+					<div class="form-group">
+						<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">開護地址</label>
+						<div class="col-md-9 col-sm-9 col-xs-12">
+							<input type="text" id="first-name"name="bank_address"  class="form-control col-md-7 col-xs-12 add">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="commit"  class="btn btn-primary">提交</button>
+					</div>
+				</form>
+			</div>
+			<!--提交按鈕-->
+		</div>
+	</div>
+</div>
+<include file="Public:footer" />
+</body>
+</html>

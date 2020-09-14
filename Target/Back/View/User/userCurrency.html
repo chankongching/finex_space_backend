@@ -1,0 +1,275 @@
+<include file="Public:header"/>
+<include file="Public:nav"/>
+        <div class="right_col" role="main">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>查看詳情  &nbsp;&nbsp;用戶：<span style="color:red">{$username}</span></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                            <volist name="all_currency_list" id="vo">
+                                <div class="panel">
+                                    <a class="panel-heading collapsed" role="tab" id="heading_pos{$vo['pos']}" data-toggle="collapse" data-parent="#accordion" href="#collapse_pos{$vo['pos']}" aria-expanded="{$vo['flag']}" aria-controls="collapse_pos{$vo['pos']}">
+                                        <h4 class="panel-title">
+                                           
+                                            <option value="{$vo['currency_id']}">{$vo['currency_name']}</option>
+                                            
+                                        </h4>
+                                    </a>
+                                    <div id="collapse_pos{$vo['pos']}" class="panel-collapse collapse {$vo['expend']}" role="tabpanel" aria-labelledby="heading_pos{$vo['pos']}" aria-expanded="{$vo['flag']}">
+                                        <div class="panel-body">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>餘額</th>
+                                                    <th>凍結餘額</th>
+                                                    <th>充幣地址</th>
+                                                    <th>提幣地址一</th>
+                                                    <th>提幣地址二</th>
+                                                    <th>提幣地址三</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">{$vo['num']}</th>
+                                                        <td>{$vo['forzen_num']}</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <if condition="$vo['my_mention_pack_url1']">
+                                                                {$vo['my_mention_pack_url1']}
+                                                            <else />-
+                                                            </if>
+                                                       </td>
+                                                        <td>
+                                                            <if condition="$vo['my_mention_pack_url2']">
+                                                                {$vo['my_mention_pack_url1']}
+                                                            <else />-
+                                                            </if>
+                                                       </td>
+                                                        <td>
+                                                            <if condition="$vo['my_mention_pack_url3']">
+                                                                {$vo['my_mention_pack_url1']}
+                                                            <else />-
+                                                            </if>
+                                                       </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </volist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>操作列表</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <div class="col-sm-6 text-right">
+                                <a class="btn btn-default" href="{:U('User/index')}">返回用戶列表</a>
+                            </div>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">提幣錢包地址</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">添加賬戶餘額</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">扣除賬戶餘額</a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2>設置提幣地址</h2>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <br>
+                                                <form method="post" action="{:U('User/subBindAddress')}" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                                                    <!--選擇錢包類型-->
+                                                    <input type="hidden" value="{$uid}" name="uid"/>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">提幣地址類型</label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <input type="text" name="tibi_address" value="个人钱包地址" disabled="'true" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                    </div>
+                                                    <!--選擇幣種-->
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">選擇幣種類型</label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <select class="form-control" name="currency_id">
+                                                                <volist name="currency_list" id="vo">
+                                                                    <if condition="$vo['id'] neq 7" >
+                                                                        <option value="{$vo['id']}">{$vo['currency_name']}</option>
+                                                                    </if>
+                                                                </volist>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!--钱包地址-->
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url1">錢包地址1</label>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <input type="text" id="url1" name="url1" maxlength="40" required="required" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url2">錢包地址2</label>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <input type="text" id="url2" name="url2" maxlength="40" required="required" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url3">錢包地址3</label>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <input type="text" id="url3" name="url3" maxlength="40" required="required" class="form-control col-md-7 col-xs-12">
+                                                        </div>
+                                                    </div>
+                                                    <div class="ln_solid"></div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                            <button type="submit" class="btn btn-success">確定</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2>添加賬戶金額</h2>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <br>
+                                                <form id="demo-form2" method="post" action="{:U('User/setUserCurrencyNum')}" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                                                    <!--新增金額-->
+                                                    <input type="hidden" value="1" name="change_type" />
+                                                    <input type="hidden" name="uid" value="{$uid}" />
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="num">新增金額</label>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <input type="number" id="num" name="num"  required="required" class="form-control col-md-7 col-xs-12 number">
+                                                        </div>
+                                                    </div>
+                                                    <!--選擇幣種-->
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <select class="form-control" name="currency_id">
+                                                                <volist name="currency_list" id="vo">
+                                                                    <if condition="$vo['id'] neq 7" >
+                                                                        <option value="{$vo['id']}">{$vo['currency_name']}</option>
+                                                                    </if>
+                                                                </volist>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ln_solid"></div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                            <button type="submit" class="btn btn-success">確定</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="x_panel">
+                                            <div class="x_title">
+                                                <h2>扣除賬戶金額</h2>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <br>
+                                                <form method="post" action="{:U('User/setUserCurrencyNum')}" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                                                    <!--扣除金額-->
+                                                    <input type="hidden" value="2" name="change_type"/>
+                                                    <input type="hidden" name="uid" value="{$uid}" />
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">扣除金額</label>
+                                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <input type="number" name="num" required="required" class="form-control col-md-7 col-xs-12 number">
+                                                        </div>
+                                                    </div>
+                                                    <!--選擇幣種-->
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <select class="form-control" name="currency_id">
+                                                                <volist name="currency_list" id="vo">
+                                                                    <if condition="$vo['id'] neq 7" >
+                                                                        <option value="{$vo['id']}">{$vo['currency_name']}</option>
+                                                                    </if>
+                                                                </volist>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ln_solid"></div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                            <button type="submit" class="btn btn-success">確定</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+<include file="Public:footer"/>
+<script>
+    $('.number').on({
+        "input": function () {
+            var value = $(this).val();
+            var length = value.length;
+            var reg = /^\d*\.{0,1}\d{0,8}$/;
+
+            if (!reg.test(value)) {
+                $(this).val(value.substring(0, length - 1));
+            }
+            if (value.length > 18) {
+                $(this).val(value.slice(0, 18))
+            }
+        }
+    })
+</script>

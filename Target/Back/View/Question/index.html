@@ -1,0 +1,148 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>咨詢投訴</h3>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+						<div class="x_panel">
+							<!--篩選表單-->
+							<div class="x_title">
+								<h2>篩選條件</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<br>
+								<form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" action="{:U('Question/index')}" method="get">
+									<table class="table table-bordered table-condensed">
+                                		<tr>
+                                		    <td>
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">問題編號ID</label>
+												<div class="col-md-9 col-sm-9 col-xs-12">
+													<input type="text" id="first-name" required="required" name="id" value="{$Think.get.id}" class="form-control col-md-7 col-xs-12"/>
+												</div>
+                                			</td>
+											<!--用戶名-->
+                                			<td>
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">用戶名</label>
+												<div class="col-md-9 col-sm-9 col-xs-12">
+													<input type="text" id="first-name" required="required" name="username" value="{$Think.get.username}" class="form-control col-md-7 col-xs-12"/>
+												</div>
+                                			</td>
+											<!--選擇類型select框-->
+                                			<td>
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">選擇留言分類</label>
+												<div class="col-md-9 col-xs-12">
+													<select class="form-control" name="type">
+														   <volist name="questionType" id="vo">
+                                                                 <option value="{$key}" <if condition="$Think.get.type eq $key">selected='true'</if>>{$vo}</option>
+                                                            </volist>
+													</select>
+												</div>
+                                			</td>
+											<!--提交按鈕-->
+                                			<td>
+												<button type="submit" class="btn btn-success">查找</button>
+                                			</td>
+										</tr>
+									</table>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="clearfix"></div>
+						<!--投訴列表-->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>投訴列表</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+											<div class="row">
+											</div>
+											<div class="row">
+												<div class="col-sm-12 mb">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 100.667px;">問題編號</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217.667px;">用戶名</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 299.667px;">留言標題</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 353.667px;">留言內容</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 177.667px;">留言時間</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 177.667px;">更新時間</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 299.667px;">留言类型</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 100px;">回復狀態</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 100px;">狀態</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 241px;">操作</th>
+															</tr>
+														</thead>
+														<tbody>
+														<volist name="list" id="vo">
+															<tr role="row" class="even">
+																<td>{$vo['id']}</td>
+																<td>{$vo['username']}</td>
+																<td>{$vo.m_title}--{$vo.v_title}</td>
+																<td>{$vo.describe|mb_substr=###,0,20}...</td>
+																<td>{$vo['add_time']|date='Y-m-d H:i:s',###}</td>
+																
+																	<td>
+																	<if  condition="($vo['update_time'] gt 0)">
+                                                                        {$vo['update_time']|date='Y-m-d H:i:s',###}
+					                                                  <else/>
+					                                                      -
+					                                                   </if>   
+																	</td>
+																<td>
+																	<switch name="vo.type">
+																		<case value="1">充幣未到賬問題</case>
+																		<case value="2">提幣遇到問題</case>
+																		<case value="3">賬戶安全問題</case>
+																		<case value="4">身份認證問題</case>
+																		<case value="5">交易問題</case>
+																		<case value="6">投訴與建議</case>
+																	</switch>
+																</td>
+																<td>
+																	<switch name="vo.is_response">
+																	<case value="1"><span class="btn btn-danger btn-xs">未回复</span></case>
+																	<case value="2"><span class="btn btn-primary btn-xs">已回复</span></case>
+																</switch>
+																<td>
+																<switch name="vo.status">
+																	<case value="1"><span class="btn btn-primary btn-xs">待解決</span></case>
+																	<case value="2"><span class="btn btn-success btn-xs">已解抉</span></case>
+																</switch>
+																</td>
+																<td><a class="btn btn-success btn-xs" href="{:U('Question/showQuestionDetail',array('id'=>$vo['id']))}">詳情</a></td>
+															</tr>
+														</volist>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="row">
+												{$page}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />

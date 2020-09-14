@@ -1,0 +1,224 @@
+<include file="Public:header"/>
+<include file="Public:nav"/>
+        <div class="right_col" role="main">
+            <!--標題-->
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>充幣列表</h3>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+                <div class="x_panel">
+                    <!--筛选条件表單-->
+                    <div class="x_title">
+                        <h2>篩選條件</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br>
+                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="get" action="{:U('Pack/showChongBiLog')}">
+                            <table class="table table-bordered table-condensed">
+                                <tr>
+
+                                    <!--用戶名-->
+                                    <td>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">用戶名</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" id="username" name="username" value="{$Think.get.username}" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </td>
+
+
+
+                                    <if condition="$agent eq  0 ">
+                                        <td>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="invite_code">代理商邀请码</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="text" id="invite_code" name="invite_code" value="{$Think.get.invite_code}" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="invite_code">代理商账号</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="text" id="agent_name" name="agent_name" value="{$Think.get.agent_name}" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </td>
+                                        <else />
+                                    </if>may
+                                    <!--選擇查看類型select框-->
+                                    <td>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">選擇幣種類型</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <select class="form-control" name="currency_id">
+                                                <option value="-1">===選擇幣種類型===</option>
+                                                <option value="1">BTC</option>
+                                                <option value="4">ETH</option>
+                                                <option value="8">USDT</option>
+
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <!-- 開始時間 -->
+                                    <td>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">開始時間 </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control has-feedback-left timechange" name="start_time" id="single_cal1" value="{$Think.get.start_time}" placeholder="" aria-describedby="inputSuccess2Status">
+                                            <span class="fa fa-calendar-o form-control-feedback left"  aria-hidden="true"></span>
+                                        </div>
+                                    </td>
+                                    <!--結束時間-->
+                                    <td>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">結束時間 </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control has-feedback-left timechange" name="end_time" id="single_cal4" value="{$Think.get.end_time}" placeholder="" aria-describedby="inputSuccess2Status4">
+                                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </td>
+                                    <!--提交按鈕-->
+                                    <td>
+                                        <button type="submit" class="btn btn-success">查找</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                        充值数据统计：
+                        <volist name="bi_data" id="v">
+                           {$v['currency_name']}:{$v['num']} &nbsp;
+                        </volist>
+                    </div>
+                </div>
+            </div>
+<!--            <div class="">-->
+<!--                <div class="clearfix"></div>-->
+<!--                &lt;!&ndash;充幣列表&ndash;&gt;-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-12 col-sm-12 col-xs-12">-->
+<!--                        <div class="x_panel">-->
+<!--                            <div class="x_title">-->
+<!--                                <h2>充幣累计</h2>-->
+<!--                                <div class="clearfix"></div>-->
+<!--                            </div>-->
+<!--                            <div class="x_content">-->
+<!--                                <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-sm-12 mb">-->
+<!--                                            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">-->
+<!--                                                <thead>-->
+<!--                                                <tr role="row">-->
+<!--                                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 150.667px;">BTC</th>-->
+<!--                                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 150.667px;">ETH</th>-->
+<!--                                                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 150.667px;">USDT</th>-->
+<!--&lt;!&ndash;                                                   "sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 100px;">狀態</th>&ndash;&gt;-->
+<!--                                                </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+
+<!--                                                    <tr role="row" class="even">-->
+
+<!--                                                        <volist name="total_num" id="vo">-->
+<!--                                                            <td>{$vo['total']}</td>-->
+<!--&lt;!&ndash;                                                            <td>"{$Think.get.USDT}"</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <td>"{$Think.get.USDT}"</td>&ndash;&gt;-->
+<!--                                                        </volist>-->
+
+<!--                                                    </tr>-->
+
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="">
+                <div class="clearfix"></div>
+                <!--充幣列表-->
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>充幣列表</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <div class="col-sm-6 text-right">
+                                        <a class="btn btn-default" href="{:U('Pack/showTiBiLog')}">前往提幣列表</a>
+                                    </div>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12 mb">
+                                            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 150.667px;">用戶ID</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 150.667px;">用戶名</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 150.667px;">代理商邀请码</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 150.667px;">幣種</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 299.667px;">轉入錢包地址</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 177.667px;">充幣數量</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 200px;">充幣時間</th>
+<!--                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 200px;">归集状态</th>-->
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 100px;">狀態</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <volist name="chongbi_list" id="vo">
+                                                        <tr role="row" class="even">
+                                                            <td class="sorting_1">{$vo['uid']}</td>
+                                                            <td>{$vo['username']}</td>
+                                                            <td>{$vo['invite_code']}</td>
+                                                            <td>{$vo['currency_name']}</td>
+                                                            <td>{$vo['url']}</td>
+                                                            <td>{$vo['num']}</td>
+                                                            <td>
+                                                                <if condition="$vo['add_time'] eq 0">
+                                                                    -
+                                                                <else/>
+                                                                    {$vo['add_time']|date='Y-m-d H:i:s',###}
+                                                                </if>
+                                                            </td>
+<!--                                                            <td>-->
+<!--                                                                <eq name="vo.guiji" value='1'><span style="color: red;">未归集</span></eq>-->
+<!--                                                                <eq name="vo.guiji" value='2'><span style="color: green;">已归集</span></eq>-->
+<!--                                                            </td>-->
+                                                            <td>
+                                                                <eq name="vo.status" value='1'><span style="color: red;">充值中</span></eq>
+                                                                <eq name="vo.status" value='2'><span style="color: green;">充值成功</span></eq>
+                                                                <eq name="vo.status" value='3'><span style="color: red;">充值失敗</span></eq>
+                                                            </td>
+                                                        </tr>
+                                                    </volist>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite"></div>
+                                        </div>
+                                        {$page}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<include file="Public:footer"/>

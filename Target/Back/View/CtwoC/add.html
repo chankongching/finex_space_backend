@@ -1,0 +1,73 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>幣幣交易管理</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--短信配置表單-->
+            <div class="x_title">
+                <h2>添加幣幣配置</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('CtwoC/addConfig')}">
+                    
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">選擇交易區主幣種
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                               <select class="form-control" name="currency_id">
+                                        <option value="">請選擇...</option>
+                                        <volist name="curr_names" id="vo">
+                                            <option value="{$key}">{$vo}</option>
+                                        </volist>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">價格浮動的比例
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="float_price_rate"  placeholder="填寫小數位 例 0.01"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">賣家手續費
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="sell_fee"  placeholder="填寫小數位 例 0.01"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">買家手續費
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" name="buy_fee"  placeholder="填寫小數位 例 0.01"   required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">提交</button>
+                             <a href="{:U('CtwoC/Config')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />

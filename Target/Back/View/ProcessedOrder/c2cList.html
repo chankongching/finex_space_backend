@@ -1,0 +1,184 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>C2C交易</h3>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12 nopad">
+						<div class="x_panel">
+							<!--篩選表單-->
+							<div class="x_title">
+								<h2>篩選條件</h2>
+								<ul class="nav navbar-right panel_toolbox">
+									<li>
+										<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<br>
+								<form method="get" action="{:U('ProcessedOrder/c2cProcessList')}" id="demo-form2" data-parsley-validate=""   class="form-horizontal form-label-left" novalidate="">
+									<table class="table table-bordered table-condensed">
+								        <tr>
+											<!--客服名称-->
+								        	<td>
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">客服名称</label>
+												<div class="col-md-9 col-sm-9 col-xs-12">
+														<select class="form-control" name="nameServer" style="width:60%;display:inline-block;margin-right:20px">
+											              <option value="">請選擇客服名稱...</option>
+														  <volist name="servers" id="vo">
+			                                                     <option value="{$key}">{$vo}</option>
+			                                              </volist>
+										                </select>
+												</div>
+								        	</td>
+											<!--訂單號-->
+								        	<td>
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">訂單號</label>
+												<div class="col-md-9 col-sm-9 col-xs-12">
+													<input type="text" name="orderNum" value="{$Think.get.orderNum}"   id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+												</div>
+								        	</td>
+											<!--提交按鈕-->
+								        	<td>
+												<button type="submit" class="btn btn-success">查找</button>
+								        	</td>
+								        </tr>
+								    </table>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="clearfix"></div>
+						<!--線下交易記錄-->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>C2C交易<sapn style="color:red"> (待处理状态) </sapn>記錄</h2>
+										<div class="col-lg-4 col-lg-offset-3">	
+										<select class="form-control uidServer" name="uidServer" style="width:60%;display:inline-block;margin-right:20px">
+											   <option value="">請選擇分配客服名稱...</option>
+											 <volist name="servers" id="vo">
+                                                     <option value="{$key}">{$vo}</option>
+                                             </volist>
+										</select>
+										 <button type="submit" class="btn btn-success assignOrder">分配给该客服</button>
+										</div>
+										<div class="clearfix"></div>		
+									</div>
+									<div class="x_content">
+										<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+											<div class="row">
+												<div class="col-sm-6">
+													  <!-- 去掉ajax的数量级别 -->
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12 mb">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">訂單號</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">購買人</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">出售人</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">幣種</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">單價</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">數量</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">當前訂單狀態</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">分配客服</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 170px;" >全選 <input id="all_select" type="checkbox" name="" id="" value="" /></th>																
+															</tr>
+														</thead>
+														<tbody>
+														    <volist name="list" id="vo">
+													        <tr>
+													        	<td>{$vo['order_num']}</td>
+													        	<td>
+													        	 <if  condition="($vo['buy_id'] gt 0)">
+                                                                          {$vo['buy_username']}
+						                                         <else/>
+						                                                                                                                        暂无
+						                                        </if>
+													        	</td>
+													            <td>{$vo['sell_username']}</td>
+													            <td>{$vo['currency_name']}</td>
+													            <td>{$vo.trade_price}</td>
+													            <td>{$vo.trade_num}</td>
+													            <td><sapn class='btn btn-danger btn-xs'>待处理</sapn></td>
+													            <td>{$vo.adminnname}</td>
+													             <td>選擇 <input type="checkbox" data_id="{$vo['id']}" name="select" value="" class="uselect"/></td>
+													            <!-- 订单状态的修改 -->
+													        </tr>
+													        </volist>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-5">
+													<!-- 去掉这个ajax 数量级 -->   
+												</div>
+												<div class="col-sm-7">
+												<!--  分页div -->
+												   {$page}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />	
+
+<script>
+//全选全不选
+$('#all_select').click(function() {
+    if($(this).is(":checked")) {
+        $("input[name='select']").prop("checked", true);
+    } else {
+        $("input[name='select']").prop("checked", false);
+    }
+});
+
+//锁定
+$(".assignOrder").click(function(){
+    var uidArray = [];
+    var uid=$(".uidServer option:selected").val();
+    $(".uselect:checked").each(function(){
+        uidArray.push($(this).attr('data_id'));
+        $.unique(uidArray);
+    });
+    
+    if(uidArray.length>0 && uid)
+    {
+         $.ajax({
+            url:"{:U('ProcessedOrder/transferOrderC2C')}",
+            data:{'ids':uidArray,'uid':uid},
+            dataType:'json',
+            type:'post',
+            success:function(data){
+                layer.msg(data.info);
+                if(data.code==200){
+                    window.setTimeout("window.location.reload()", 2000);
+                }
+            }
+        });
+    }
+    else
+    {
+    	 layer.msg("無選中訂單");
+    }	
+});
+
+
+</script>

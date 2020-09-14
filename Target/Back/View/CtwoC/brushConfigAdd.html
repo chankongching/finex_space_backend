@@ -1,0 +1,84 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>幣幣刷单配置</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--短信配置表單-->
+            <div class="x_title">
+                <h2>添加幣幣刷单配置</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="{:U('CtwoC/brushConfigAdd')}">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">委托類型
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                             <select name="entrust_type" class="form-control col-md-7 col-xs-12">
+                                <volist name="entrust_type" id="vo" >
+                                    <option value="{$key}" >{$vo|strtoupper}</option>
+                                </volist>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">價格浮動區間
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-5" style="padding-right: 0;">
+                                    <input type="number"  name="s_price"  maxlength="15"  placeholder="起區間"   required="required" class="form-control">
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <span style="line-height: 34px;">至</span>
+                                </div>
+                                <div class="col-md-5" style="padding-left: 0">
+                                    <input type="number" name="e_price"  maxlength="15"   placeholder="至區間"   required="required" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">數量浮動區間
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-5" style="padding-right: 0;">
+                                    <input type="number"   name="s_num"  maxlength="15"  placeholder="起區間"   required="required"  class="form-control">
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <span style="line-height: 34px;">至</span>
+                                </div>
+                                <div class="col-md-5" style="padding-left: 0">
+                                    <input type="number"  name="e_num"  maxlength="15" placeholder="至區間"   required="required"  class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <!--提交按鈕-->
+                            <button type="submit" class="btn btn-success">提交</button>
+                             <a href="{:U('CtwoC/brushConfig')}" class="btn btn-primary">返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />

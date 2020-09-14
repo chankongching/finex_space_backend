@@ -1,0 +1,297 @@
+<include file="Public:header" />
+<link rel="stylesheet" href="__ADMIN_JS__/timepicker/bootstrap-datetimepicker.css">
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>提幣操作日誌</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--篩選表單-->
+            <div class="x_title">
+                <h2>篩選條件</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="get" action="{:U('TibiLog/index')}">
+
+                    <!--提幣記錄ID-->
+                    <div class="form-group col-md-2">
+                        <label for="username" class="col-md-12 col-sm-12 col-xs-12 text-left">提幣記錄ID</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input id="ti_id" class="form-control col-md-7 col-xs-12" type="text" name="ti_id" value="{$Think.get.ti_id}">
+                        </div>
+                    </div>
+                    <!--用戶ID-->
+                    <div class="form-group col-md-2">
+                        <label for="username" class="col-md-12 col-sm-12 col-xs-12 text-left">用戶ID</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input id="uid" class="form-control col-md-7 col-xs-12" type="text" name="uid" value="{$Think.get.uid}">
+                        </div>
+                    </div>
+                    <!--用戶名-->
+                    <div class="form-group col-md-3">
+                        <label class="col-md-12 col-sm-12 col-xs-12 text-left" for="username">用戶名</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" id="username" name="username" required="required" class="form-control col-md-7 col-xs-12" value="{$Think.get.username}">
+                        </div>
+                    </div>
+                    <!--管理员名-->
+                    <div class="form-group col-md-2">
+                        <label for="admin_user" class="col-md-12 col-sm-12 col-xs-12 text-left">管理員名</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input id="admin_user" name="admin_user" class="form-control col-md-7 col-xs-12" type="text" value="{$Think.get.admin_user}">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label class="col-md-12 col-sm-12 col-xs-12 text-left">&nbsp;</label>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success">搜索</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <!--用戶列表-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>提幣操作日誌</h2>
+                        <button type="button" id="sub" class="btn btn-primary modifyGid pull-right SureOut_excel">導出所有</button>
+                        <div class="form-group input-group col-md-2 pull-right">
+                            <span class="input-group-addon">結束日期</span>
+                            <input type="text" name="endTime" value="" class="form-control bootstrap-timepicker" placeholder="結束时间" readonly="readonly">
+                        </div>
+                        <div class="form-group input-group col-md-2 pull-right">
+                            <span class="input-group-addon">起始日期</span>
+                            <input type="text" name="startTime" value="" class="form-control bootstrap-timepicker" placeholder="開始时间" readonly="readonly">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row" style="margin-bottom: 10px;overflow: inherit!important;">
+                                <div class="col-sm-6">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb" style="padding-bottom: 50px;">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 241px;">提幣記錄ID</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 92.667px;">用戶ID</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217.667px;">用戶名</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 299.667px;">管理員名</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 253.667px;">操作日誌</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 241px;">時間</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <volist name="list" id="vo">
+                                                <tr role="row" class="even">
+                                                    <td>{$vo['ti_id']}</td>
+                                                    <td class="sorting_1" id="uidval">{$vo['uid']}</td>
+                                                    <td>{$vo['username']}</td>
+                                                    <td>{$vo['admin_name']}</td>
+                                                    <td>{$vo['log']}</td>
+                                                    <td>{$vo['add_time']|date='Y-m-d H:i:s',###}</td>
+                                                </tr>
+                                            </volist>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--分頁器-->
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite"></div>
+                                </div>
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="__ADMIN_JS__/jquery.min.js"></script>
+<script src="__ADMIN_JS__/xlsx.full.min.js"></script>
+<script src="__ADMIN_JS__/timepicker/bootstrap-datetimepicker.js"></script>
+<script>
+    $(".bootstrap-timepicker").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        minView: 0,
+        autoclose: true,
+        language: 'cn',
+        minuteStep: 1
+    });
+    var num = 0;
+    $("#sub").click(function() {
+
+        if (num == 0) {
+            num = 1;
+            $.ajax({
+                type: "post",
+                url: "/TibiLog/excel",
+                data: {
+                    "s_time": $("input[name=startTime]").val(),
+                    "e_time": $("input[name=endTime]").val()
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.code == 200) {
+                        num = 0;
+                        var DataHtml = "";
+                        var title = data.data.title;
+                        var res_length = data.data.res.length;
+                        var res = data.data.res;
+                        var jsonData = [];
+                        for (var i = 0; i < res_length; i++) {
+                            var str = {
+                                "提幣記錄ID": res[i].ti_id,
+                                "用戶名ID": res[i].uid,
+                                "用戶姓名": res[i].username,
+                                "管理員名稱": res[i].admin_name,
+                                "審核時間": res[i].add_time,
+                                "日誌": res[i].log,
+                            }
+                            jsonData.push(str);
+                        }
+                        downloadExl(jsonData, title);
+                    } else {
+                        layer.msg(data.msg)
+                        num = 0;
+                    }
+                }
+            })
+        }
+    })
+    const wopts = {
+        bookType: 'xlsx',
+        bookSST: false,
+        type: 'binary'
+    };
+    // 导出函数
+    function downloadExl(data, WhatTitle) {
+        var startTime = $("input[name=startTime]").val();
+        var endTime = $("input[name=endTime]").val();
+        const wb = {
+            SheetNames: ['Sheet1'],
+            Sheets: {},
+            Props: {}
+        };
+        const title = [{
+            "title": "123"
+        }]
+        const json_sheet = wb.Sheets['Sheet1'] = XLSX.utils.json_to_sheet(title);
+        wb.Sheets['Sheet1'].A1.v = WhatTitle;
+        wb.Sheets['Sheet1']["!merges"] = [{
+            s: {
+                c: 0,
+                r: 0
+            },
+            e: {
+                c: 8,
+                r: 0
+            }
+        }];
+
+        wb.Sheets['Sheet1'] = XLSX.utils.sheet_add_json(json_sheet, data, {
+            origin: "A2"
+        }); //通过json_to_sheet转成单页(Sheet)数据
+        saveAs(new Blob([s2ab(XLSX.write(wb, wopts))], {
+            type: "application/octet-stream"
+        }), "" + startTime + "至" + endTime + "的提幣審核日誌" + '.' + (wopts.bookType == "biff2" ? "xls" : wopts.bookType));
+    }
+    //转换格式
+    function s2ab(s) {
+        if (typeof ArrayBuffer !== 'undefined') {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        } else {
+            var buf = new Array(s.length);
+            for (var i = 0; i != s.length; ++i) buf[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+    }
+    // 
+    function saveAs(obj, fileName) {
+        //当然可以自定义简单的下载文件实现方式 
+        var tmpa = document.createElement("a");
+        tmpa.download = fileName || "下载";
+        tmpa.href = URL.createObjectURL(obj); //绑定a标签
+        tmpa.click(); //模拟点击实现下载
+        setTimeout(function() { //延时释放
+            URL.revokeObjectURL(obj); //用URL.revokeObjectURL()来释放这个object URL
+        }, 100);
+    }
+    // 上一个月
+    function getPreMonth(date) {
+        var arr = date.split("-");
+        var year = arr[0]; //获取当前日期的年份
+        var month = arr[1]; //获取当前日期的月份
+        var day = arr[2]; //获取当前日期的日
+        var days = new Date(year, month, 0);
+        days = days.getDate(); //获取当前日期中月的天数
+        var year2 = year;
+        var month2 = parseInt(month) - 1;
+        if (month2 == 0) {
+            year2 = parseInt(year2) - 1;
+            month2 = 12;
+        }
+        var day2 = day;
+        var days2 = new Date(year2, month2, 0);
+        days2 = days2.getDate();
+        if (day2 > days2) {
+            day2 = days2;
+        }
+        if (month2 < 10) {
+            month2 = "0" + month2;
+        }
+        var t2 = year2 + "-" + month2 + "-" + day2;
+        return t2;
+    }
+    // 当前日期
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
+    var stat_data = getNowFormatDate();
+    $("input[name=startTime]").val(getPreMonth(stat_data) + ' 00:00'),
+        $("input[name=endTime]").val(stat_data + ' 00:00')
+</script>
+
+<include file="Public:footer" />

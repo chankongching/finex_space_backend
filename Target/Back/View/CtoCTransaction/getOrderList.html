@@ -1,0 +1,238 @@
+<include file="Public:header" />
+<style type="text/css">
+    iframe
+    {
+        background: white!important;
+    }
+    .layui-layer-btn{
+        background: white!important;
+    }
+</style>
+<include file="Public:nav" />
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h3>C2C交易模式訂單列表</h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 nopad">
+        <div class="x_panel">
+            <!--篩選表單-->
+            <div class="x_title">
+                <h2>篩選條件</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form method="get" action="{:U('CtoCTransaction/getOrderList')}" id="demo-form2" data-parsley-validate=""   class="form-horizontal form-label-left" novalidate="">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <!--挂单人-->
+                            <td>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">挂單人</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text"  name="username" value="{$Think.get.username}" id="username" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </td>
+                            <!--訂單號-->
+                            <td>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="order_num">訂單號</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" name="order_num" value="{$Think.get.order_num}" id="order_num" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </td>
+                            <!-- 区分买卖 -->
+                             <td>
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">訂單類型</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select name="type"  class="form-control">
+                                        <volist name="typeList" id="vo">
+                                            <option  value="{$key}" <if condition="$Think.get.type eq $key"> selected="selected" </if> >{$vo}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </td>
+                            <!--選擇訂單類型-->
+                            <td>
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">訂單狀態</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select name="status"  class="form-control">
+                                        <volist name="allStatus" id="vo">
+                                            <option  value="{$key}" <if condition="$Think.get.status eq $key"> selected="selected" </if> >{$vo}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </td>
+                            <!--提交按鈕-->
+                            <td>
+                                <button type="submit" class="btn btn-success">查找</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <!--線下交易記錄-->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>C2C模式訂單列表</h2>
+                        <a href="{:U('CtoCTransaction/getTradeList')}" class="btn btn-success pull-right">C2C交易列表</a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <!-- 去掉ajax的数量级别 -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">訂單ID</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">訂單號</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending">挂单类型</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending">挂单人</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">幣種</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">委托單價</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">委托數量</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">手續費</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">挂单总金额</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">成交數量</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">剩余數量</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">挂單時間</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">更新時間</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">訂單狀態</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">匹配記錄</th>
+                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <volist name="orders" id="vo">
+                                            <tr>
+                                                <td>{$vo.id}</td>
+                                                <td>{$vo.order_num}</td>
+                                                <td>
+                                                    <if condition="$vo.type eq 1">
+                                                        挂買單
+                                                    <else />
+                                                        挂賣單
+                                                    </if>
+                                                </td>
+                                                <td>
+                                                    {$vo.username}
+                                                </td>
+                                                <td>{$vo.currency_name}</td>
+                                                <td>{$vo.price}</td>
+                                                <td>{$vo.num}</td>
+                                                 <td>{$vo.fee}</td>
+                                                <td>{$vo.money}</td>
+                                                <td>{$vo.success_num}</td>
+                                                <td>{$vo.leave_num}</td>
+                                                <td>{$vo.add_time|date='Y-m-d H:i:s',###}</td>
+                                                <td>
+                                                    <if condition="$vo.update_time gt 1 ">
+                                                        {$vo.update_time|date='Y-m-d H:i:s',###}
+                                                        <else />
+                                                        -
+                                                    </if>
+                                                </td>
+                                                <td>{$vo.status|getCtoCStatus=###}</td>
+                                                <td><span class="btn btn-success btn-xs" onclick="MatchStatus(this)"
+                                                    <if condition="$vo.sell_id gt 0">
+                                                        d_type="sell"
+                                                    <else />
+                                                        d_type="buy"
+                                                    </if>
+                                                    d_id="{$vo.id}">匹配情況</span>
+                                                </td>
+                                                <td>
+                                                    <if condition="$vo.status eq 1 ">
+                                                        <span  class="btn btn-primary btn-xs" onclick="revokeOrder(this)"  d_id="{$vo.id}">撤銷訂單</span>
+                                                        <else />
+                                                        <a href="javascript:void(0)" class="btn btn-danger btn-xs">禁止處理</a>
+                                                    </if>
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                </div>
+                                <div class="col-sm-7">
+                                    <!--  分页div -->
+                                    {$page}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+<script>
+    //撤销订单日志记录
+    function revokeOrder(_t)
+    {
+        var id= $(_t).attr('d_id');
+        layer.confirm(
+            "<span style='color:#black'>確定撤銷該訂單嗎？</span>",
+            {
+                title:"提示",
+                btn: ["確定","取消"]
+            },
+            function()
+            {
+                $.ajax({
+                    url: "/Back/CtoCTransaction/revokeOrder",
+                    data:{"id":id},
+                    dataType:'json',
+                    type: 'post',
+                    success: function(res)
+                    {
+                        layer.msg(res.msg);
+                        if(res.code==200)
+                        {
+                            window.setTimeout(location.reload(), 3000);
+                        }
+                    }
+                });
+            });
+    }
+    //查看订单的匹配记录
+    function MatchStatus(_t)
+    {
+        var pid= $(_t).attr('d_id');     // pid 对应的主键id
+
+        layer.open({
+            type: 2,
+            title:"<span>訂單的交易情況</span>",
+            area: ['65%', '50%'],
+            skin: 'layui-layer-molv', //默认皮肤
+            btn: ['关闭'],
+            shade: 0.8,
+            content: '/back/CtoCTransaction/getTradeInfo?pid='+pid
+        });
+    }
+</script>
+

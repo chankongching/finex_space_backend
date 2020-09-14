@@ -1,0 +1,124 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+<div class="right_col" role="main">
+	<!--標題-->
+	<div class="page-title">
+		<div class="title_left">
+			<h3>修改用戶信息</h3>
+		</div>
+	</div>
+
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<!--身份認證信息-->
+			<div class="x_title">
+				<h2>身份認證信息</h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li>
+						<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<br>
+				<form id="demo-form2" data-parsley-validate="" method="post" class="form-horizontal form-label-left" novalidate="">
+					<!--用戶id-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="userid">用戶id</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" readonly="readonly"  name='uid ' id="userid" required="required" class="form-control col-md-7 col-xs-12" readonly="" value="{$list['uid']}">
+						</div>
+					</div>
+					<!--證件類型-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="idtype">證件類型 </label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" id="idtype" name="idtype" required="required" class="form-control col-md-7 col-xs-12" readonly="" value="{$list['card_type']|formatCardType=###}">
+						</div>
+					</div>
+					<!--證件姓名-->
+					<div class="form-group">
+						<label for="idname" class="control-label col-md-3 col-sm-3 col-xs-12">證件姓名</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input id="idname" class="form-control col-md-7 col-xs-12" type="text" name="idname" readonly="" value="{$list['card_name']}">
+						</div>
+					</div>
+					<!--證件號碼-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="id">證件號碼</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" readonly="readonly" id="id" required="required" class="form-control col-md-7 col-xs-12" value="{$list['card_num']}">
+						</div>
+					</div>
+					<!--證件正面圖像-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12">證件圖像 </label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<a href="images/idcard.png" data-lightbox='idpic' data-title="證件正面圖像"><img src="{$list['up_img']}" alt="" width="150" /></a>
+							<a href="images/idcard3.png" data-lightbox='idpic' data-title="證件反面面圖像"><img src="{$list['down_img']}" alt="" width="150" /></a>
+							<a href="images/idcard2.png" data-lightbox='idpic' data-title="證件和銀行卡合影圖像"><img src="{$list['all_img']}" alt="" width="150" /></a>
+						</div>
+					</div>
+					<!--申請時間-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="time">申請時間</label>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<input type="text" readonly="readonly" id="time" required="required" class="form-control col-md-7 col-xs-12" readonly="" value="{$list['add_time']|date='Y-m-d H:i:s',###}">
+						</div>
+					</div>
+					<!--状态-->
+					<div class="form-group">
+						<label class="control-label col-md-3 col-sm-3 col-xs-12" for="acitive">狀態</label>
+						<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 10px;">
+							<label>
+				                              <input type="radio" class="flat" <eq name="list['status']" value="0">checked="true"</eq> checked value="0"  name="status"> 審核中
+				                            </label>&nbsp;&nbsp;
+							<label>
+				                              <input type="radio" class="flat" <eq name="list['status']" value="1">checked="true"</eq> value="1"  name="status"> 審核通過
+				                            </label>&nbsp;&nbsp;
+											<label class="nopass">
+				                              <input type="radio" class="flat nopass" <eq name="list['status']" value="-1">checked="true"</eq> value="-1"  name="status"> 審核未通過
+				                            </label>
+							
+						</div>
+					</div>
+								<div class="form-group reasone" style="display: none;">
+									<label class="control-label col-md-3 col-sm-3 col-xs-12">請選擇需要回復的理由</label>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<select class="form-control">
+											<option>您的證件已註冊綁定，請勿重複註冊 。</option>
+											<option>您存在手持證件照片證件模糊不清無法查看證件姓名和證件號碼，請重新拍照上傳。</option>
+											<option>您存在遮擋證件號碼或姓名</option>
+											<option>照片格式錯誤（標準格式為JPG，照片大小不能超過2M）</option>
+											<option>您填寫的姓名或證件號碼與手持證件姓名或號碼不符或PS證件。 </option>
+											<option >第三張照片需要本人手持有效證件和有效銀行卡。請保證照片清晰可查看證件姓名和證件號</option>
+											<option >您的證件年齡超限 </option>
+										</select>
+									</div>
+								</div>
+					<div class="ln_solid"></div>
+					<div class="form-group">
+						<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+							<!--提交按鈕-->
+							<input type="hidden" name="id" value="{$list['id']}" />
+							<button type="submit" class="btn btn-success">提交</button>
+							<a href="{:U('fuckyoup2p/Security/showIdCardList')}"><button type="button" class="btn btn-default">返回</button></a>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="clear"></div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+<script type="text/javascript">
+	$(".nopass").click(function(){
+		$(".reasone").css("display","block");
+	})
+</script>

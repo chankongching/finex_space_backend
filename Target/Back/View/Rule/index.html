@@ -1,0 +1,235 @@
+<include file="Public:header" />
+<include file="Public:nav" />
+			<!-- 切换进来 -->
+				<!-- 左侧的导航 -->
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>權限管理</h3>
+						</div>
+					</div>
+					<div class="">
+						<div class="clearfix"></div>
+						<!--權限列表-->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>權限列表</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+											<div class="row">
+												<div class="col-sm-6">
+												</div>
+												<div class="col-sm-6 text-right">
+													<!--添加權限按鈕-->
+													<button class="btn btn-default" data-toggle="modal" data-target="#addpermission">添加權限</button>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12 mb">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 80.667px;">排序</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 200.667px;">菜單名</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 200.667px;">操作</th>
+															</tr>
+														</thead>
+														<tbody>
+														     <foreach name="datatable" item="v">
+															<tr>
+																<td>{$v['_name']}</td>
+																<td>{$v['name']}</td>
+																<td>  
+																	<a href="javascript:;" ruleId="{$v['id']}" idval="{$v['id']}" data-toggle="modal" class="addSubMenu" data-target="#addpermission2">添加子權限</a> |
+																	<a href="javascript:;" ruleId="{$v['id']}" idval="{$v['id']}" data-toggle="modal" class="modify" data-target="#modpermission3" ruleName="{$v['name']}" ruleTitle="{$v['title']}" >修改</a> |
+																	<a class="del_confirm" href="javascript:;" idval="{$v['id']}">刪除</a>
+																</td>
+															</tr>
+														</foreach>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-5">
+													<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite"></div>
+												</div>
+										       <!-- 去掉分页的的-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--添加權限表單-->  
+					<div class="modal fade bs-example-modal-lg in" id="addpermission" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 15%;">
+						<div class="modal-dialog ">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+									<h4 class="modal-title" id="myModalLabel">添加權限</h4>
+								</div>
+								<div class="modal-body">
+									<form  action="{:U('Back/Rule/add')}" method="post"   data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+										<!--權限名-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">權限名</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name"  name="title"  required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<!--權限-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name"   style="line-height: 30px;">權限</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name"  name="name"  required="required" class="form-control col-md-7 col-xs-12">
+												<p style="margin-bottom: 0;">* 輸入模塊/控制器/方法即可 例如 Back/Nav/index</p>
+											</div>
+										</div>
+										<!--提交按鈕-->
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-primary">添加</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--添加子權限表單  模态窗的id属性值-->
+					<div class="modal fade bs-example-modal-lg in" id="addpermission2" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 15%;">
+						<div class="modal-dialog ">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+									<h4 class="modal-title" id="myModalLabel">添加子權限</h4>
+								</div>
+								<div class="modal-body">
+									<form id="" data-parsley-validate=""  method="post"    action="{:U('Back/Rule/add')}"   class="form-horizontal form-label-left" novalidate="">
+										<!--權限名-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">權限名</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name"  name="title"   required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<!--權限-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">權限</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text" id="first-name"  name="name"  required="required" class="form-control col-md-7 col-xs-12">
+												<p style="margin-bottom: 0;">* 輸入模塊/控制器/方法即可 例如Back/Nav/index</p>
+											</div>
+										</div>
+
+										<!--提交按鈕-->
+										<div class="modal-footer">
+											<input type="hidden" id="addSubid" name="pid"/>
+											<button type="submit" class="btn btn-primary">添加</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--修改權限表單-->
+					<!-- 模态窗id -->
+					<div class="modal fade bs-example-modal-lg in" id="modpermission3" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 15%;">
+						<div class="modal-dialog ">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+									<h4 class="modal-title" id="myModalLabel">修改權限</h4>
+								</div>
+								<div class="modal-body">
+									<form data-parsley-validate=""   action="{:U('Back/Rule/edit')}" method="post" class="form-horizontal form-label-left" novalidate="">
+										<!--權限名-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name" style="line-height: 30px;">權限名</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text"  id="perName"   name="title" required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<!--權限-->
+										<div class="form-group">
+											<label class=" col-md-3 col-sm-3 col-xs-12" for="first-name"   style="line-height: 30px;">權限</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<input type="text"  id="perUrl"  name="name"  required="required" class="form-control col-md-7 col-xs-12">
+												<p style="margin-bottom: 0;">* 輸入模塊/控制器/方法即可 例如 Admin/Nav/index</p>
+											</div>
+										</div>
+										<!--提交按鈕-->
+										<div class="modal-footer">
+									  	<input type="hidden" id="editId" name="id"/>
+											<button type="submit" class="btn btn-primary">修改</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!--刪除提示信息-->
+						<div class="modal fade bs-example-modal-sm in" id="delect" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 20%; ">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="myModalLabel2">註意</h4>
+									</div>
+									<div class="modal-body">
+										<p>您確定要刪除嗎？</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">不了，謝謝！</button>
+										<button type="button" class="btn btn-primary">確定</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		
+		<!-- jQuery -->
+<include file="Public:footer"/>
+  	<script>
+		   $('.modify').click(function(){
+			   var id = $(this).attr('idval');
+				$('#editId').val(id);
+				 $.post("{:U('Back/Rule/getAuthAjax')}",{id:id},function(result){
+					result = JSON.parse(result);
+					$('#perName').val(result.title);
+					$('#perUrl').val(result.name);
+				 });
+		   });
+		   $('.addSubMenu').click(function(){
+			   var id = $(this).attr('idval');   
+				$('#addSubid').val(id);
+		   });   
+           
+		   //修改comfirm的删除
+		   $(function(){
+			   $(".del_confirm").click(function(){
+				   del_auth($(this));
+			   })
+		   })
+		   function del_auth(_this)
+		   {
+			   layer.confirm(
+			   "<span style='color:#fff'>確定删除嗎？</span>", 
+			   {
+				   title:"*提示",
+				   btn: ["確定","取消"]
+			   }, 
+			   function(){
+				   var auth_id=_this.attr('idval');
+				    window.location.href="/Back/Rule/delete/id/"+auth_id;
+			   });  
+		   }
+		</script>

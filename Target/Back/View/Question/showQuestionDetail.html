@@ -1,0 +1,260 @@
+<!-- 圖片放大 -->
+<link rel="stylesheet" href="__ADMIN_CSS__/lightbox.css"/>
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>查看留言詳細信息</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>留言信息&nbsp;&nbsp;&nbsp;&nbsp;
+									  <if  condition="($info['status'] eq 2)">
+                                           <span style="color:red;font-size:16px;" >该问题已解决</span>
+                                      </if>
+									 </h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li>
+											<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+										</li>
+
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<br>
+									<form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+										<!--留言姓名-->
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">留言姓名</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" readonly="readonly" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="{$info['username']}">
+											</div>
+										</div>
+										<!--留言電話-->
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">留言電話</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" readonly="readonly" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12" value="{$info['ex_phone']}">
+											</div>
+										</div>
+										<!--留言邮箱-->
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">留言郵箱</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" readonly="readonly" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12" value="{$info['ex_email']}">
+											</div>
+										</div>
+										<!--留言時間-->
+										<div class="form-group">
+											<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">留言時間</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="middle-name" readonly="readonly" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" value="{$info['add_time']|date='Y-m-d H:i:s',###}">
+											</div>
+										</div>
+										<!--留言標題-->
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12">留言標題</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="birthday" readonly="readonly" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="{$info['m_title']}-{$info['v_title']}">
+											</div>
+										</div>
+										<!--留言內容-->
+										<div class="form-group">
+											<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">留言內容</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<textarea readonly="readonly" style="width: 100%;resize: none;height: 100px;" name="" rows="" cols="">{$info['describe']}</textarea>
+											</div>
+										</div>
+										
+									  <div class="form-group">
+											<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">图片</label>
+											<div class="col-md-1 col-sm-1 col-xs-4">
+												<a href="{$info['image_one']}" data-lightbox='messpic'><img width="100" height="100" src="{$info['image_one']}"></a>
+											</div>
+											<div class="col-md-1 col-sm-1 col-xs-4">
+												<a href="{$info['image_two']}" data-lightbox='messpic'><img width="100" height="100" src="{$info['image_two']}"></a>
+											</div>
+											<div class="col-md-1 col-sm-1 col-xs-4">
+												<a href="{$info['image_three']}" data-lightbox='messpic'><img width="100" height="100" src="{$info['image_three']}"></a>
+											</div>
+									 </div>
+										<!-- 客服回复 -->
+										<div class="form-group">
+											<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">客服回复</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<volist name="answer" id="vo">
+													<eq name="vo['type']" value="1">
+														<div style="padding:5px 0;"><span style="color:#c11010">客服 &nbsp;：{$vo[username]}&nbsp;回复</span>：{$vo['answer']|htmlspecialchars_decode=###}</div>
+													</eq>
+													<eq name="vo['type']" value="2">
+														<div style="padding:5px 0;"><span style="color:green">用戶&nbsp;：{$vo[username]}&nbsp;留言</span>：{$vo['answer']|htmlspecialchars_decode=###}</div>
+													</eq>
+												時間:<span style="color:#c11010">{$vo.add_time|date='Y-m-d H:i:s',###}</span>
+												</volist>
+											</div>
+										</div>
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+												<!--返回列表按鈕-->
+												<a class="btn btn-primary" href="{:U('/Question/index')}">返回列表</a>
+												<!--回復留言按鈕-->
+											   <if  condition="($info['status'] eq 1)">
+                                                   <p  class="btn btn-success reply">回復留言</p>
+                                              </if>
+                                              
+                                               <if  condition="($info['status'] eq 1)">
+                                                     <a class="btn btn-danger marksolve"  data_id={$info.id}>标识问题已解决</a>
+                                              <else/>
+                                              </if>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!--快捷回复-->
+						<div class="col-md-12 col-sm-12 col-xs-12 replypart" style="display: none;">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>快捷回复</h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li>
+											<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<div class="row addreplylist">
+										<div class="col-md-10">
+											<input type="hidden" name="question_type" value="{$info['type']}">  <!-- 问题类型 -->
+											<input type="text" class="form-control" name="quickreplay_content" />
+										</div>
+										<div class="col-md-2">
+											<input type="button" value="+" class="btn btn-success replay-add">
+										</div>
+									</div>
+									<div class="quick_c">
+									<volist name="quickList" id="vo">
+									<div class="quick-reply-list">
+										<span class="quickreply-c">{$vo.qr_content}。</span>
+										<span class="add-content btn btn-primary btn-xs">添加至留言</span>
+										<span class="del-content btn btn-danger btn-xs" qr-id="{$vo.id}">删除此留言</span>
+									</div>
+									 </volist>
+									 </div>
+								</div>
+							</div>
+						</div>
+						<!--回復留言-->
+						<div class="col-md-12 col-sm-12 col-xs-12 replypart" style="display: none;">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>回復留言</h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li>
+											<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<div id="alerts"></div>
+									<div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#liuyantext">
+
+									<form method="post" action="{:U('Question/answerQuestion')}">
+										<input type="hidden" name="f_id" value="{$Think.get.id}">
+										<textarea id="liuyantext" style="width:100%;height:100px;resize:none;margin-bottom:10px" name="content"  class="editor-wrapper placeholderText" contenteditable="true"></textarea>
+										<!--回復留言輸入框-->
+										<textarea  name="descr" id="descr" style="display:none;"></textarea>
+										<br>
+										<!--發送留言按鈕-->
+										<div class="form-group">
+											<button type="submit" class="btn  btn-info">發送留言</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer"/>
+<!-- 圖片放大 -->
+<script type='text/javascript' src='__ADMIN_JS__/lightbox.js'></script>
+<!-- uEditor -->
+<script src="__ADMIN_JS__/utf8-php/ueditor.config.js" type="text/javascript" charset="utf-8"></script>
+<script src="__ADMIN_JS__/utf8-php/ueditor.all.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$('.reply').click(function() {
+	$('.replypart').css('display', 'block');
+})
+</script>
+<script>
+   //添加快捷回复
+   $(".replay-add").click(function(){
+     var qr_type = $("input[name=question_type]").val();
+     var qr_content = $("input[name=quickreplay_content]").val();
+     $.post("/Question/saveQuickMessage.html", {
+     	"qr_type": qr_type,
+     	"qr_content":qr_content
+     },
+     function(data){
+       var id=data.id;
+       $("input[name=quickreplay_content]").val("");
+       var h="<div class='quick-reply-list'><span class='quickreply-c'>"+qr_content+"</span><span class='add-content btn btn-primary btn-xs'> 添加至留言</span><span class='del-content btn btn-danger btn-xs' qr-id='"+id+"'>删除此留言</span></div>";
+       var s=$(".quick_c").html();
+       var a=h+s;
+       $(".quick_c").html(a);
+       // $(".reply-content").prepend("<div class='quick-reply-list'><span class='quickreply-c'>"+qr_content+"</span><span class='add-content'>添加至留言</span><span class='del-content' qr-id='"+data+"'>删除此留言</span></div>");
+       // $(".quick-reply-list").prepend("<span class='quickreply-c'>"+qr_content+"</span><span class='add-content btn btn-primary btn-xs'>添加至留言</span><span class='del-content' qr-id='"+id+"'>删除此留言</span>");
+       //刷新页面
+       //window.location.reload();
+     }, "json");
+   })
+
+   //删除快速留言
+   $("body").on("click",".del-content", function(){
+       var now = $(this);
+       var id = $(this).attr("qr-id");
+       $.post("/Question/delQuickMessage.html", {"id":id},
+       function(data){
+         now.parent().empty();
+        //window.location.reload();
+       }, "json");
+   });
+
+   $("body").on("click",".add-content", function(){
+	   var h= $('#liuyantext').val();
+	   var s= h+$(this).prev().text();
+       $('#liuyantext').val(s);
+   });
+   
+   $(".marksolve").click(function(){
+	   markSolve($(this));
+   })
+   
+   //标识为已解决
+  function markSolve(_t)
+  { 
+        var id= $(_t).attr('data_id');
+        layer.confirm(
+           	 "<span style='color:#fff'>確定标识已解决嗎？</span>", 
+                {
+           	       title:"*提示",
+           	       btn: ["確定","取消"]
+                }, 
+                function()
+                {  
+           		   window.location.href="/Back/Question/MarkSolve/id/"+id;
+               });  
+  }
+</script>

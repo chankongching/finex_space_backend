@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<include file="Public:header" />
+<include file="Public:nav" />
+				<div class="right_col" role="main">
+					<!--標題-->
+					<div class="page-title">
+						<div class="title_left">
+							<h3>公告管理</h3>
+						</div>
+					</div>
+					<div class="">
+						<div class="clearfix"></div>
+						<!--公告列表-->
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>FAQ標題列表</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<form action="{:U('Back/Faq/orderList')}" method="post">
+											<div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+											<div class="row">
+												<div class="col-sm-12 text-right">
+													<button type="submit"  class="btn btn-success">排序</button>
+													<a class="btn btn-success" href="{:U('back/Faq/addFaqTitle')}">添加FAQ標題</a>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12 mb">
+													<table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+														<thead>
+															<tr role="row">
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending">排序</th>
+<!--																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">中文標題</th>-->
+<!--																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">繁体中文標題</th>-->
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">英文標題</th>
+																<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">操作</th>
+															</tr>
+														</thead>
+														<tbody>
+														<!--限制字符串长度-->
+														<foreach name="list" item="vo">
+																<tr role="row" class="even">
+																	<td>
+																		<input class="form-control" style="width:42px;height:25px;" type="text" name="{$vo['id']}" value="{$vo['order_number']}">
+																	</td>
+<!--																	<td>{$vo['zh-cn-title']|mb_substr=0,15,'utf-8'}</td>-->
+<!--																	<td>{$vo['zh-tw-title']|mb_substr=0,15,'utf-8'}</td>-->
+																	<td>{$vo['en-us-title']|mb_substr=0,15,'utf-8'}</td>
+																	<td>
+																		<button type="button" data-toggle="modal" data-target="#set" onclick="saveFaqTitle({$vo['id']})" class="btn btn-xs btn-primary hov1">修改</button>
+																		<button type="button" onclick="delFaqTitle({$vo['id']})" class="btn btn-xs btn-danger ">删除</button>
+																	</td>
+																</tr>
+																 <notempty name="vo['data']">
+																   <foreach name="vo['data']" item="bo">
+
+																		<tr role="row" class="even">
+																			<td></td>
+<!--																			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$bo['zh-cn-title']|mb_substr=0,15,'utf-8'}</td>-->
+<!--																			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$bo['zh-tw-title']|mb_substr=0,15,'utf-8'}</td>-->
+																			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$bo['en-us-title']|mb_substr=0,15,'utf-8'}</td>
+																			<td>
+																				<button type="button" data-toggle="modal" data-target="#set" onclick="saveFaqTitle({$bo['id']})" class="btn btn-xs btn-primary hov1">修改</button>
+																				<button type="button" onclick="delFaqTitle({$bo['id']})" class="btn btn-xs btn-danger ">刪除</button>
+																				<button type="button" data-toggle="modal" data-target="#set" onclick="addFaqContentList({$bo['id']})" class="btn btn-xs btn-success hov1">添加內容</button>
+																				<button type="button" data-toggle="modal" data-target="#set" onclick="checkFaqTitleContent({$bo['id']})" class="btn btn-xs btn-primary hov1">查看內容</button>
+																			</td>
+																		</tr>
+																  </foreach>
+															   </notempty>
+														</foreach>
+														</tbody>
+                                                                                                                
+													</table>
+												</div>
+											</div>
+										</form>
+											<div class="row">
+												{$page}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	
+<include file="Public:footer" />
+<script>
+    function delFaqTitle(id) {
+        layer.confirm(
+            "<span style='color:#fff'>確定删除嗎？</span>",
+            {
+                title:"*提示",
+                btn: ["確定","取消"]
+            },
+            function(){
+                $.ajax({
+                    url:'/Back/Faq/delFaqTitle',
+                    data:{id:id},
+                    type:'post',
+                    jsonType:'json',
+                    success:function(data){
+                        layer.msg(data.msg);
+                        if( data.status == 200 ){
+                            setTimeout(function(){window.location.href='/Back/Faq/showFaqList';},2000);
+                        }
+                    }
+                })
+            }
+        );
+    }
+
+    function saveFaqTitle(id) {
+        window.location.href = '/Back/Faq/saveFaqTitle/id/'+id;
+    }
+    function addFaqContentList(id) {
+        window.location.href = '/Back/FaqContent/addFaqContentList/id/'+id;
+    }
+    function checkFaqTitleContent(id) {
+        window.location.href = '/Back/Faq/checkFaqTitleContent/id/'+id;
+    }
+
+</script>
