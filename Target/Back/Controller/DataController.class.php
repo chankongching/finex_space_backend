@@ -134,4 +134,19 @@ class DataController extends BackBaseController
     	 $this->assign("data_list",$total);
     	 $this->display('sum');
     }
+
+    public function NoComputeNum()
+    {
+        $model=new Model();
+        $sql= "  SELECT 'btc' as currency_name ,sum(latest_balance) as num FROM balance_btc as btc
+                union
+                select 'eth' as currency_name,sum(latest_balance) from balance_eth as eth
+                union
+                select 'usdterc20' as currency_name, sum(latest_balance) from balance_usdt_erc20 as usdt
+                union
+                select 'usdtomni' as currency_name, ifnull(sum(latest_balance),0) from balance_usdt_omni as usdtomni ";
+        $total=$model->query($sql);
+        $this->assign("data_list",$total);
+        $this->display('nocompute');
+    }
 }

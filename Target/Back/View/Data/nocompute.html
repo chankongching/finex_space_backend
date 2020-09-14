@@ -1,0 +1,58 @@
+<include file="Public:header"/>
+<include file="Public:nav"/>
+<script src="__PUBLIC__/Back/js/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
+<div class="right_col" role="main">
+    <!--標題-->
+    <div class="page-title">
+        <div class="title_left">
+            <h4>未歸帳列表</h4>
+        </div>
+    </div>
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>截止到當前未歸帳列表</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb">
+                                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">幣種名稱</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">總數量級</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <volist name="data_list" id="vo">
+                                            <tr role="row" class="even">
+                                                <td class="sorting_1 idval">{$vo['currency_name']}</td>
+                                                <td class="sorting_1">{$vo['num']}</td>
+                                            </tr>
+                                        </volist>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer"/>
