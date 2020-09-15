@@ -533,8 +533,9 @@ class RuleController extends BackBaseController{
                return false;
            }
            M()->commit();
-           $this->editSysOrder($data,$map);
-           return true;
+//           $this->editSysOrder($data,$map);
+           return true
+               ;
        }
        /**
         * @method 修改system库

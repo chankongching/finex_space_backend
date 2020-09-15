@@ -130,12 +130,8 @@ class UserMoneyController extends BackBaseController
             $count4 = $model->query("select count(*) as tcount from trade_user_finance4 $where[0]");
             $count5 = $model->query("select count(*) as tcount from trade_user_finance5 $where[0]");
             $count6 = $model->query("select count(*) as tcount from trade_user_finance6 $where[0]");
-            $count7 = $model->query("select count(*) as tcount from trade_user_finance7 $where[0]");
-            $count8 = $model->query("select count(*) as tcount from trade_user_finance8 $where[0]");
-            $count9 = $model->query("select count(*) as tcount from trade_user_finance9 $where[0]");
             $count = $count0[0]['tcount'] + $count1[0]['tcount'] + $count2[0]['tcount'] + $count3[0]['tcount'] +
-                $count4[0]['tcount'] + $count5[0]['tcount'] + $count6[0]['tcount'] + $count7[0]['tcount'] +
-                $count8[0]['tcount'] + $count9[0]['tcount'];
+                $count4[0]['tcount'] + $count5[0]['tcount'] + $count6[0]['tcount'] ;
             $Page = new \Back\Tools\Page($count, 15);// 实例化分页类 传入总记录数和每页显示的记录数(20)
             $sql = "SELECT m.*,n.username,p.currency_mark"
                 . " from  (SELECT *  from trade_user_finance0 $where[0]
@@ -145,9 +141,6 @@ class UserMoneyController extends BackBaseController
                 union all SELECT *  from trade_user_finance4 $where[0]
                 union all SELECT *  from trade_user_finance5 $where[0]
                 union all SELECT *  from trade_user_finance6 $where[0]
-                union all SELECT *  from trade_user_finance7 $where[0]
-                union all SELECT *  from trade_user_finance8 $where[0]
-                union all SELECT *  from trade_user_finance9 $where[0]
                 )as m "
                 . "left join trade_user as n on m.uid=n.uid "
                 . "left join trade_currency as p on m.currency_id=p.id"
