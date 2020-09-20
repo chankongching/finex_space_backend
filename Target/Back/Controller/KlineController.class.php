@@ -125,12 +125,12 @@ class KlineController extends Controller
         }
 
         //如果涨的收盘大于15%
-        if ($this->rate > 0 && $new_price > $Increase*(1+$this->randomFloat(1, 4, 10000))) {
-            $new_price = $last_min['last'] * (1 - $sjs);
-        }
-        if ($this->rate < 0 && $new_price < $Decrease*(1-$this->randomFloat(1, 4, 10000))) {
-            $new_price = $last_min['last'] * (1 + $sjs);
-        }
+//        if ($this->rate > 0 && $new_price > $Increase*(1+$this->randomFloat(1, 4, 10000))) {
+//            $new_price = $last_min['last'] * (1 - $sjs);
+//        }
+//        if ($this->rate < 0 && $new_price < $Decrease*(1-$this->randomFloat(1, 4, 10000))) {
+//            $new_price = $last_min['last'] * (1 + $sjs);
+//        }
 
         $inser_data['high'] = $new_price * (1 + $this->randomFloat(1, 4, 10000));////当前类型时间段内  最高价
         $inser_data['low'] = $last_min['last'] * (1 - $this->randomFloat(1, 3, 10000));////当前类型时间段内  最低价
