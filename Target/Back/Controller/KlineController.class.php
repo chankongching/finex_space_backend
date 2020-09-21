@@ -113,7 +113,7 @@ class KlineController extends Controller
 
         //判断当天最后三十分钟必须在涨幅率之间 相差5%
         $star_time = strtotime(date("Y-m-d 23:30:00"));
-        $end_time = strtotime(date("Y-m-d 03:59:00"));
+        $end_time = strtotime(date("Y-m-d 23:59:00"));
         if ($star_time < time() && $end_time > time()) {
             //如果收盘价小于昨天收盘价+涨幅率的一半，收盘价上涨
             if ($this->rate > 0 && $new_price < ($this->rate * .5) * $yesterday["shoupan_price"] + $yesterday["shoupan_price"]) {
