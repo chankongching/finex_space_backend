@@ -72,7 +72,7 @@ class KlineController extends Controller
         $in_de = rand(1, 10);
         if ($format == 1) {
             if ($in_de > 3) {
-                $new_price = $last_min['last'] * (1.0025 + $sjs * $aa);
+                $new_price = $last_min['last'] * (1 + $sjs * $aa);
             } else {
                 $new_price = $last_min['last'] * (1 - $sjs * $aa);
             }
