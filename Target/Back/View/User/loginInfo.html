@@ -126,8 +126,9 @@
                                                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217px;">注册时间</th>
                                                         <!--<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 200px;">VIP等級</th>-->
                                                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 120px;">狀態</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 180px;">操作</th>
-                                                       
+<!--                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 180px;">操作</th>-->
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 180px;">登陆时间</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -149,43 +150,44 @@
                                                                 <case value="-1"><span style="color: red">禁用</span></case>
                                                             </switch>
                                                         </td>
-                                                        <td>
-                                                            <div class="btn-group ">
-                                                                <button data-toggle="dropdown" class="btn btn-success dropdown-toggle btn-xs btntog" type="button" aria-expanded="true">操作 <span class="caret"></span></button>
-                                                                <ul role="menu" class="dropdown-menu">
-                                                                    <li role="presentation">
-                                                                        <a href="{:U('/Back/User/userCurrency',array('uid'=>$vo['uid']))}">查看/修改用戶資金</a>
-                                                                    </li>
-                                                                    <!--<li>-->
-                                                                        <!--<a href="{:U('/Back/Security/showUserLog',array('username'=>$vo['username']))}"> 查看登錄日誌</a>-->
-                                                                    <!--</li>-->
-                                                                    <li>
-<!--                                                                        <a href="{:U('/Back/UserMoney/showFinanceLog',array('user_id'=>$vo['uid']))}">查看財務日誌</a>-->
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="{:U('/Back/Pack/showTiBiLog',array('uid'=>$vo['uid']))}">查看提幣記錄</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="{:U('/Back/Pack/showChongBiLog',array('uid'=>$vo['uid']))}">查看充幣記錄</a>
-                                                                    </li>
-                                                                    <!--<li>
-                                                                        <a href="{:U('/Back/UserMoney/rewardLog',array('uid'=>$vo['uid']))}">查看奖金获得日志</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="{:U('/Back/UserMoney/currencyToMoney',array('uid'=>$vo['uid']))}">查看资金划转日志</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="{:U('/Back/Team/index',array('uid'=>$vo['uid']))}">查看团队</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="{:U('/back/MyProduct/index',array('uid'=>$vo['uid']))}">查看商品数量</a>
-                                                                    </li>-->
-                                                                    <li>
-                                                                        <a href="{:U('/Back/User/editUser',array('uid'=>$vo['uid']))}">修改用戶</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
+                                                        <td>{$vo['add_time']|date="Y-m-d H:i:s",###}</td>
+<!--                                                        <td>-->
+<!--                                                            <div class="btn-group ">-->
+<!--                                                                <button data-toggle="dropdown" class="btn btn-success dropdown-toggle btn-xs btntog" type="button" aria-expanded="true">操作 <span class="caret"></span></button>-->
+<!--                                                                <ul role="menu" class="dropdown-menu">-->
+<!--                                                                    <li role="presentation">-->
+<!--                                                                        <a href="{:U('/Back/User/userCurrency',array('uid'=>$vo['uid']))}">查看/修改用戶資金</a>-->
+<!--                                                                    </li>-->
+<!--                                                                    &lt;!&ndash;<li>&ndash;&gt;-->
+<!--                                                                        &lt;!&ndash;<a href="{:U('/Back/Security/showUserLog',array('username'=>$vo['username']))}"> 查看登錄日誌</a>&ndash;&gt;-->
+<!--                                                                    &lt;!&ndash;</li>&ndash;&gt;-->
+<!--                                                                    <li>-->
+<!--&lt;!&ndash;                                                                        <a href="{:U('/Back/UserMoney/showFinanceLog',array('user_id'=>$vo['uid']))}">查看財務日誌</a>&ndash;&gt;-->
+<!--                                                                    </li>-->
+<!--                                                                    <li>-->
+<!--                                                                        <a href="{:U('/Back/Pack/showTiBiLog',array('uid'=>$vo['uid']))}">查看提幣記錄</a>-->
+<!--                                                                    </li>-->
+<!--                                                                    <li>-->
+<!--                                                                        <a href="{:U('/Back/Pack/showChongBiLog',array('uid'=>$vo['uid']))}">查看充幣記錄</a>-->
+<!--                                                                    </li>-->
+<!--                                                                    &lt;!&ndash;<li>-->
+<!--                                                                        <a href="{:U('/Back/UserMoney/rewardLog',array('uid'=>$vo['uid']))}">查看奖金获得日志</a>-->
+<!--                                                                    </li>-->
+<!--                                                                    <li>-->
+<!--                                                                        <a href="{:U('/Back/UserMoney/currencyToMoney',array('uid'=>$vo['uid']))}">查看资金划转日志</a>-->
+<!--                                                                    </li>-->
+<!--                                                                    <li>-->
+<!--                                                                        <a href="{:U('/Back/Team/index',array('uid'=>$vo['uid']))}">查看团队</a>-->
+<!--                                                                    </li>-->
+<!--                                                                    <li>-->
+<!--                                                                        <a href="{:U('/back/MyProduct/index',array('uid'=>$vo['uid']))}">查看商品数量</a>-->
+<!--                                                                    </li>&ndash;&gt;-->
+<!--                                                                    <li>-->
+<!--                                                                        <a href="{:U('/Back/User/editUser',array('uid'=>$vo['uid']))}">修改用戶</a>-->
+<!--                                                                    </li>-->
+<!--                                                                </ul>-->
+<!--                                                            </div>-->
+<!--                                                        </td>-->
                                                         
                                                     </tr>
                                                 </volist>

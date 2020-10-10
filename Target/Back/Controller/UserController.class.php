@@ -20,7 +20,44 @@ class UserController extends BackBaseController{
 			'1'=>'asc',
 	        '-1'=>'desc',
 	];
-	
+
+    private $_where        = [];
+    private $_mod          = 0;
+    private $_username     =  'unknow';
+    private $_currencyName = [];
+    private $_uid          = 0;
+
+    public function __construct(){
+        parent::__construct();
+        $uid = intval(trim(I('uid')));
+
+        if($uid > 0 ) {
+            $this->_where['uid'] = $uid;
+            $this->_mod = $uid % 4 ;
+            $this->_uid = $uid;
+            $this->setUserName();
+            $this->setCurrencyName();
+        }
+    }
+    /**
+     * @method 设置用户名   避免连表获取
+     * @return bool
+     */
+    private function setUserName(){
+        $user = M('User')->where($this->_where)->find();
+        if(!empty($user)) $this->_username = $user['username'];
+        return true;
+    }
+    /**
+     * @method 设置货币单位
+     * @return boolean
+     */
+    private function setCurrencyName(){
+        $currs = M('Currency')->field('id,currency_name')->select();
+        if(!empty($currs)) $this->_currencyName = array_column($currs, 'currency_name','id');
+        return true;
+    }
+
 
     /**
      * 用户列表查看
@@ -60,6 +97,43 @@ class UserController extends BackBaseController{
        $this->assign('admin',$admin);              //  管理员
        $this->display();
     }
+
+    public function loginInfo(){
+        $admin=0;
+
+        if($this->back_userinfo['id']==self::$adminUid)
+        {
+            $admin=1;
+        }
+        $where = $this->getParamsTwo();
+        $redis=RedisIndex::getInstance();
+        $redis_data = $redis->getSessionValue("user");
+        //查詢該用戶是否是代理商
+        $agent =D("auth_group_access")->where("uid = {$redis_data['id']} and group_id = 11")->find();
+        if ($agent){
+            $admin_data = D("admin_user")->where("id = {$redis_data['id']} ")->find();
+            if (empty($where)){
+                $array["trade_user.invite_code"] = $admin_data["invite_code"];
+                $where = $array ;
+            }else{
+                $where["trade_user.invite_code"] = $admin_data["invite_code"];
+            }
+            $agent["invite_code"] = $admin_data["invite_code"];
+        }
+        if(empty($where)){
+            $where = 200;
+        }
+
+
+        $userInfoList = $this->getUserListLogin($where,'User', 'uid desc');
+        $this->assign('list',$userInfoList['list']);// 赋值数据集
+        $this->assign('agent',$agent);// 传入前端判断是否是代理商
+        $this->assign('agent_count',count($agent));// 传入前端判断是否是代理商
+        $this->assign('page',$userInfoList['page']);// 赋值分页输出
+        $this->assign('admin',$admin);              //  管理员
+        $this->display();
+    }
+
 
     //获取查询条件
     protected function getParams(){
@@ -628,6 +702,34 @@ class UserController extends BackBaseController{
                 ->join("left join trade_admin_user as b on trade_user.invite_code = b.invite_code")
                 ->limit($Page->firstRow.','.$Page->listRows)
                 ->field("trade_user.*,b.nickname")
+                ->select();
+        }
+        return ['list'=>$list,'page'=>$show];
+    }
+    protected function getUserListLogin($where,$tableName,$order){
+        $tableModel = M($tableName);
+        if ($where==200)
+        {
+            $count = $tableModel->count();
+            $Page       = new Page($count,15);
+            $show       = $Page->show();// 分页显示输出
+            $list = $tableModel->order($order)
+                ->join("left join trade_admin_user as b on trade_user.invite_code = b.invite_code left join trade_user_log as l on trade_user.uid = l.uid")
+                ->limit($Page->firstRow.','.$Page->listRows)
+                ->field("trade_user.*,b.nickname,l.add_time")
+                ->select();
+        }
+        else
+        {
+            $count = $tableModel->where($where)->count();
+            $Page       = new Page($count,15);
+            $show       = $Page->show();// 分页显示输出
+            $list = $tableModel
+                ->where($where)
+                ->order($order)
+                ->join("left join trade_admin_user as b on trade_user.invite_code = b.invite_code left join trade_user_log as l on trade_user.uid = l.uid")
+                ->limit($Page->firstRow.','.$Page->listRows)
+                ->field("trade_user.*,b.nickname,l.add_time")
                 ->select();
         }
         return ['list'=>$list,'page'=>$show];

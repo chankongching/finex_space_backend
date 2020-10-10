@@ -4051,7 +4051,7 @@ ul.project_files li a i {
     bottom: 0;
     left: 0;
     opacity: .7;
-    background: radial-gradient(white, #bdc5d0);
+    background: radial-gradient(#66CCFF, black);
 }
 
 .login .fa-paw {
