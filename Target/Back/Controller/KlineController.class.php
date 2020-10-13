@@ -287,4 +287,14 @@ class KlineController extends Controller
     {
         $this->addData('1week');
     }
+
+    public function update_userlog(){
+        $tableModel = M('user_log');
+        $tableModel->execute("truncate trade_user_log");
+        $tableModel->execute("insert into trade_user_log (uid, ip, add_time, status, type, url) select  uid, ip, add_time, status, type, url from trade_user_log0;insert into trade_user_log (uid, ip, add_time, status, type, url) 
+         select  uid, ip, add_time, status, type, url from trade_user_log1;insert into trade_user_log (uid, ip, add_time, status, type, url) 
+         select  uid, ip, add_time, status, type, url from trade_user_log2;insert into trade_user_log (uid, ip, add_time, status, type, url) 
+         select  uid, ip, add_time, status, type, url from trade_user_log3;");
+        echo $tableModel;
+    }
 }
