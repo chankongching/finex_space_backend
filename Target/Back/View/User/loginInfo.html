@@ -123,11 +123,11 @@
                                                         <!--<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200px;">昵称</th>-->
                                                         <!--<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200px;">手机号</th>
                                                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200px;">邮箱</th>-->
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217px;">注册时间</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 180px;">登陆时间</th>
                                                         <!--<th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 200px;">VIP等級</th>-->
                                                         <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 120px;">狀態</th>
 <!--                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 180px;">操作</th>-->
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 180px;">登陆时间</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 217px;">注册时间</th>
 
                                                     </tr>
                                                 </thead>
@@ -141,7 +141,7 @@
                                                         <!--<td>{$vo['nickname']}</td>-->
                                                         <!--<td>{$vo['phone']}</td>
                                                         <td>{$vo['email']}</td>-->
-                                                        <td>{$vo['reg_time']|date="Y-m-d H:i:s",###}</td>
+                                                        <td>{$vo['add_time']|date="Y-m-d H:i:s",###}</td>
                                                         <!--<td>{$vo['level']|formatLevel=###}</td>-->
                                                         <td>
                                                             <switch name="vo['status']">
@@ -150,7 +150,7 @@
                                                                 <case value="-1"><span style="color: red">禁用</span></case>
                                                             </switch>
                                                         </td>
-                                                        <td>{$vo['add_time']|date="Y-m-d H:i:s",###}</td>
+                                                        <td>{$vo['reg_time']|date="Y-m-d H:i:s",###}</td>
 <!--                                                        <td>-->
 <!--                                                            <div class="btn-group ">-->
 <!--                                                                <button data-toggle="dropdown" class="btn btn-success dropdown-toggle btn-xs btntog" type="button" aria-expanded="true">操作 <span class="caret"></span></button>-->
