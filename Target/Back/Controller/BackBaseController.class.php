@@ -6,17 +6,18 @@ use Common\Api\RedisIndex;
  * @method 后台基础类控制器  继承框架基类
  * @author 宋建强  2017年9月25日 17：37
  */
-class BackBaseController extends Controller 
-{   
+class BackBaseController extends Controller
+{
 	CONST EXPIRE_TIME=14400;     //两次操作间隔时间
 	//保存后台用户登录信息
 	public $back_userinfo;
 	//定义无需要分配权限即可操作
 	public  $arrRoute=[
-		'/Back/Index/Logout',	
+		'/Back/Index/Logout',
+		'/UserInfo/UserInfoAbout'
 	];
 	/**
-	 * 初始化方法 
+	 * 初始化方法
 	*/
 	public function _initialize()
 	{
@@ -27,16 +28,16 @@ class BackBaseController extends Controller
         $this->assign("userinfo",$this->back_userinfo);
 		$this->assign('back_data',$nav_data);
 	}
-	
+
     protected function checkUserLogin()
     {
 	   	$obj_redis=RedisIndex::getInstance();
 	   	$back_userinfo=$obj_redis->getSessionValue('user');
 	   	if(!isset($back_userinfo['id']) ||  empty($back_userinfo['id']))
-	   	{   
+	   	{
 	   		$this->redirect('/Back/Login/showLogin');
 	   	}
-	   	
+
 	   	$intevalTime  = $back_userinfo['back_expire'];
 	   	$twoActionTime= self::EXPIRE_TIME;
 	   	if(time()-$intevalTime>$twoActionTime)
@@ -45,7 +46,7 @@ class BackBaseController extends Controller
 	   		return  $this->error('您長時間未操作','/Back/Login/showLogin');
 	   		exit;
 	   	}
-	   	
+
 	   	//判斷賬號狀態
 	   	$ret = M('AdminUser')->where(['id'=>$back_userinfo['id']])->find();
 	   	if(empty($ret) || $ret['status']==0)
@@ -81,7 +82,7 @@ class BackBaseController extends Controller
 	   	}
 	   	return true;
    }
-	
+
    /** 定义ajax返回数据的格式
 	 * @author 宋建强 2017年9月27日
 	*/
@@ -91,13 +92,13 @@ class BackBaseController extends Controller
 	  	 $this->ajaxReturn($arr);
     }
 
-    
+
    /**
     * 日志记录保留最近半年的记录 日志会触发这个方法
     * @author 建强   2017年12月8日12:18:06
     * @param string  $tableName  表名注意正确写法  User UserFinance
     * @param string  $field      数据库字段名称
-    * @param int     $month  
+    * @param int     $month
     * @param count   分表尾数              分表请传3
     */
     public  function DelLog($tableName,$count=1,$field='add_time',$month=6)
@@ -105,15 +106,15 @@ class BackBaseController extends Controller
          $where=[];
     	 $ret=rand(1,10);
     	 if ($ret<6)
-    	 {  
+    	 {
     	 	return true ;
     	 }
-    	
+
     	 if($count==3)
     	 {
     	 	//分表的日志删除
     	 	for($i=0;$i<=$count;$i++)
-    	 	{  
+    	 	{
     	 		$ret=M($tableName.$i)->field($field)->order('id desc')->find();
     	 		if($ret[$field])
     	 		{
@@ -127,7 +128,7 @@ class BackBaseController extends Controller
     	 {
     	    $ret=M($tableName)->field($field)->order('id desc')->find();
     	    if ($ret[$field])
-    	    {    
+    	    {
     	    	$add_time=$ret[$field]-($month*30*24*60*60);
     	    	$where[$field]=['lt',$add_time];
     	    	M($tableName)->where($where)->delete();
