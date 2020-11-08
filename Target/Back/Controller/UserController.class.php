@@ -13,9 +13,9 @@ use Common\Api\redisKeyNameLibrary;
 use Common\Api\RedisCluster;
 
 class UserController extends BackBaseController{
-    
+
 	protected static $adminUid=88;
-	
+
 	private $desc=[
 			'1'=>'asc',
 	        '-1'=>'desc',
@@ -125,7 +125,7 @@ class UserController extends BackBaseController{
         }
 
 
-        $userInfoList = $this->getUserListLogin($where,'User', 'uid desc');
+        $userInfoList = $this->getUserListLogin($where,'User', 'add_time desc');
         $this->assign('list',$userInfoList['list']);// 赋值数据集
         $this->assign('agent',$agent);// 传入前端判断是否是代理商
         $this->assign('agent_count',count($agent));// 传入前端判断是否是代理商
@@ -177,8 +177,8 @@ class UserController extends BackBaseController{
         $invite_code = M("admin_user")->where("nickname = '$nickname'")->getField("invite_code");
         return $invite_code;
     }
-    
-    
+
+
     //修改用户
     public function editUser(){
         if(IS_POST){
@@ -212,7 +212,7 @@ class UserController extends BackBaseController{
             }
             $this->success('修改成功',U('User/editUser/uid/'.$uid));
         }else{
-            
+
             //at 頁面渲染  補充備註
             $uid = I('uid');
             $user_list = D('User')->getUserByUid($uid);
@@ -337,7 +337,7 @@ class UserController extends BackBaseController{
             $currency_id = $input['currency_id'];
             unset($input['uid']);
             unset($input['currency_id']);
-            if( empty($input['url1']) && empty($input['url2']) && empty($input['url3']) ){                
+            if( empty($input['url1']) && empty($input['url2']) && empty($input['url3']) ){
                 return $this->error('請填寫要綁定的地址');
             }
             $res=[];
@@ -359,8 +359,8 @@ class UserController extends BackBaseController{
 
     //认证预约
     public function upgradeAppointment(){
-    	
-    	
+
+
         $now = time();
         $day = 3600*24;
         $total = 9;
@@ -425,24 +425,24 @@ class UserController extends BackBaseController{
         $this->assign('days',$days);
         $this->display();
     }
-    
-    
-    
+
+
+
     /**
      * 创建最近十个工作日的数据
-     * @param 
+     * @param
     */
     private  static function createDateTenWorKDay()
     {
     	//从指定的日期开始创建时间日期  创建最近的十天数据
     	$data = M('UpgradeAppointment')->order("id desc")->field('day')->find();
-    	
+
         if ($data)
         {
            $day=date('Y-m-d',strtotime("{$data['day']}"));
         }
-        else 
-        {	
+        else
+        {
         	//不存在
         	$day=date('Y-m-d');
         }
@@ -462,26 +462,26 @@ class UserController extends BackBaseController{
     			'15:00:00 -- 16:00:00',
     			'16:00:00 -- 17:00:00',
     	);
-    	
+
     	$res=[];
     	for($i=1;$i<=14;$i++)
     	{
     		$value=date('Y-m-d',strtotime("$day+$i day"));
     		$key= date('w', strtotime("$day+$i day"));
-    	
+
     		if($key!=6 && $key!=0)
     		{
-    			
+
     			$res[$i]=['week'=>$weekarray[$key],'date'=>$value];
     		}
     	}
-       
+
        //取前七个数据
        $arr=  array_slice($res,0,7);
        foreach ($arr as $k=>$v)
-       {    
+       {
        	    foreach ($hours as $kk=> $vv)
-       	    {   
+       	    {
        	    	$inarr[$kk]['week']=$v['week'];
        	    	$inarr[$kk]['day']=$v['date'];
        	    	$inarr[$kk]['hour_id']=$kk;
@@ -748,8 +748,8 @@ class UserController extends BackBaseController{
         	$show       = $Page->show();// 分页显示输出
         	$list = $tableModel->order($order)->limit($Page->firstRow.','.$Page->listRows)->select();
         }
-        else 
-        {   
+        else
+        {
         	$count = $tableModel->where($where)->count();
         	$Page       = new Page($count,15);
         	$show       = $Page->show();// 分页显示输出
@@ -776,7 +776,7 @@ class UserController extends BackBaseController{
             }
         }
     }
-    
+
     /**
      * 客服手动解封p2p
      */
@@ -785,15 +785,15 @@ class UserController extends BackBaseController{
     	 if(IS_AJAX)
     	 {
     	 	 $uid=I('post.uid');
-    	 	 
+
     	 	 $updateOverTime=[
     	 	 	 'overtime_num'=>0,
     	 	 	 'overtime_time'=>0,
     	 	 ];
     	     $userInfo=M('User')->where(['uid'=>$uid])->find();
-    	     
+
     	     if(!$userInfo)
-    	     { 
+    	     {
                 return $this->error("无该用户");
     	     }
     	     $ret= M('User')->where(['uid'=>$uid])->save($updateOverTime);

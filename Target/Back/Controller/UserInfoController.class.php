@@ -1,9 +1,9 @@
-<?php 
+<?php
 namespace Back\Controller;
 
 /**
- * @author 建强  2019年6月10日 
- * @desc   获取用户相关的数据 
+ * @author 建强  2019年6月10日
+ * @desc   获取用户相关的数据
  */
 class UserInfoController extends BackBaseController
 {
@@ -16,11 +16,11 @@ class UserInfoController extends BackBaseController
     private $_username     =  'unknow';
     private $_currencyName = [];
     private $_uid          = 0;
-    
+
     public function __construct(){
         parent::__construct();
         $uid = intval(trim(I('uid')));
-        
+
         if($uid > 0 ) {
             $this->_where['uid'] = $uid;
             $this->_mod = $uid % 4 ;
@@ -30,7 +30,7 @@ class UserInfoController extends BackBaseController
         }
     }
     /**
-     * @method 设置用户名   避免连表获取 
+     * @method 设置用户名   避免连表获取
      * @return bool
      */
     private function setUserName(){
@@ -39,7 +39,7 @@ class UserInfoController extends BackBaseController
         return true;
     }
     /**
-     * @method 设置货币单位 
+     * @method 设置货币单位
      * @return boolean
      */
     private function setCurrencyName(){
@@ -48,14 +48,20 @@ class UserInfoController extends BackBaseController
         return true;
     }
     /**
-     * @author 建强  2019年6月10日12:04:15 
+     * @author 建强  2019年6月10日12:04:15
      * @return void
      */
     public function UserInfoAbout(){
+        $admin=0;
+
+         if($this->back_userinfo['id']==self::$adminUid)
+         {
+         	   $admin=1;
+         }
         $data = [
              //用户信息
             'user_info'   => $this->getUserRealInfo(),
-            //登录日志 
+            //登录日志
             'user_login'  => $this->getUserLoginLogs(),
             //财务日志
             'user_finance'=> $this->getUserFinanceList(),
@@ -74,33 +80,33 @@ class UserInfoController extends BackBaseController
     }
     /**
      * @author 建强   2019年6月10日
-     * @method 获取用户信息 
+     * @method 获取用户信息
      * @return array field (证件类型,证件姓名,银行卡开户行姓名,证件号码,证件图像,申请时间,护照过期时间)
      */
     protected function getUserRealInfo(){
         $field = 'ur.uid,ur.card_type,ur.status,ur.card_name,ur.card_num,ur.bank_name,ur.expire_time,
             ur.all_img,ur.up_img,ur.add_time,ur.expire_time,u.phone,u.om,u.username';
-       
+
         $where = ['ur.uid' => $this->_where['uid']];
         $user  = M('UserReal')->alias('ur')->join('LEFT JOIN __USER__ AS u ON u.uid=ur.uid')
              ->where($where)->field($field)->find();
-        
-        if(empty($user)) return $user;            
-        
+
+        if(empty($user)) return $user;
+
         $status = [
-            '0'=>  '審核中'  , '1'=>'審核通過 '   , '-1'=> '審核未通過' 
-        ]; 
+            '0'=>  '審核中'  , '1'=>'審核通過 '   , '-1'=> '審核未通過'
+        ];
         $user['pass_type']   = '護照';
         $user['user_phone']  = $user['om'].'_'.$user['phone'];
         $user['add_time']    = date('Y-m-d H:i:s', $user['add_time']);
         $user['expire_time'] = date('Y-m-d H:i:s', $user['expire_time']);
         $user['status']      = $status[$user['status']];
-        
+
         return $user;
     }
     /**
      * @author 建强   2019年6月10日
-     * @method 获取用户登录日志最近 
+     * @method 获取用户登录日志最近
      * @return array
      */
     protected function getUserLoginLogs(){
@@ -108,31 +114,31 @@ class UserInfoController extends BackBaseController
         $res   = M('UserLog'.$this->_mod)->where($this->_where)->order('add_time desc')
             ->field($field)->limit(5)->select();
         if(empty($res)) return [];
-       
+
         foreach ($res as $key=>$value) {
             $res[$key]['type_str']   = formatLogType1($value['type']);
             $res[$key]['area']       = getIpArea($value['ip']);
             $res[$key]['add_time']   = date('Y-m-d H:i:s', $value['add_time']);
             $res[$key]['uid']        = $this->_where['uid'];
             $res[$key]['username']   = $this->_username;
-            
+
         }
         return $res;
     }
     /**
      * @author 建强   2019年6月10日
-     * @method 获取用户财务日志订单报表 
+     * @method 获取用户财务日志订单报表
      * @return array
      */
     protected function getUserFinanceList(){
         $res   =  M('UserFinance'.$this->_mod)->where($this->_where)
             ->order('add_time desc')->limit(5)->select();
         if(empty($res)) return [];
-        
+
         foreach ($res as $key=>$value) {
             $res[$key]['finance_type'] = formatFinanceType($value['finance_type']);
-            $res[$key]['color']        = $value['type'] ==1 ?'green':'red'; 
-            $flag                      = $value['type'] ==1 ?'+':'-'; 
+            $res[$key]['color']        = $value['type'] ==1 ?'green':'red';
+            $flag                      = $value['type'] ==1 ?'+':'-';
             $res[$key]['money']        = $flag.$value['money'];
             $res[$key]['type_str']     = $value['type']== 1 ?'收入':'支出';
             $res[$key]['add_time']     = date('Y-m-d H:i:s', $value['add_time']);
@@ -144,7 +150,7 @@ class UserInfoController extends BackBaseController
         }
         return $res;
     }
-    
+
     /**
      * @author 建强   2019年6月10日
      * @method 获取用户提币日志
@@ -153,7 +159,7 @@ class UserInfoController extends BackBaseController
     protected function getUserTibiList(){
         $res =  M('Tibi')->where($this->_where)->order('add_time desc')->limit(5)->select();
         if(empty($res)) return [];
-        
+
         $status = [
             '0' =>'等待審核中','1' =>'提幣成功',
             '-1'=>'提幣失敗', '2' =>'等待提出',
@@ -165,7 +171,7 @@ class UserInfoController extends BackBaseController
             $res[$key]['update_time']  = $value['update_time']==0 ?'-': date('Y-m-d H:i:s', $value['update_time']);
             $res[$key]['uid']          = $this->_where['uid'];
             $res[$key]['username']     = $this->_username;
-            
+
             $res[$key]['ti_id']        = '-';
             $res[$key]['coin_url']     = '';
             if(!empty($value['ti_id'])){
@@ -173,12 +179,12 @@ class UserInfoController extends BackBaseController
                 $urlKey                = 'coinurl.'.strtolower($res[$key]['curreny_name']);
                 $res[$key]['coin_url'] = C($urlKey).$value['ti_id'];
             }
-           
+
             if($value['status'] =='1')  $res[$key]['color'] ='green';
             if($value['status'] =='-1') $res[$key]['color'] ='red';
             $res[$key]['status'] =$status[$value['status']];
         }
-        
+
         return $res;
     }
     /**
@@ -189,7 +195,7 @@ class UserInfoController extends BackBaseController
     protected function getUserChargeList(){
         $res =  M('Chongbi')->where($this->_where)->order('add_time desc')->limit(5)->select();
         if(empty($res)) return [];
-       
+
         $status = ['1'=>'充值中','2'=>'充值成功','3'=>'充充值失敗'  ];
         foreach ($res as $key=>$value) {
             $res[$key]['curreny_name'] = $this->_currencyName[$value['currency_id']];
@@ -200,20 +206,20 @@ class UserInfoController extends BackBaseController
             $res[$key]['color'] ='red';
             if($value['status'] =='2')  $res[$key]['color'] ='green';
             $res[$key]['status']       = $status[$value['status']];
-            
+
         }
         return $res;
     }
-    
+
     /**
-     * @author 建强  2019年6月10日14:15:33 
+     * @author 建强  2019年6月10日14:15:33
      * @method 查询发送短信记录
      * @return array
      */
     protected function getUserSmsLog() {
         $res =  M('SmsLog')->where($this->_where)->order('add_time desc')->limit(5)->select();
         if(empty($res)) return [];
-        
+
         foreach ($res as $key=>$value) {
             $res[$key]['add_time'] = date('Y-m-d H:i:s', $value['add_time']);
             $res[$key]['type_str'] = FormatSmsType($value['type']);
@@ -222,15 +228,15 @@ class UserInfoController extends BackBaseController
         }
         return $res;
     }
-   
+
     /**
-     * @author 建强  2019年6月10日14:15:33 
-     * @method 查询用户银行卡信息 
+     * @author 建强  2019年6月10日14:15:33
+     * @method 查询用户银行卡信息
      * @return array
     */
     protected function getUserBankCardList() {
         $res = M('UserBank')->where($this->_where)->select();
-        
+
         if(empty($res)) return $res;
         $bank_names = self::getBankName($res);
         foreach ($res  as $key=>$val){
@@ -242,7 +248,7 @@ class UserInfoController extends BackBaseController
         return $res;
     }
     /**
-     * @method 获取银行卡名称 
+     * @method 获取银行卡名称
      * @param  array $banks
      * @return array
      */
