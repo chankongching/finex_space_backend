@@ -54,7 +54,7 @@
                             </table>
                         </div>
                     </div>
-                    
+
                     <div class="panel">
                         <div class="panel-heading">
                             <h4 class="panel-title">登錄日誌記錄</h4>
@@ -84,7 +84,7 @@
                             </table>
                         </div>
                     </div>
-                    
+
                     <!--finance 財務記錄 -->
                      <div class="panel">
                         <div class="panel-heading">
@@ -158,7 +158,7 @@
 	                                  <td>{$vo.curreny_name}</td>
 	                                  <td>{$vo.url}</td>
 	                                  <td>
-		                                   {$vo.ti_id} 
+		                                   {$vo.ti_id}
 		                                   <notempty name="vo.coin_url">
 		                                   <button type="button"  data-url="{$vo.coin_url}" class="btn btn-success btn-xs third_url" >查看</button>
 		                                   </notempty>
@@ -176,7 +176,7 @@
                             </table>
                         </div>
                     </div>
-                    
+
                      <!-- 充幣日誌 -->
                      <div class="panel">
                         <div class="panel-heading">
@@ -213,7 +213,7 @@
                             </table>
                         </div>
                     </div>
-                    
+
                      <!-- 短信日誌 -->
                      <div class="panel">
                         <div class="panel-heading">
@@ -244,8 +244,8 @@
                             </table>
                         </div>
                     </div>
-                    
-                    
+
+
                     <!-- 银行卡信息 -->
                     <div class="panel">
 						<div class="panel-heading">
@@ -289,6 +289,6 @@
 <script>
 // 查看交易区块的数据
 $('.third_url').click(function(){
-    window.open($(this).attr('data-url'));   
+    window.open($(this).attr('data-url'));
 });
 </script>

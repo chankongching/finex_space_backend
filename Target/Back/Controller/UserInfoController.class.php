@@ -52,12 +52,6 @@ class UserInfoController extends BackBaseController
      * @return void
      */
     public function UserInfoAbout(){
-        $admin=0;
-
-         if($this->back_userinfo['id']==self::$adminUid)
-         {
-         	   $admin=1;
-         }
         $data = [
              //用户信息
             'user_info'   => $this->getUserRealInfo(),
